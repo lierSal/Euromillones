@@ -1,8 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Euromillones</string>
+    <!-- DE SERIE -->
+    <string name="app_name">EuroMillones</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Action Bar -->
+    <string name="action_camera">Camera</string>
+    <string name="action_search_str">Search</string>
+    <string name="action_call">Call</string>
+    <string name="action_checkout">Checkout</string>
+    <string name="action_about">About...</string>
+    <string name="action_encode">Encode</string>
+    <string name="action_login">Login</string>
+
+    <!-- Seccion MAIN -->
+    <string name="tv_title">SafetyTest</string>
+    <string name="tv_Saludo">APP For Private Testing</string>
+
+    <!-- Seccion Settings -->
+    <string name="title_SETTINGS">Settings</string>
+
+    <!-- Seccion About -->
+    <string name="title_ABOUT">About the Device</string>
+    <string name="tv_EMPTY">--</string>
+    <string name="tv_ID">ID</string>
+    <string name="tv_USE_MAIL_GOOGLE">Google Account</string>
+    <string name="tv_Version_Android">Android Version</string>
+    <string name="error_Version_Android">Error - Unknown</string>
+    <string name="bt_Mostrar_Datos">View Data</string>
+
+    <!-- Seccion CodificadorMD5 -->
+    <string name="title_Codificador">MD5 Encoder</string>
+    <string name="tv_PASS">Your PASS</string>
+    <string name="tv_SALT">SALT</string>
+    <string name="tv_ResultadoMD5">MD5 Result</string>
+    <string name="bt_Codificar">Encode</string>
+
+    <!-- Seccion Login -->
+    <string name="title_Login">Login</string>
+    <string name="tv_User">User</string>
+    <string name="bt_Comprobar">Check Data</string>
+    <string name="tv_User_Error">Incorrect User</string>
+    <string name="cb_Recordar">Remember</string>
+    <string name="bt_Crear_Cuenta">Create Account</string>
+
+
+    <!-- Seccion PostLogin -->
+    <string name="title_PostLogin">Private Zone</string>
+    <string name="tv_nombre">Your Name</string>
+    <string name="tv_nivelSeguridad">Your Level Security</string>
+    <string name="tv_mail">Your Mail</string>
 
 </resources>
