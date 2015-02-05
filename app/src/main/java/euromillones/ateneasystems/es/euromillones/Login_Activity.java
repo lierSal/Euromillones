@@ -46,7 +46,7 @@ public class Login_Activity extends ActionBarActivity {
          */
         String passCodConfig = new String();
         String user = new String();
-        final Intent actividadPrincipal = new Intent(this, MainActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        final Intent actividadPrivate = new Intent(this, PrivateActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
         final Intent actividadRegistro = new Intent(this, Registro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
 
         /**
@@ -62,7 +62,7 @@ public class Login_Activity extends ActionBarActivity {
             user = config.getString("user", "");
             if (autologin(user, passCodConfig)) {
                 //Abrir siguiente activity
-                startActivity(actividadPrincipal);
+                startActivity(actividadPrivate);
             } else {
                 if (eliminarConfig()) {
                     tv_respuesta.setText(R.string.tv_User_Error);
@@ -115,7 +115,7 @@ public class Login_Activity extends ActionBarActivity {
                         editor.commit();
                     }
                     //Abrir siguiente activity
-                    startActivity(actividadPrincipal);
+                    startActivity(actividadPrivate);
 
                 } else {
                     //Usuario incorrecto
