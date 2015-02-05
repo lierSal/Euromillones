@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ateneaSystems="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_cerrar_session"
+        android:orderInCategory="100"
+        ateneaSystems:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_cerrar_sesion"
+        android:title="@string/text_action_cerrar_sesion" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        ateneaSystems:showAsAction="never"
+        android:title="@string/text_action_settings" />
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        ateneaSystems:showAsAction="never"
+        android:title="@string/text_action_about" />
+</menu>
