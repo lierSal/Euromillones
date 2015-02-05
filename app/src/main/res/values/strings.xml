@@ -4,6 +4,14 @@
     <!-- DE SERIE -->
     <string name="app_name">EuroMillones</string>
 
+
+    <!-- Zona Privada -->
+    <string name="title_Saludo">Welcome to EuroMillones</string>
+    <string name="title_Sub_Saludo">An AteneaSystems APP</string>
+    <string name="text_Nombre_Empresa">AteneaSystems</string>
+    <string name="text_Web_Empresa">www.ateneasystems.es</string>
+
+
     <!-- Action Bar -->
     <string name="text_action_about">About...</string>
     <string name="text_action_login">Login</string>

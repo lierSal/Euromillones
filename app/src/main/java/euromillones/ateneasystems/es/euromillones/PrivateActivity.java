@@ -2,20 +2,23 @@ package euromillones.ateneasystems.es.euromillones;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class PrivateActivity extends ActionBarActivity {
 
@@ -31,7 +34,28 @@ public class PrivateActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private);
+        /**
+         * Declaracion de Objetos
+         */
+        final TextView tv_version = (TextView) findViewById(R.id.tv_version);
+        final TextView tv_web = (TextView) findViewById(R.id.tv_web);
+        /**
+         * Variables
+         */
+        //int versionCode = BuildConfig.VERSION_CODE; //Codigo de Version de Android Studio
+        String versionName = "V" + BuildConfig.VERSION_NAME; //Version de Play Store
 
+        /**
+         * Otras Funciones
+         */
+        //Poner la version de Android en TextView
+        tv_version.setText(versionName);
+        //Poner link en TextView
+        tv_web.setText(Html.fromHtml("<a href=\"http://www.ateneasystems.es\">" + getResources().getString(R.string.text_Web_Empresa) + "</a> "));
+        tv_web.setMovementMethod(LinkMovementMethod.getInstance());
+        //tv_web.setTextColor(getResources().getColor(R.color.Negro_Puro));//Cambiar color
+
+        //COMO ESTABA
         //opcionesMenu = new String[] {"Opción 1", "Opción 2", "Opción 3", "Login"};
         opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Admin_Usuarios)};
 
