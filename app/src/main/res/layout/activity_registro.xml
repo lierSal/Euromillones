@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:gravity="center_horizontal"
-        android:text="@string/title_Login"
+        android:text="@string/title_activity_registro"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -37,10 +37,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/tv_User"
+                android:text="@string/tv_Mail"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/tv_Mail_nota"
+                android:id="@+id/nota1" />
 
             <EditText
                 android:id="@+id/et_user"
@@ -54,9 +61,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/tv_PASS"
+                android:text="@string/tv_Pass"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/tv_Pass_nota"
+                android:id="@+id/nota2" />
 
             <EditText
                 android:id="@+id/et_pass"
@@ -70,16 +84,32 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:text="@string/tv_Nombre"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/tv_Nombre_nota"
+                android:id="@+id/nota3" />
+
+            <EditText
+                android:id="@+id/et_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
                 android:text=""
                 android:id="@+id/tv_respuesta"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cb_Recordar"
-                android:id="@+id/cb_recordar" />
         </LinearLayout>
 
     </ScrollView>
@@ -98,15 +128,6 @@
             android:layout_height="wrap_content"
             android:text="@string/bt_Crear_Cuenta"
             android:id="@+id/btn_registro" />
-
-        <Button
-            android:drawableLeft="@drawable/ic_comprobar_user_negro"
-            android:layout_weight="5"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bt_Comprobar"
-            android:id="@+id/btn_login" />
     </LinearLayout>
 
 
