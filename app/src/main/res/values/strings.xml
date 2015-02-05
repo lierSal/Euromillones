@@ -3,21 +3,11 @@
 
     <!-- DE SERIE -->
     <string name="app_name">EuroMillones</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
     <!-- Action Bar -->
-    <string name="action_camera">Camera</string>
-    <string name="action_search_str">Search</string>
-    <string name="action_call">Call</string>
-    <string name="action_checkout">Checkout</string>
-    <string name="action_about">About...</string>
-    <string name="action_encode">Encode</string>
-    <string name="action_login">Login</string>
-
-    <!-- Seccion MAIN -->
-    <string name="tv_title">SafetyTest</string>
-    <string name="tv_Saludo">APP For Private Testing</string>
+    <string name="text_action_settings">Settings</string>
+    <string name="text_action_about">About...</string>
+    <string name="text_action_login">Login</string>
 
     <!-- Seccion Settings -->
     <string name="title_SETTINGS">Settings</string>
@@ -31,26 +21,22 @@
     <string name="error_Version_Android">Error - Unknown</string>
     <string name="bt_Mostrar_Datos">View Data</string>
 
-    <!-- Seccion CodificadorMD5 -->
-    <string name="title_Codificador">MD5 Encoder</string>
-    <string name="tv_PASS">Your PASS</string>
-    <string name="tv_SALT">SALT</string>
-    <string name="tv_ResultadoMD5">MD5 Result</string>
-    <string name="bt_Codificar">Encode</string>
-
     <!-- Seccion Login -->
     <string name="title_Login">Login</string>
     <string name="tv_User">User</string>
+    <string name="tv_PASS">Pass</string>
     <string name="bt_Comprobar">Check Data</string>
     <string name="tv_User_Error">Incorrect User</string>
     <string name="cb_Recordar">Remember</string>
     <string name="bt_Crear_Cuenta">Create Account</string>
 
-
-    <!-- Seccion PostLogin -->
-    <string name="title_PostLogin">Private Zone</string>
-    <string name="tv_nombre">Your Name</string>
-    <string name="tv_nivelSeguridad">Your Level Security</string>
-    <string name="tv_mail">Your Mail</string>
+    <!-- Seccion Registro -->
+    <string name="title_activity_registro">Register</string>
+    <string name="tv_Pass">Your Pass</string>
+    <string name="tv_Pass_nota">It may change after</string>
+    <string name="tv_Mail">Your Mail</string>
+    <string name="tv_Mail_nota">You will receive a message from the server</string>
+    <string name="tv_Nombre">Your Name</string>
+    <string name="tv_Nombre_nota">It may change after</string>
 
 </resources>

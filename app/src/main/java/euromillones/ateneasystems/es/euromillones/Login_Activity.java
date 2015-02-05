@@ -47,6 +47,7 @@ public class Login_Activity extends ActionBarActivity {
         String passCodConfig = new String();
         String user = new String();
         final Intent actividadPrincipal = new Intent(this, MainActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        final Intent actividadRegistro = new Intent(this, Registro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
 
         /**
          * Primero cargamos la informacion del archivo de configuracion
@@ -76,6 +77,7 @@ public class Login_Activity extends ActionBarActivity {
         /**
          * Funcion de los botones
          */
+        //BOTON LOGIN
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +98,7 @@ public class Login_Activity extends ActionBarActivity {
                         editor.putString("nombre", DU.getNombreUser());
                         editor.putString("user", DU.getMailUser());
                         editor.putString("nivel", DU.getNivelUser());
+                        editor.putString("passCod", DU.getPassUser());
                         editor.putBoolean("checkRecordarLogin", true);
                         editor.commit();
                         //Abrimos el nuevo activity
@@ -122,6 +125,14 @@ public class Login_Activity extends ActionBarActivity {
 
             }
         });//Fin boton de login
+        //BOTON REGISTRO
+        btn_registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(actividadRegistro);
+            }
+        });
+        //Fin boton de Registro
 
 
     }
