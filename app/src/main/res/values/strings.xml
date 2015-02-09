@@ -37,7 +37,7 @@
     <string name="cb_Recordar">Remember</string>
     <string name="bt_Crear_Cuenta">Create Account</string>
 
-    <!-- Seccion Registro y PostRegistro -->
+    <!-- Seccion Registro y PostRegistroActivity -->
     <string name="title_activity_registro">Register</string>
     <string name="tv_Pass">Your Pass</string>
     <string name="tv_Pass_nota">It may change after</string>

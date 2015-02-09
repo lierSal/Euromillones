@@ -40,7 +40,7 @@ public class Registro extends ActionBarActivity {
         /**
          * Declaracion de variables
          */
-        final Intent actividadPostRegistro = new Intent(this, PostRegistro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        final Intent actividadPostRegistro = new Intent(this, PostRegistroActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
         /**
          * Funcion de los botones
          */
