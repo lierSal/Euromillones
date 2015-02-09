@@ -1,5 +1,7 @@
 package euromillones.ateneasystems.es.euromillones;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -44,6 +46,10 @@ public class PrivateActivity extends ActionBarActivity {
          */
         //int versionCode = BuildConfig.VERSION_CODE; //Codigo de Version de Android Studio
         String versionName = "V" + BuildConfig.VERSION_NAME; //Version de Play Store
+        /**
+         * Primero cargamos la informacion del archivo de configuracion
+         */
+        final SharedPreferences config = getSharedPreferences("RecordarDatos", Context.MODE_PRIVATE);
 
         /**
          * Otras Funciones
@@ -130,6 +136,28 @@ public class PrivateActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
+    /**
+     * Funciones
+     */
+    public void borrarPreferencias() {
+        /**
+         * Primero cargamos la informacion del archivo de configuracion
+         */
+        final SharedPreferences config = getSharedPreferences("RecordarDatos", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = config.edit();
+        ZDatosTemporales DU = (ZDatosTemporales) getApplicationContext();
+        editor.putString("id", "");
+        editor.putString("nombre", "");
+        editor.putString("user", "");
+        editor.putString("nivel", "");
+        editor.putString("passCod", "");
+        editor.putBoolean("checkRecordarLogin", false);
+        editor.commit();
+    }
+
+    /**
+     * MENUS
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -146,7 +174,10 @@ public class PrivateActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.action_cerrar_session:
+                //Eliminamos las varialbes de configuracion
+                borrarPreferencias();
                 Toast.makeText(this, "Cerrando Sesion", Toast.LENGTH_SHORT).show();
+                finish();//Cierra el activity
                 break;
             case R.id.action_settings:
                 Toast.makeText(this, "Abriendo Configuracion APP", Toast.LENGTH_SHORT).show();

@@ -4,13 +4,11 @@
     <!-- DE SERIE -->
     <string name="app_name">EuroMillones</string>
 
-
     <!-- Zona Privada -->
     <string name="title_Saludo">Welcome to EuroMillones</string>
     <string name="title_Sub_Saludo">An AteneaSystems APP</string>
     <string name="text_Nombre_Empresa">AteneaSystems</string>
     <string name="text_Web_Empresa">www.ateneasystems.es</string>
-
 
     <!-- Action Bar -->
     <string name="text_action_about">About...</string>
@@ -39,7 +37,7 @@
     <string name="cb_Recordar">Remember</string>
     <string name="bt_Crear_Cuenta">Create Account</string>
 
-    <!-- Seccion Registro -->
+    <!-- Seccion Registro y PostRegistro -->
     <string name="title_activity_registro">Register</string>
     <string name="tv_Pass">Your Pass</string>
     <string name="tv_Pass_nota">It may change after</string>
@@ -47,6 +45,9 @@
     <string name="tv_Mail_nota">You will receive a message from the server</string>
     <string name="tv_Nombre">Your Name</string>
     <string name="tv_Nombre_nota">It may change after</string>
+    <string name="title_activity_post_registro">You\'re already registered</string>
+    <string name="tv_activity_post_registro_info">We currently do not have your account active. When the account is active, you will receive an email</string>
+    <string name="bt_Aceptar">Accept</string>
 
     <!-- Menu Lateral -->
     <string name="drawer_open">Abierto</string>
