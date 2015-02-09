@@ -32,6 +32,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="euromillones.ateneasystems.es.euromillones.Login_Activity" />
         </activity>
+        <activity
+            android:name=".PostRegistro"
+            android:label="@string/title_activity_post_registro"
+            android:parentActivityName=".Login_Activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="euromillones.ateneasystems.es.euromillones.Login_Activity" />
+        </activity>
     </application>
 
 </manifest>

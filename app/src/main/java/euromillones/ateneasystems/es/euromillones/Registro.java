@@ -1,5 +1,6 @@
 package euromillones.ateneasystems.es.euromillones;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -37,6 +38,10 @@ public class Registro extends ActionBarActivity {
         final TextView tv_respuesta = (TextView) findViewById(R.id.tv_respuesta);
         Button btn_registro = (Button) findViewById(R.id.btn_registro);
         /**
+         * Declaracion de variables
+         */
+        final Intent actividadPostRegistro = new Intent(this, PostRegistro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        /**
          * Funcion de los botones
          */
         //BOTON REGISTRO
@@ -48,6 +53,8 @@ public class Registro extends ActionBarActivity {
                 if (registroCompletado) {
                     //cerrar este activity y mostrar uno de que ya estas registrado
                     Log.e("Registro:", "COMPLETADO");
+                    startActivity(actividadPostRegistro);
+                    finish();
                 } else {
                     //mostrar error
                     Log.e("Registro:", "ERROR");
@@ -100,7 +107,7 @@ public class Registro extends ActionBarActivity {
             //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
             respuesta = respuestaJSON.getString("Respuesta");
             if (respuesta.equals("OK")) {
-
+                Log.e("Entra en Devolver:", "True");
                 devovlerRespuesta = true;
 
             } else {
