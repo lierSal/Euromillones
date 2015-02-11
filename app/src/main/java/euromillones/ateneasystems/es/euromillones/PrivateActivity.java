@@ -55,6 +55,9 @@ public class PrivateActivity extends ActionBarActivity {
          */
         //int versionCode = BuildConfig.VERSION_CODE; //Codigo de Version de Android Studio
         String versionName = "V" + BuildConfig.VERSION_NAME; //Version de Play Store
+        //Tambien llamamos a la clase ZDatosTemporales para guardar los datos recibidos
+        ZDatosTemporales datosUsuario = (ZDatosTemporales) getApplicationContext();
+        String nivelUser = datosUsuario.getNivelUser();
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
@@ -72,7 +75,17 @@ public class PrivateActivity extends ActionBarActivity {
 
         //COMO ESTABA
         //opcionesMenu = new String[] {"Opción 1", "Opción 2", "Opción 3", "Login"};
-        opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Admin_Usuarios)};
+        /**
+         * Cargamos el menu dependiendo del nivel de usuario
+         */
+        if (nivelUser.equals("1")) {
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
+        } else if (nivelUser.equals("2")) {
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
+        } else if (nivelUser.equals("3")) {
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
+        }
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -93,10 +106,10 @@ public class PrivateActivity extends ActionBarActivity {
                         fragment = new FragmentPredicciones();
                         break;
                     case 1:
-                        fragment = new FragmentNuevoResultado();
+                        fragment = new FragmentMiCuenta();
                         break;
                     case 2:
-                        fragment = new FragmentMiCuenta();
+                        fragment = new FragmentNuevoResultado();
                         break;
                     case 3:
                         fragment = new FragmentAdminUsuarios();
