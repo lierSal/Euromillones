@@ -49,6 +49,15 @@
     <string name="tv_activity_post_registro_info">We currently do not have your account active. When the account is active, you will receive an email</string>
     <string name="bt_Aceptar">Accept</string>
 
+    <!-- Seccion Predicciones -->
+    <string name="title_fragment_predicciones">Predictions</string>
+    <string name="tv_Mas_Repetido">More Repeated Numbers</string>
+    <string name="tv_Mas_Repetido_Mes">More Repeated Numbers (last month)</string>
+    <string name="tv_SemiAleatorio">Semi-Random Numbers</string>
+    <string name="tv_SemiAleatorio_nota">You can change the random percentage from options</string>
+    <string name="bt_Buscar_Otro">Search Another Number</string>
+
+
     <!-- Menu Lateral -->
     <string name="drawer_open">Abierto</string>
     <string name="drawer_close">Cerrado</string>

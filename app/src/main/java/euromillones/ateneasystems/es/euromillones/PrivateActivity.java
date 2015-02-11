@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,14 @@ public class PrivateActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private);
         /**
+         * Para versiones de Android superiores a la 2.3.7 necesitamos agregar estas lineas
+         * asi funcionara cualquier conexion exterior
+         */
+        if (android.os.Build.VERSION.SDK_INT > 10) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        /**
          * Declaracion de Objetos
          */
         final TextView tv_version = (TextView) findViewById(R.id.tv_version);
@@ -46,6 +55,9 @@ public class PrivateActivity extends ActionBarActivity {
          */
         //int versionCode = BuildConfig.VERSION_CODE; //Codigo de Version de Android Studio
         String versionName = "V" + BuildConfig.VERSION_NAME; //Version de Play Store
+        //Tambien llamamos a la clase ZDatosTemporales para guardar los datos recibidos
+        ZDatosTemporales datosUsuario = (ZDatosTemporales) getApplicationContext();
+        String nivelUser = datosUsuario.getNivelUser();
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
@@ -63,7 +75,17 @@ public class PrivateActivity extends ActionBarActivity {
 
         //COMO ESTABA
         //opcionesMenu = new String[] {"Opción 1", "Opción 2", "Opción 3", "Login"};
-        opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Admin_Usuarios)};
+        /**
+         * Cargamos el menu dependiendo del nivel de usuario
+         */
+        if (nivelUser.equals("1")) {
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
+        } else if (nivelUser.equals("2")) {
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
+        } else if (nivelUser.equals("3")) {
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
+        }
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -84,10 +106,10 @@ public class PrivateActivity extends ActionBarActivity {
                         fragment = new FragmentPredicciones();
                         break;
                     case 1:
-                        fragment = new FragmentNuevoResultado();
+                        fragment = new FragmentMiCuenta();
                         break;
                     case 2:
-                        fragment = new FragmentMiCuenta();
+                        fragment = new FragmentNuevoResultado();
                         break;
                     case 3:
                         fragment = new FragmentAdminUsuarios();

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/Azul_SafetyTest"
+    android:background="@color/Azul_VLCTeam"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:gravity="center_horizontal"
-        android:text="@string/app_name"
+        android:text="@string/title_fragment_predicciones"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -36,12 +36,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/tv_ID"
+                android:text="@string/tv_Mas_Repetido"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_pID"
+                android:id="@+id/tv_nmasRepetido"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -53,12 +53,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/app_name"
+                android:text="@string/tv_Mas_Repetido_Mes"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_pnombre"
+                android:id="@+id/tv_nmasRepetidoMes"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -70,12 +70,19 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/app_name"
+                android:text="@string/tv_SemiAleatorio"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_pmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/tv_SemiAleatorio_nota"
+                android:id="@+id/notaSemiAleatorio" />
+
+            <TextView
+                android:id="@+id/tv_nSemiAleatorio"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -83,32 +90,17 @@
                 android:text="@string/tv_EMPTY"
                 android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="fill_parent"
+            <Button
+                android:drawableLeft="@drawable/ic_refresh_black"
+                android:id="@+id/btn_BuscarOtroNumero"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="@string/app_name"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/bt_Buscar_Otro" />
 
-            <TextView
-                android:id="@+id/tv_pnivel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/tv_EMPTY"
-                android:textSize="20dp" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_MostrarDatos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_weight="0"
-        android:gravity="center"
-        android:text="@string/bt_Mostrar_Datos" />
 
 </LinearLayout>
