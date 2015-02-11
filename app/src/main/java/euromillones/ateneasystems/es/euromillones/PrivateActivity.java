@@ -79,12 +79,13 @@ public class PrivateActivity extends ActionBarActivity {
          * Cargamos el menu dependiendo del nivel de usuario
          */
         if (nivelUser.equals("1")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
         } else if (nivelUser.equals("2")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
         } else if (nivelUser.equals("3")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
         }
+        ;
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -103,15 +104,18 @@ public class PrivateActivity extends ActionBarActivity {
 
                 switch (position) {
                     case 0:
-                        fragment = new FragmentPredicciones();
+                        fragment = new FragmentUltimosResultados();
                         break;
                     case 1:
-                        fragment = new FragmentMiCuenta();
+                        fragment = new FragmentPredicciones();
                         break;
                     case 2:
-                        fragment = new FragmentNuevoResultado();
+                        fragment = new FragmentMiCuenta();
                         break;
                     case 3:
+                        fragment = new FragmentNuevoResultado();
+                        break;
+                    case 4:
                         fragment = new FragmentAdminUsuarios();
                         break;
                 }

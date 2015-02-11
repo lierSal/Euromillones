@@ -57,10 +57,13 @@
     <string name="tv_SemiAleatorio_nota">You can change the random percentage from options</string>
     <string name="bt_Buscar_Otro">Search Another Number</string>
 
+    <!-- Seccion Predicciones -->
+    <string name="title_fragment_ultimos_resultados">Latest Results</string>
 
     <!-- Menu Lateral -->
     <string name="drawer_open">Abierto</string>
     <string name="drawer_close">Cerrado</string>
+    <string name="bl_Ultimos_Resultados">Ult. Resultados</string>
     <string name="bl_Predicciones">Predicciones</string>
     <string name="bl_Nuevo_Resultado">Añadir Resultado</string>
     <string name="bl_Mi_Cuenta">Mi Cuenta</string>
