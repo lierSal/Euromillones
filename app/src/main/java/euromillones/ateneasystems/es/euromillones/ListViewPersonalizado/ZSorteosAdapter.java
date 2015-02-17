@@ -1,4 +1,4 @@
-package euromillones.ateneasystems.es.euromillones;
+package euromillones.ateneasystems.es.euromillones.ListViewPersonalizado;
 
 import android.app.Activity;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import euromillones.ateneasystems.es.euromillones.R;
 
 /**
  * Created by cubel on 11/02/15.

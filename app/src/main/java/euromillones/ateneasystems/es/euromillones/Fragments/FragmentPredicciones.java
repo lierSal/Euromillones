@@ -1,4 +1,4 @@
-package euromillones.ateneasystems.es.euromillones;
+package euromillones.ateneasystems.es.euromillones.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
+import euromillones.ateneasystems.es.euromillones.R;
 
 /**
  * Created by cubel on 5/02/15.

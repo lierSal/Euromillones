@@ -1,4 +1,4 @@
-package euromillones.ateneasystems.es.euromillones;
+package euromillones.ateneasystems.es.euromillones.Clases;
 
 import android.app.Application;
 

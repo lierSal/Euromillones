@@ -1,4 +1,4 @@
-package euromillones.ateneasystems.es.euromillones;
+package euromillones.ateneasystems.es.euromillones.ListViewPersonalizado;
 
 /**
  * Created by cubel on 11/02/15.

@@ -1,4 +1,4 @@
-package euromillones.ateneasystems.es.euromillones;
+package euromillones.ateneasystems.es.euromillones.Clases;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -6,20 +6,20 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by cubel on 22/01/15.
  * Funcionamiento:
- *
+ * <p/>
  * -- Para login --
  * comprobarMD5 recibira dos string, la contraseña insertada por el usuario, y la contraseña recibida
  * desde la Base de Datos que ira codificada en MD5.
  * Retornara un true si coinciden, o un false si no coinciden
- *
+ * <p/>
  * -- Para Registro Nuevo --
  * generarMD5 recibira un string que sera la contraseña insertada por el usuario.
  * Retornara otro string donde estara el MD5 completo listo para guardar en la Base de Datos
- *
+ * <p/>
  * -- Funciones Automaticas --
  * codificadorMD5 recibira un string y se encarga de apicarle una encriptacion MD5
  * Retornara un string encriptado en MD5
- *
+ * <p/>
  * generarSALT recibira un String (creo que deberia recibir el pass del usuario)
  * Retornara un string en este caso un SALT
  * NOTA: Como segunda opcion, sera una funcion que no reciba nada pero si que devolvera el SALT

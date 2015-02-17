@@ -14,6 +14,9 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
+import euromillones.ateneasystems.es.euromillones.Clases.ZMD5;
+
 
 public class Registro extends ActionBarActivity {
 
