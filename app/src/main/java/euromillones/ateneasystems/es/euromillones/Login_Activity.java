@@ -16,6 +16,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
+import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
+import euromillones.ateneasystems.es.euromillones.Clases.ZMD5;
+
 
 public class Login_Activity extends ActionBarActivity {
 
@@ -52,7 +56,7 @@ public class Login_Activity extends ActionBarActivity {
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
-        final SharedPreferences config = getSharedPreferences("RecordarDatos", Context.MODE_PRIVATE);
+        final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
         //Ahora decimos que si el valor de checkbox es true que cargue los datos si no, nada
         //Le ponemos como segundo parametro un false para que nos devuelva false en caso de no
         //existir ese parametro.
@@ -63,6 +67,8 @@ public class Login_Activity extends ActionBarActivity {
             if (autologin(user, passCodConfig)) {
                 //Abrir siguiente activity
                 startActivity(actividadPrivate);
+                //Eliminamos este activity
+                finish();
             } else {
                 if (eliminarConfig()) {
                     tv_respuesta.setText(R.string.tv_User_Error);
@@ -116,6 +122,8 @@ public class Login_Activity extends ActionBarActivity {
                     }
                     //Abrir siguiente activity
                     startActivity(actividadPrivate);
+                    //Y cerramos esta
+                    finish();
 
                 } else {
                     //Usuario incorrecto
@@ -250,7 +258,7 @@ public class Login_Activity extends ActionBarActivity {
      * Funcion Borrar Configuracion
      */
     public boolean eliminarConfig() {
-        final SharedPreferences config = getSharedPreferences("RecordarDatos", Context.MODE_PRIVATE);
+        final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
         //No quiere recordar los datos
         SharedPreferences.Editor editor = config.edit();
         editor.putString("id", "");

@@ -1,6 +1,7 @@
 package euromillones.ateneasystems.es.euromillones;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -22,6 +23,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAdminUsuarios;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentMiCuenta;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentNuevoResultado;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentPredicciones;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentUltimosResultados;
 
 public class PrivateActivity extends ActionBarActivity {
 
@@ -61,7 +69,7 @@ public class PrivateActivity extends ActionBarActivity {
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
-        final SharedPreferences config = getSharedPreferences("RecordarDatos", Context.MODE_PRIVATE);
+        final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
 
         /**
          * Otras Funciones
@@ -79,12 +87,13 @@ public class PrivateActivity extends ActionBarActivity {
          * Cargamos el menu dependiendo del nivel de usuario
          */
         if (nivelUser.equals("1")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
         } else if (nivelUser.equals("2")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
         } else if (nivelUser.equals("3")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
+            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
         }
+        ;
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -103,15 +112,18 @@ public class PrivateActivity extends ActionBarActivity {
 
                 switch (position) {
                     case 0:
-                        fragment = new FragmentPredicciones();
+                        fragment = new FragmentUltimosResultados();
                         break;
                     case 1:
-                        fragment = new FragmentMiCuenta();
+                        fragment = new FragmentPredicciones();
                         break;
                     case 2:
-                        fragment = new FragmentNuevoResultado();
+                        fragment = new FragmentMiCuenta();
                         break;
                     case 3:
+                        fragment = new FragmentNuevoResultado();
+                        break;
+                    case 4:
                         fragment = new FragmentAdminUsuarios();
                         break;
                 }
@@ -165,7 +177,7 @@ public class PrivateActivity extends ActionBarActivity {
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
-        final SharedPreferences config = getSharedPreferences("RecordarDatos", Context.MODE_PRIVATE);
+        final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = config.edit();
         ZDatosTemporales DU = (ZDatosTemporales) getApplicationContext();
         editor.putString("id", "");
@@ -202,7 +214,9 @@ public class PrivateActivity extends ActionBarActivity {
                 finish();//Cierra el activity
                 break;
             case R.id.action_settings:
-                Toast.makeText(this, "Abriendo Configuracion APP", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Abriendo Configuracion APP", Toast.LENGTH_SHORT).show();
+                final Intent actividadOpciones = new Intent(this, OpcionesActivity.class);
+                startActivity(actividadOpciones);
                 break;
             case R.id.action_about:
                 Toast.makeText(this, "Abriendo Sobre APP", Toast.LENGTH_SHORT).show();

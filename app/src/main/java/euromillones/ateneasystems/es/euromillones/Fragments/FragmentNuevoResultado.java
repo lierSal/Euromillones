@@ -1,10 +1,12 @@
-package euromillones.ateneasystems.es.euromillones;
+package euromillones.ateneasystems.es.euromillones.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import euromillones.ateneasystems.es.euromillones.R;
 
 /**
  * Created by cubel on 5/02/15.
