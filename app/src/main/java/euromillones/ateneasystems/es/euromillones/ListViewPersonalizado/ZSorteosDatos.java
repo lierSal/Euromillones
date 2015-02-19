@@ -4,29 +4,40 @@ package euromillones.ateneasystems.es.euromillones.ListViewPersonalizado;
  * Created by cubel on 11/02/15.
  */
 public class ZSorteosDatos {
-    String tv_numeroSorteo;
-    String tv_fechaSorteo;
 
-    public ZSorteosDatos(String tv_numeroSorteo, String tv_fechaSorteo) {
+    Integer id;
+    String numeroSorteo;
+    String fechaSorteo;
+
+    /*public Course(String numeroSorteo, String fechaSorteo) {
         super();
-        this.tv_numeroSorteo = tv_numeroSorteo;
-        this.tv_fechaSorteo = tv_fechaSorteo;
-    }
+        this.numeroSorteo = numeroSorteo;
+        this.fechaSorteo = fechaSorteo;
+    }*/
 
     public String getNumeroSorteo() {
-        return tv_numeroSorteo;
+        return numeroSorteo;
     }
 
-    public void setNumeroSorteo(String tv_numeroSorteo) {
-        this.tv_numeroSorteo = tv_numeroSorteo;
+    public void setNumeroSorteo(String numeroSorteo) {
+        this.numeroSorteo = numeroSorteo;
     }
 
     public String getFechaSorteo() {
-        return tv_fechaSorteo;
+        return fechaSorteo;
     }
 
-    public void setFechaSorteo(String tv_fechaSorteo) {
-        this.tv_fechaSorteo = tv_fechaSorteo;
+    public void setFechaSorteo(String fechaSorteo) {
+        this.fechaSorteo = fechaSorteo;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 

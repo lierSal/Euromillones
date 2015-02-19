@@ -1,10 +1,12 @@
 package euromillones.ateneasystems.es.euromillones.ListViewPersonalizado;
 
-import android.app.Activity;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -13,32 +15,85 @@ import euromillones.ateneasystems.es.euromillones.R;
 /**
  * Created by cubel on 11/02/15.
  */
-public class ZSorteosAdapter extends ArrayAdapter {
+public class ZSorteosAdapter extends RecyclerView.Adapter<ZSorteosAdapter.ViewHolder> {
 
-    Activity context;
-    ArrayList<ZSorteosDatos> listaSorteos;
+    private ArrayList<ZSorteosDatos> courses;
+    private int itemLayout;
 
-    // Le pasamos al constructor el contecto y la lista de contactos
-    public ZSorteosAdapter(Activity context, ArrayList<ZSorteosDatos> listaSorteos) {
-        super(context, R.layout.listview_item_sorteos, listaSorteos);
-        this.context = context;
-        this.listaSorteos = listaSorteos;
+
+    public ZSorteosAdapter(ArrayList<ZSorteosDatos> data, int itemLayout) {
+        courses = data;
+        this.itemLayout = itemLayout;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener {
 
-        // Rescatamos cada item del listview y lo inflamos con nuestro layout
-        View item = convertView;
+        public TextView description;
+        public TextView tv_fechaSorteo;
+        public TextView tv_numeroSorteo;
 
-        item = context.getLayoutInflater().inflate(R.layout.listview_item_sorteos, null);
-        ZSorteosDatos c = listaSorteos.get(position);
+        public ViewHolder(View itemView) {
 
-        // Definimos los elementos que tiene nuestro layout
-        TextView tv_numeroSorteo = (TextView) item.findViewById(R.id.tv_numeroSorteo);
-        TextView tv_fechaSorteo = (TextView) item.findViewById(R.id.tv_fechaSorteo);
+            super(itemView);
 
-        tv_numeroSorteo.setText(c.getNumeroSorteo());
-        tv_fechaSorteo.setText(c.getFechaSorteo());
-        return (item);
+            itemView.setOnClickListener(this);
+            tv_fechaSorteo = (TextView) itemView.findViewById(R.id.tv_fechaSorteo);
+            tv_numeroSorteo = (TextView) itemView.findViewById(R.id.tv_numeroSorteo);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(view.getContext(), "OnItemClick :D" + this.tv_fechaSorteo.getText(), Toast.LENGTH_SHORT).show();
+        }
+
     }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
+
+        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
+        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+        return viewHolder;
+
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+        ZSorteosDatos course = courses.get(position);
+        viewHolder.tv_fechaSorteo.setText(course.getFechaSorteo());
+        viewHolder.tv_numeroSorteo.setText(course.getNumeroSorteo());
+
+        /*switch (course.getId()){
+            case 1:
+
+                viewHolder.image.setImageResource(R.drawable.disenio);
+                break;
+
+            case 2:
+
+                viewHolder.image.setImageResource(R.drawable.android);
+                break;
+
+            case 3:
+                viewHolder.image.setImageResource(R.drawable.swift);
+                break;
+
+            case 4:
+                viewHolder.image.setImageResource(R.drawable.backend);
+                break;
+
+            case 5:
+                viewHolder.image.setImageResource(R.drawable.servidores);
+                break;
+        }*/
+        viewHolder.itemView.setTag(course);
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return courses.size();
+    }
+
 }
