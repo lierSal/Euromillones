@@ -57,6 +57,19 @@ public class Login_Activity extends ActionBarActivity {
          * Primero cargamos la informacion del archivo de configuracion
          */
         final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
+        //Primero comprobamos si es la primera vez que se ha iniciado
+        // si es la primera vez es cargaremos unos valores de inicio
+        if (config.getBoolean("primerInicio", true)) {
+            /**
+             * Guardar datos
+             */
+            SharedPreferences.Editor editor = config.edit();
+
+            editor.putBoolean("primerInicio", false);//Para decir que no es el primer inicio
+            //ahora añadimos la configuracion que nos interesa
+            editor.putString("cantidadUltimosResultados", "10");
+            editor.commit();
+        }
         //Ahora decimos que si el valor de checkbox es true que cargue los datos si no, nada
         //Le ponemos como segundo parametro un false para que nos devuelva false en caso de no
         //existir ese parametro.

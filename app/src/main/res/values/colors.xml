@@ -9,7 +9,9 @@
     <color name="Verde_LogoAndroid">#90BD4E</color>
     <color name="Azul_SafetyTest">#00AEEF</color>
     <color name="Azul_VLCTeam">#1469eb</color>
-    <color name="Azul_VLCTeam_Clarito">#6699E5</color>
+    <color name="Azul_VLCTeam_Oscuro">#2A14EA</color>
+    <color name="Azul_VLCTeam_Clarito">#89B4F4</color>
+    <color name="Azul_VLCTeam_Clarito_Plus">#D0E1FB</color>
     <color name="Gris_VLCTeam">#cbcbcb</color>
     <color name="Rosa_VLCTeam">#EA14D4</color>
     <color name="Rosa_VLCTeam_Clarito">#F6A0ED</color>
@@ -25,8 +27,8 @@
 
     <style name="AppThemeVCLTeam" parent="Theme.AppCompat.NoActionBar">
 
-        <item name="colorPrimary">@color/Azul_VLCTeam_Clarito</item>
-        <item name="colorPrimaryDark">@color/Azul_VLCTeam</item>
+        <item name="colorPrimary">@color/Azul_VLCTeam</item>
+        <item name="colorPrimaryDark">@color/Azul_VLCTeam_Oscuro</item>
         <item name="colorAccent">@color/Rosa_VLCTeam</item>
 
     </style>

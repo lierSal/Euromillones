@@ -2,8 +2,8 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#6699E5</item>
-        <item name="colorPrimaryDark">#1469eb</item>
+        <item name="colorPrimary">@color/Azul_VLCTeam</item>
+        <item name="colorPrimaryDark">@color/Azul_VLCTeam_Oscuro</item>
         <item name="android:colorAccent">#ffea1468</item>
 
     </style>

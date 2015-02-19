@@ -6,6 +6,7 @@ import android.app.Application;
  * Created by cubel on 26/01/15.
  */
 public class ZDatosTemporales extends Application {
+
     /**
      * Declaracion de Variables Temporales
      */
