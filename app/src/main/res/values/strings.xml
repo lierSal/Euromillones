@@ -60,6 +60,14 @@
     <!-- Seccion Predicciones -->
     <string name="title_fragment_ultimos_resultados">Latest Results</string>
 
+    <!-- Seccion Mi Cuenta -->
+    <string name="title_fragment_mi_cuenta">My Account</string>
+    <string name="tv_nombre">Name</string>
+    <string name="tv_apellidos">Surname</string>
+    <string name="tv_telefono">Phone</string>
+    <string name="tv_mail_info">Mail</string>
+    <string name="tv_cambiar_pass">Change Password</string>
+
     <!-- Menu Lateral -->
     <string name="drawer_open">Abierto</string>
     <string name="drawer_close">Cerrado</string>
@@ -68,5 +76,8 @@
     <string name="bl_Nuevo_Resultado">Añadir Resultado</string>
     <string name="bl_Mi_Cuenta">Mi Cuenta</string>
     <string name="bl_Admin_Usuarios">Admin. Usuarios</string>
+
+    <!-- Botones Comunes -->
+    <string name="bt_guardar">Save</string>
 
 </resources>

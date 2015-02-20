@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +67,7 @@ public class PrivateActivity extends ActionBarActivity {
         //Tambien llamamos a la clase ZDatosTemporales para guardar los datos recibidos
         ZDatosTemporales datosUsuario = (ZDatosTemporales) getApplicationContext();
         String nivelUser = datosUsuario.getNivelUser();
+        Log.e("NivelUSer", datosUsuario.getMailUser());
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
