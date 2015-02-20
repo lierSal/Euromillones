@@ -1,9 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Resultados">
+        <!--
         <CheckBoxPreference
             android:key="avisoNuevoResultado"
             android:title="Notificar Nuevo Resultado"
             android:summary="Notidificar cuando se añada un nuevo resultado" />
+            -->
         <EditTextPreference
             android:key="cantidadUltimosResultados"
             android:title="Ultimos Resultados"
@@ -12,6 +14,7 @@
             android:summary="Cantidad de sorteos a mostrar"
             android:dialogTitle="Introduce valor" />
     </PreferenceCategory>
+    <!--
     <PreferenceCategory android:title="Categoría 2">
         <CheckBoxPreference
             android:key="opcion1"
@@ -24,4 +27,5 @@
             android:dialogTitle="Introduce valor" />
 
     </PreferenceCategory>
+    -->
 </PreferenceScreen>

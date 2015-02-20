@@ -68,6 +68,29 @@
     <string name="tv_mail_info">Mail</string>
     <string name="tv_cambiar_pass">Change Password</string>
 
+    <!-- Seccion Cambiar Pass -->
+    <string name="title_activity_cambiar_pass">Change Password</string>
+    <string name="tv_pass_actual">Current Password</string>
+    <string name="tv_pass_nuevo">New Password</string>
+    <string name="tv_pass_nuevo_repetir">Repeat New Password</string>
+    <string name="tv_error_pass_actual">Error - The current password is incorrect</string>
+    <string name="tv_error_pass_nuevo">Error - The new passwords do not match</string>
+    <string name="tv_pass_cambiado_correctamente">Password changed successfully</string>
+
+    <!-- Seccion Nuevo Resultado -->
+    <string name="title_fragment_nuevo_resultado">New Result</string>
+    <string name="tv_fecha">Date</string>
+    <string name="tv_numeros">Numbers</string>
+    <string name="tv_n1">N1</string>
+    <string name="tv_n2">N2</string>
+    <string name="tv_n3">N3</string>
+    <string name="tv_n4">N4</string>
+    <string name="tv_n5">N5</string>
+    <string name="tv_estrellas">Stars</string>
+    <string name="tv_e1">E1</string>
+    <string name="tv_e2">E1</string>
+
+
     <!-- Menu Lateral -->
     <string name="drawer_open">Abierto</string>
     <string name="drawer_close">Cerrado</string>

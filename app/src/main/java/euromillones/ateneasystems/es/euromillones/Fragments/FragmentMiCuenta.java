@@ -1,5 +1,6 @@
 package euromillones.ateneasystems.es.euromillones.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import euromillones.ateneasystems.es.euromillones.CambioPassActivity;
 import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
 import euromillones.ateneasystems.es.euromillones.R;
@@ -75,6 +77,8 @@ public class FragmentMiCuenta extends Fragment {
                 //Cargar activity de Cambiar Pass
                 //Toast.makeText(this, "Cambiar Pass", Toast.LENGTH_SHORT).show();
                 Log.e("Pulsado", "Cambiar Contraseña");
+                Intent actividadCambioPass = new Intent(getActivity(), CambioPassActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+                startActivity(actividadCambioPass);
             }
         });
         /**

@@ -88,6 +88,18 @@ public class PrivateActivity extends ActionBarActivity {
         /**
          * Cargamos el menu dependiendo del nivel de usuario
          */
+        switch (nivelUser) {
+            case "1":
+                opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
+                break;
+            case "2":
+                opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
+                break;
+            case "3":
+                opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
+                break;
+        }
+            /*
         if (nivelUser.equals("1")) {
             opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
         } else if (nivelUser.equals("2")) {
@@ -95,7 +107,7 @@ public class PrivateActivity extends ActionBarActivity {
         } else if (nivelUser.equals("3")) {
             opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
         }
-        ;
+        ;*/
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
