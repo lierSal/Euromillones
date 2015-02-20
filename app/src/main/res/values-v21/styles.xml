@@ -4,7 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/Azul_VLCTeam</item>
         <item name="colorPrimaryDark">@color/Azul_VLCTeam_Oscuro</item>
-        <item name="android:colorAccent">#ffea1468</item>
+        <item name="android:colorAccent">@color/Rosa_VLCTeam</item>
+        <item name="android:navigationBarColor">@color/Negro_Puro</item>
 
     </style>
 </resources>
