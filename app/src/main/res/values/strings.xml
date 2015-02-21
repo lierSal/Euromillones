@@ -90,6 +90,8 @@
     <string name="tv_e1">E1</string>
     <string name="tv_e2">E1</string>
 
+    <!-- Seccion Nuevo Resultado -->
+    <string name="title_fragment_about">About</string>
 
     <!-- Menu Lateral -->
     <string name="drawer_open">Abierto</string>

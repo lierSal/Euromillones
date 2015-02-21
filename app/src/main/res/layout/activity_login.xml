@@ -12,14 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Login_Activity">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="center_horizontal"
-        android:text="@string/title_Login"
-        android:textSize="30dp"
-        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/contenedor"

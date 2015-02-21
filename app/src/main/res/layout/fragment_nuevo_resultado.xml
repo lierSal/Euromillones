@@ -12,15 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FragmentNuevoResultado">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="center_horizontal"
-        android:text="@string/title_activity_cambiar_pass"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
     <ScrollView
         android:id="@+id/contenedor"
         android:layout_width="match_parent"

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAbout;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAdminUsuarios;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentMiCuenta;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentNuevoResultado;
@@ -233,7 +234,16 @@ public class PrivateActivity extends ActionBarActivity {
                 startActivity(actividadOpciones);
                 break;
             case R.id.action_about:
+                Fragment fragment = null;
+                fragment = new FragmentAbout();
                 Toast.makeText(this, "Abriendo Sobre APP", Toast.LENGTH_SHORT).show();
+                FragmentManager fragmentManager =
+                        getSupportFragmentManager();
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .commit();
+                getSupportActionBar().setTitle(R.string.title_fragment_about);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
