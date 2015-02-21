@@ -104,5 +104,8 @@
 
     <!-- Botones Comunes -->
     <string name="bt_guardar">Save</string>
+    
+    <!-- Proba -->
+    <string name="Proba">Cubel</string>
 
 </resources>
