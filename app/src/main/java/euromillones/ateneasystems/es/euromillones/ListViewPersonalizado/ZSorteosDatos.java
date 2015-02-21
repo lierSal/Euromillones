@@ -9,12 +9,6 @@ public class ZSorteosDatos {
     String numeroSorteo;
     String fechaSorteo;
 
-    /*public Course(String numeroSorteo, String fechaSorteo) {
-        super();
-        this.numeroSorteo = numeroSorteo;
-        this.fechaSorteo = fechaSorteo;
-    }*/
-
     public String getNumeroSorteo() {
         return numeroSorteo;
     }

@@ -63,30 +63,6 @@ public class ZSorteosAdapter extends RecyclerView.Adapter<ZSorteosAdapter.ViewHo
         ZSorteosDatos course = courses.get(position);
         viewHolder.tv_fechaSorteo.setText(course.getFechaSorteo());
         viewHolder.tv_numeroSorteo.setText(course.getNumeroSorteo());
-
-        /*switch (course.getId()){
-            case 1:
-
-                viewHolder.image.setImageResource(R.drawable.disenio);
-                break;
-
-            case 2:
-
-                viewHolder.image.setImageResource(R.drawable.android);
-                break;
-
-            case 3:
-                viewHolder.image.setImageResource(R.drawable.swift);
-                break;
-
-            case 4:
-                viewHolder.image.setImageResource(R.drawable.backend);
-                break;
-
-            case 5:
-                viewHolder.image.setImageResource(R.drawable.servidores);
-                break;
-        }*/
         viewHolder.itemView.setTag(course);
     }
 

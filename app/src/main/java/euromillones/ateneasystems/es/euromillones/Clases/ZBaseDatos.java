@@ -20,13 +20,15 @@ import org.json.JSONObject;
 /**
  * Clase ZBaseDatos
  * Esta clase se encarga de conectar con PHP
+ * Consta de dos funciones, una para recibir datos unicos en un JSON y otro para recibir
+ * varios datos en JSON
  */
 public class ZBaseDatos {
     /**
      * Funcion de consultaSQL
      *
      * @param JSON
-     * @return (Un String temporalmente) Debera retornar un array o un JSON
+     * @return Un JSON
      */
     public JSONObject consultaSQL(JSONObject JSON) {
         Log.e("INFO", "Entra en SQL " + JSON);//Log para saber que llega el JSON
@@ -74,7 +76,10 @@ public class ZBaseDatos {
         return jsonRespuesta;
     }
 
-    //Para retornar un ARRAY
+    /**
+     * @param JSON
+     * @return Un ArrayJSON
+     */
     public JSONArray consultaSQLARRAY(JSONObject JSON) {
         Log.e("INFO", "Entra en SQL " + JSON);//Log para saber que llega el JSON
         JSONArray jsonRespuesta = new JSONArray(); //Respuesta recibida
