@@ -79,7 +79,7 @@ public class FragmentPredicciones extends Fragment {
          * ENVIAMOS CONSULTA
          */
         // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
-        respuestaJSON = conectBD.consultaSQL(cadena);
+        respuestaJSON = conectBD.consultaSQLJSON(cadena);
         try {
             respuesta = respuestaJSON.getString("numero");
         } catch (JSONException e) {
@@ -108,7 +108,7 @@ public class FragmentPredicciones extends Fragment {
          * ENVIAMOS CONSULTA
          */
         // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
-        respuestaJSON = conectBD.consultaSQL(cadena);
+        respuestaJSON = conectBD.consultaSQLJSON(cadena);
         try {
             respuesta = respuestaJSON.getString("numero");
         } catch (JSONException e) {
@@ -138,7 +138,7 @@ public class FragmentPredicciones extends Fragment {
          * ENVIAMOS CONSULTA
          */
         // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
-        respuestaJSON = conectBD.consultaSQL(cadena);
+        respuestaJSON = conectBD.consultaSQLJSON(cadena);
         try {
             respuesta = respuestaJSON.getString("numero");
         } catch (JSONException e) {

@@ -64,7 +64,7 @@ public class FragmentUltimosResultados extends Fragment {
         // ENVIAMOS CONSULTA
         // Enviamos la consulta y cargamos los datos en los array
         respuestaJSON = conectBD.consultaSQLARRAY(cadena);
-        Log.e("RESPUESTAJSON", String.valueOf(conectBD.consultaSQL(cadena)));
+        //Log.e("RESPUESTAJSON", String.valueOf(conectBD.consultaSQLJSON(cadena)));
         try {
 
             //Hacemos un for para añadir datos
