@@ -28,62 +28,162 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/tv_pass_actual"
+                android:text="@string/tv_numeros"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_pass"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <EditText
+                    android:id="@+id/et_n1"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="N1"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_n2"
+                    android:hint="N2"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_n3"
+                    android:layout_width="60dp"
+                    android:hint="N3"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_n4"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="N4"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_n5"
+                    android:hint="N5"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:password="true"
-                android:inputType="textPassword" />
+                android:gravity="left"
+                android:text="@string/tv_estrellas"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_e1"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="E1"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_e2"
+                    android:hint="E2"
+                    android:maxLength="2"
+                    android:gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:inputType="number" />
+
+            </LinearLayout>
 
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/tv_pass_nuevo"
+                android:text="@string/tv_fecha"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_pass_nuevo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:inputType="textPassword"
-                android:password="true" />
-
-            <TextView
+            <LinearLayout
+                android:gravity="center_horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="@string/tv_pass_nuevo_repetir"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_pass_nuevo_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:password="true"
-                android:inputType="textPassword" />
+                <DatePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dp_fecha" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text=""
-                android:id="@+id/tv_respuesta"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </ScrollView>
@@ -101,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:text="@string/bt_guardar"
-            android:id="@+id/btn_guardar" />
+            android:id="@+id/btn_guardar_nuevo_resultado" />
     </LinearLayout>
 
 

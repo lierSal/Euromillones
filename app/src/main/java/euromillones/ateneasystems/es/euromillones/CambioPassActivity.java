@@ -105,7 +105,7 @@ public class CambioPassActivity extends ActionBarActivity {
                  */
 
                 // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
-                respuestaJSON = conectBD.consultaSQL(cadena);
+                respuestaJSON = conectBD.consultaSQLJSON(cadena);
                 //Log.e("DATOS RECIBIDOS:", respuestaJSON.toString());
                 try {
                     //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
