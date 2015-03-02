@@ -3,7 +3,10 @@ package euromillones.ateneasystems.es.euromillones;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -25,6 +28,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAbout;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAdminUsuarios;
@@ -32,6 +48,8 @@ import euromillones.ateneasystems.es.euromillones.Fragments.FragmentMiCuenta;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentNuevoResultado;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentPredicciones;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentUltimosResultados;
+
+//Importamos la libreria de google
 
 public class PrivateActivity extends ActionBarActivity {
 
@@ -42,6 +60,31 @@ public class PrivateActivity extends ActionBarActivity {
 
     private CharSequence tituloSeccion;
     private CharSequence tituloApp;
+
+    /**
+     * GCM
+     * Esto es para que podamos recibir notificaciones Push en la app
+     */
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    public static final String EXTRA_MESSAGE = "message";
+    private static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
+    private static final String PROPERTY_EXPIRATION_TIME = "onServerExpirationTimeMs";
+    private static final String PROPERTY_USER = "user";
+
+    public static final long EXPIRATION_TIME_MS = 1000 * 3600 * 24 * 7;
+
+    String SENDER_ID = "230391418531";
+
+    static final String TAG = "GCMDemo";
+
+    private Context context;
+    private String regid;
+    private GoogleCloudMessaging gcm;
+    private String mailUserGCM;
+    private String idUserGCM;
+    // FIN GCM
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +98,7 @@ public class PrivateActivity extends ActionBarActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
         /**
          * Declaracion de Objetos
          */
@@ -77,6 +121,27 @@ public class PrivateActivity extends ActionBarActivity {
         /**
          * Otras Funciones
          */
+        /**
+         * Comprobamos que tenga Google Play Service instalado
+         */
+        mailUserGCM = datosUsuario.getMailUser();
+        context = getApplicationContext();
+        //Chequemos si está instalado Google Play Services
+        if (checkPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(PrivateActivity.this);
+
+            //Obtenemos el Registration ID guardado
+            regid = getRegistrationId(context);
+
+            //Si no disponemos de Registration ID comenzamos el registro
+            if (regid.equals("")) {
+                TareaRegistroGCM tarea = new TareaRegistroGCM();
+                tarea.execute(mailUserGCM);
+            }
+        } else {
+            Log.i(TAG, "No se ha encontrado Google Play Services.");
+        }
+        //FIN Comprobacion
         //Poner la version de Android en TextView
         tv_version.setText(versionName);
         //Poner link en TextView
@@ -275,5 +340,196 @@ public class PrivateActivity extends ActionBarActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    /**
+     * GCM
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkPlayServices();
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i(TAG, "Dispositivo no soportado.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private String getRegistrationId(Context context) {
+        SharedPreferences prefs = getSharedPreferences(
+                PrivateActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+
+        String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+
+        if (registrationId.length() == 0) {
+            Log.d(TAG, "Registro GCM no encontrado.");
+            return "";
+        }
+
+        String registeredUser =
+                prefs.getString(PROPERTY_USER, "user");
+
+        int registeredVersion =
+                prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+
+        long expirationTime =
+                prefs.getLong(PROPERTY_EXPIRATION_TIME, -1);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String expirationDate = sdf.format(new Date(expirationTime));
+
+        Log.d(TAG, "Registro GCM encontrado (usuario=" + registeredUser +
+                ", version=" + registeredVersion +
+                ", expira=" + expirationDate + ")");
+
+        int currentVersion = getAppVersion(context);
+
+        if (registeredVersion != currentVersion) {
+            Log.d(TAG, "Nueva versión de la aplicación.");
+            return "";
+        } else if (System.currentTimeMillis() > expirationTime) {
+            Log.d(TAG, "Registro GCM expirado.");
+            return "";
+        } else if (!mailUserGCM.equals(registeredUser)) {
+            Log.d(TAG, "Nuevo nombre de usuario.");
+            return "";
+        }
+
+        return registrationId;
+    }
+
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException("Error al obtener versión: " + e);
+        }
+    }
+
+    private class TareaRegistroGCM extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String msg = "";
+
+            try {
+                if (gcm == null) {
+                    gcm = GoogleCloudMessaging.getInstance(context);
+                }
+
+                //Nos registramos en los servidores de GCM
+                regid = gcm.register(SENDER_ID);
+
+                Log.d(TAG, "Registrado en GCM: registration_id=" + regid);
+
+                //Nos registramos en nuestro servidor
+                boolean registrado = registroServidor(params[0], regid);
+
+                //Guardamos los datos del registro
+                if (registrado) {
+                    setRegistrationId(context, params[0], regid);
+                }
+            } catch (IOException ex) {
+                Log.d(TAG, "Error registro en GCM:" + ex.getMessage());
+            }
+
+            return msg;
+        }
+    }
+
+    private void setRegistrationId(Context context, String user, String regId) {
+        SharedPreferences prefs = getSharedPreferences(
+                PrivateActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+
+        int appVersion = getAppVersion(context);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_USER, user);
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.putLong(PROPERTY_EXPIRATION_TIME,
+                System.currentTimeMillis() + EXPIRATION_TIME_MS);
+
+        editor.commit();
+    }
+
+    private boolean registroServidor(String usuario, String regId) {
+        boolean reg = true;
+        Log.e("USUARIO", usuario);
+        Log.e("RegID", regId);
+        idUserGCM = regId;
+
+        String tipoPush = "Nuevos Sorteos Añadidos";
+
+
+        Log.e("PASO", "1");
+        /**
+         * Declaracion de Variables normales
+         */
+        JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
+        String respuesta = new String();//Respuesta en plano
+        ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
+        JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
+        String cadenaJSONDatos = new String();//Donde se genera el JSON a enviar
+
+        /**
+         * Funcion para cargar el contenido
+         */
+        Log.e("PASO", "2");
+
+        cadenaJSONDatos = "{\"idUser\":\"" + "22" + "\",\"fecha\":\"" + "22-03-1989" + "\",\"idPush\":\"" + regId + "\",\"tipoPush\":\"" + tipoPush + "\"}";
+        try {
+            Log.e("PASO", "3");
+            cadena.put("tarea", "Registro Push");//Le asignamos los datos que necesitemos
+            cadena.put("datos", cadenaJSONDatos);//Le asignamos los datos que necesitemos
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e("PASO", "4");
+        cadena.toString(); //Para obtener la cadena de texto de tipo JSON
+        // ENVIAMOS CONSULTA
+        // Enviamos la consulta y cargamos los datos en los array
+        Log.e("PASO", "5");
+        Log.e("Cadena", String.valueOf(cadena));
+        respuestaJSON = conectBD.consultaSQLJSON(cadena);
+        Log.e("PASO", "6");
+        //Log.e("RESPUESTAJSON", String.valueOf(conectBD.consultaSQLJSON(cadena)));
+        try {
+            Log.e("PASO", "7");
+            //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
+            respuesta = respuestaJSON.getString("Respuesta");
+            if (respuesta.equals("OK")) {
+                Toast.makeText(this, "Registro PUSH Guardado Correctamente!", Toast.LENGTH_LONG).show();
+                Log.e("Respuesta:", "True");
+                Log.e("PASO", "8");
+
+
+            } else {
+                Toast.makeText(this, respuesta, Toast.LENGTH_LONG).show();
+                Log.e("Respuesta:", "False");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e("PASO", "9");
+        return reg;
     }
 }

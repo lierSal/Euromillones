@@ -2,20 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="euromillones.ateneasystems.es.euromillones">
 
-    <!-- Permisos de la APP -->
+    <!-- Permisos -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Permisos para GCM (PUSH de Google) -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <permission
         android:name="euromillones.ateneasystems.es.euromillones.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="euromillones.ateneasystems.es.euromillones.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- FIN PERMISOS DE LA APP -->
+    <!-- FIN Permisos -->
 
     <!-- Aplicacion -->
     <application
@@ -63,20 +63,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="euromillones.ateneasystems.es.euromillones.Login_Activity" />
         </activity>
-        <!--  Esto para que funcionen los Permisos para GCM (PUSH de Google) -->
-        <!-- SERVICE Y RECEIVER -->
-        <!--
-        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+        <!-- Receiver -->
+        <receiver
+            android:name=".GCM.ZGCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="nombre.del.package.de.vuestra.app" />
+                <category android:name="net.sgoliver.android.newgcm" />
             </intent-filter>
         </receiver>
-        <service android:name=".GCMIntentService" />
-        -->
-        <!--  FIN SERVICE Y RECEIVER para GCM (PUSH de Google) -->
+        <!-- FIN Receiver -->
+        <!-- Service -->
+        <service android:name=".GCM.ZGCMIntentService" />
+        <!-- FIN Service -->
     </application>
 
 </manifest>
