@@ -105,4 +105,7 @@
     <!-- Botones Comunes -->
     <string name="bt_guardar">Save</string>
 
+    <!-- PostLogin GCM -->
+    <string name="tv_comprobando_GCM">Comprobando GCM...</string>
+
 </resources>
