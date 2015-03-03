@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -41,24 +42,32 @@ public class ZGCMIntentService extends IntentService {
     }
 
     private void mostrarNotification(String msg) {
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        /**
+         * Primero cargamos la informacion del archivo de configuracion
+         */
+        final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
+        if (config.getBoolean("avisoNuevoResultado", true)) {
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_notificaciones_ateneasystems)
-                        .setLargeIcon((((BitmapDrawable) getResources()
-                                .getDrawable(R.drawable.ic_notificaciones_ateneasystems)).getBitmap()))
-                        .setContentTitle("Atenea Systems")
-                        .setContentText(msg);
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.drawable.ic_notificaciones_ateneasystems)
+                            .setLargeIcon((((BitmapDrawable) getResources()
+                                    .getDrawable(R.drawable.ic_notification_ateneasystems_negro)).getBitmap()))
+                            .setContentTitle("AteneaSystems")
+                            .setPriority(NotificationCompat.PRIORITY_LOW)//Prioridad de la notificacion
+                            .setVibrate(new long[]{100, 250, 100, 500})//Vibracion, milisegungos: Esperar 100, vibrar 250, esperar 100, vibrar 500
+                            .setContentText(msg);
 
-        Intent notIntent = new Intent(this, PrivateActivity.class);
-        PendingIntent contIntent = PendingIntent.getActivity(
-                this, 0, notIntent, 0);
+            Intent notIntent = new Intent(this, PrivateActivity.class);
+            PendingIntent contIntent = PendingIntent.getActivity(
+                    this, 0, notIntent, 0);
 
-        mBuilder.setContentIntent(contIntent);
-
-        mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
-        notIntent.putExtra("ID", NOTIF_ALERTA_ID); // Mismo ID que la notificacion para luego borrar la notificacion de la barra superior
+            mBuilder.setContentIntent(contIntent);
+            mBuilder.setAutoCancel(true); //Esto es para eliminar la notificacion al pulsarla
+            mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
+        }
     }
+
 }

@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -42,6 +43,7 @@ import java.util.Locale;
 
 import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
+import euromillones.ateneasystems.es.euromillones.Clases.ZMD5;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAbout;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAdminUsuarios;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentMiCuenta;
@@ -73,7 +75,7 @@ public class PrivateActivity extends ActionBarActivity {
     private static final String PROPERTY_EXPIRATION_TIME = "onServerExpirationTimeMs";
     private static final String PROPERTY_USER = "user";
 
-    public static final long EXPIRATION_TIME_MS = 1000 * 3600 * 24 * 7;
+    public static final long EXPIRATION_TIME_MS = 1000 * 3600 * 24 * 21;//El ultimo numero son los dias
 
     String SENDER_ID = "230391418531";
 
@@ -98,7 +100,6 @@ public class PrivateActivity extends ActionBarActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
         /**
          * Declaracion de Objetos
          */
@@ -112,11 +113,15 @@ public class PrivateActivity extends ActionBarActivity {
         //Tambien llamamos a la clase ZDatosTemporales para guardar los datos recibidos
         ZDatosTemporales datosUsuario = (ZDatosTemporales) getApplicationContext();
         String nivelUser = datosUsuario.getNivelUser();
+        String mailUser = datosUsuario.getMailUser();
+        final String AndroidId = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);//Muestra el ID del Dispositivo
         Log.e("NivelUSer", datosUsuario.getMailUser());
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
         final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
+        final SharedPreferences configPush = getSharedPreferences("configPush", Context.MODE_PRIVATE);
 
         /**
          * Otras Funciones
@@ -136,12 +141,17 @@ public class PrivateActivity extends ActionBarActivity {
             //Si no disponemos de Registration ID comenzamos el registro
             if (regid.equals("")) {
                 TareaRegistroGCM tarea = new TareaRegistroGCM();
-                tarea.execute(mailUserGCM);
+                tarea.execute(AndroidId);
             }
         } else {
             Log.i(TAG, "No se ha encontrado Google Play Services.");
         }
         //FIN Comprobacion
+        //Añadir o Actualziar los ID Push
+        //registroPush(mailUser,AndroidId,configPush.getString("registration_id","0"));
+        //registroPush(mailUser,AndroidId,"HOLA");
+
+
         //Poner la version de Android en TextView
         tv_version.setText(versionName);
         //Poner link en TextView
@@ -269,6 +279,66 @@ public class PrivateActivity extends ActionBarActivity {
         editor.commit();
     }
 
+    public void registroPush(String mail, String idDispositivo, String idGCM) {
+        /**
+         * Esta funcion sirve para registrar el dispositivo push en nuestra base de datos
+         * en caso de existir solo lo actualiza pero nosotoros no tenemos nada que hacer,
+         * eso se encargara la api del servidor
+         */
+        //Declaramos Variables
+        JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
+        ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
+        JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
+        String respuesta = new String(); //Respuesta para saber si es OK o Error
+        Boolean devovlerRespuesta = new Boolean(false); //Esto es lo que devolvera si es true o false
+        String cadenaJSONDatos = new String();//Esto es para pasarle varias variables en un texto plano
+        String passGenerado = new String();//Aqui ira el pass completo
+        ZMD5 md5 = new ZMD5(); //creamos la variable md5 que se usara para hacer lo necesario para el PASS
+        //passGenerado = md5.generarMD5(pass);//Le mandamos la contraseña y el se encarga de generar el salt y md5
+        String tipoPush = "Nuevos Sorteos";
+        Log.e("Mail", mail);
+        //Log.e("Nombre", nombre);
+        //Log.e("Pass", pass);
+        Log.e("PassMD5", passGenerado);
+
+        cadenaJSONDatos = "{\"idUser\":\"" + mail + "\",\"idDispositivo\":\"" + idDispositivo + "\",\"idPush\":\"" + idGCM + "\",\"tipoPush\":\"" + tipoPush + "\"}";
+        Log.e("JSON", cadenaJSONDatos);
+
+
+        try {
+            cadena.put("tarea", "Registro Push");//Le asignamos los datos que necesitemos
+            cadena.put("datos", cadenaJSONDatos);//Le asignamos los datos que necesitemos
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        cadena.toString(); //Para obtener la cadena de texto de tipo JSON
+
+        /**
+         * ENVIAMOS CONSULTA
+         */
+
+        // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
+        respuestaJSON = conectBD.consultaSQLJSON(cadena);
+        Log.e("DATOS RECIBIDOS:", respuestaJSON.toString());
+        try {
+            //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
+            respuesta = respuestaJSON.getString("Respuesta");
+            if (respuesta.equals("OK")) {
+                Log.e("Entra en Devolver:", "True");
+                devovlerRespuesta = true;
+
+            } else {
+                Toast.makeText(this, respuesta, Toast.LENGTH_LONG).show();
+                devovlerRespuesta = false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     /**
      * MENUS
      */
@@ -343,6 +413,9 @@ public class PrivateActivity extends ActionBarActivity {
     }
 
     /**
+     * Otras Funciones
+     */
+    /**
      * GCM
      */
     @Override
@@ -369,7 +442,7 @@ public class PrivateActivity extends ActionBarActivity {
 
     private String getRegistrationId(Context context) {
         SharedPreferences prefs = getSharedPreferences(
-                PrivateActivity.class.getSimpleName(),
+                "configPush",
                 Context.MODE_PRIVATE);
 
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
@@ -438,7 +511,7 @@ public class PrivateActivity extends ActionBarActivity {
                 Log.d(TAG, "Registrado en GCM: registration_id=" + regid);
 
                 //Nos registramos en nuestro servidor
-                boolean registrado = registroServidor(params[0], regid);
+                boolean registrado = registroServidor(mailUserGCM, params[0], regid);
 
                 //Guardamos los datos del registro
                 if (registrado) {
@@ -454,7 +527,7 @@ public class PrivateActivity extends ActionBarActivity {
 
     private void setRegistrationId(Context context, String user, String regId) {
         SharedPreferences prefs = getSharedPreferences(
-                PrivateActivity.class.getSimpleName(),
+                "configPush",
                 Context.MODE_PRIVATE);
 
         int appVersion = getAppVersion(context);
@@ -469,67 +542,64 @@ public class PrivateActivity extends ActionBarActivity {
         editor.commit();
     }
 
-    private boolean registroServidor(String usuario, String regId) {
-        boolean reg = true;
-        Log.e("USUARIO", usuario);
-        Log.e("RegID", regId);
-        idUserGCM = regId;
-
-        String tipoPush = "Nuevos Sorteos Añadidos";
-
-
-        Log.e("PASO", "1");
+    private boolean registroServidor(String mail, String idDispositivo, String regId) {
         /**
-         * Declaracion de Variables normales
+         * Esta funcion sirve para registrar el dispositivo push en nuestra base de datos
+         * en caso de existir solo lo actualiza pero nosotoros no tenemos nada que hacer,
+         * eso se encargara la api del servidor
          */
+        //Declaramos Variables
+        Boolean res = false;
         JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
-        String respuesta = new String();//Respuesta en plano
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
         JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
-        String cadenaJSONDatos = new String();//Donde se genera el JSON a enviar
+        String respuesta = new String(); //Respuesta para saber si es OK o Error
+        Boolean devovlerRespuesta = new Boolean(false); //Esto es lo que devolvera si es true o false
+        String cadenaJSONDatos = new String();//Esto es para pasarle varias variables en un texto plano
+        String passGenerado = new String();//Aqui ira el pass completo
+        ZMD5 md5 = new ZMD5(); //creamos la variable md5 que se usara para hacer lo necesario para el PASS
+        //passGenerado = md5.generarMD5(pass);//Le mandamos la contraseña y el se encarga de generar el salt y md5
+        String tipoPush = "Nuevos Sorteos";
+        Log.e("Mail", mail);
+        //Log.e("Nombre", nombre);
+        //Log.e("Pass", pass);
+        Log.e("PassMD5", passGenerado);
 
-        /**
-         * Funcion para cargar el contenido
-         */
-        Log.e("PASO", "2");
+        cadenaJSONDatos = "{\"idUser\":\"" + mail + "\",\"idDispositivo\":\"" + idDispositivo + "\",\"idPush\":\"" + regId + "\",\"tipoPush\":\"" + tipoPush + "\"}";
+        Log.e("JSON", cadenaJSONDatos);
 
-        cadenaJSONDatos = "{\"idUser\":\"" + "22" + "\",\"fecha\":\"" + "22-03-1989" + "\",\"idPush\":\"" + regId + "\",\"tipoPush\":\"" + tipoPush + "\"}";
+
         try {
-            Log.e("PASO", "3");
             cadena.put("tarea", "Registro Push");//Le asignamos los datos que necesitemos
             cadena.put("datos", cadenaJSONDatos);//Le asignamos los datos que necesitemos
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("PASO", "4");
         cadena.toString(); //Para obtener la cadena de texto de tipo JSON
-        // ENVIAMOS CONSULTA
-        // Enviamos la consulta y cargamos los datos en los array
-        Log.e("PASO", "5");
-        Log.e("Cadena", String.valueOf(cadena));
+
+        /**
+         * ENVIAMOS CONSULTA
+         */
+
+        // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
         respuestaJSON = conectBD.consultaSQLJSON(cadena);
-        Log.e("PASO", "6");
-        //Log.e("RESPUESTAJSON", String.valueOf(conectBD.consultaSQLJSON(cadena)));
+        Log.e("DATOS RECIBIDOS:", respuestaJSON.toString());
         try {
-            Log.e("PASO", "7");
             //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
             respuesta = respuestaJSON.getString("Respuesta");
             if (respuesta.equals("OK")) {
-                Toast.makeText(this, "Registro PUSH Guardado Correctamente!", Toast.LENGTH_LONG).show();
-                Log.e("Respuesta:", "True");
-                Log.e("PASO", "8");
-
+                Log.e("Entra en Devolver:", "True");
+                res = true;
 
             } else {
                 Toast.makeText(this, respuesta, Toast.LENGTH_LONG).show();
-                Log.e("Respuesta:", "False");
+                res = false;
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("PASO", "9");
-        return reg;
+        return res;
     }
+
 }

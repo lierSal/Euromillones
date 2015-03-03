@@ -109,4 +109,7 @@
     <string name="Proba">Cubel 2</string>
     <string name="Proba1">Quique 2</string>
 
+    <!-- PostLogin GCM -->
+    <string name="tv_comprobando_GCM">Comprobando GCM...</string>
+
 </resources>
