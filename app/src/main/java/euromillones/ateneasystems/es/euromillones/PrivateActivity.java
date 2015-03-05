@@ -164,6 +164,14 @@ public class PrivateActivity extends ActionBarActivity {
         /**
          * Cargamos el menu dependiendo del nivel de usuario
          */
+        //Primero comprobamos que tenga nivel, si no tiene cerraremos el activity y lo mandamos al login
+        /*if (nivelUser.equals("")){
+            final Intent actividadLogin = new Intent(this, Login_Activity.class);
+            //Abrir siguiente activity
+            startActivity(actividadLogin);
+            //Eliminamos este activity
+            finish();
+        }*/
         switch (nivelUser) {
             case "1":
                 opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
