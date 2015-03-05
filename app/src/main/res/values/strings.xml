@@ -105,7 +105,21 @@
     <!-- Botones Comunes -->
     <string name="bt_guardar">Save</string>
 
-    <!-- PostLogin GCM -->
-    <string name="tv_comprobando_GCM">Comprobando GCM...</string>
+    <!-- Configuracion -->
+    <!-- Titulos Apartados -->
+    <string name="tv_opciones_title_Resultados">Resultados</string>
+    <string name="tv_opciones_title_Notificaciones">Notificaciones</string>
+    <!-- Titulos Items Opciones -->
+    <string name="tv_opciones_titleItem_Ultimos_Resultados">Últimos Resultados</string>
+    <string name="tv_opciones_titleItem_Notificar_Nuevos_Resultados">Notificar Nuevos Resultados</string>
+    <string name="tv_opciones_titleItem_Notificación_Sonora">Notificación Sonora</string>
+    <string name="tv_opciones_titleItem_Vibración">Vibración</string>
+    <string name="tv_opciones_titleItem_Led">Led</string>
+    <!-- Descripcion Items Opciones -->
+    <string name="tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar">Cantidad de sorteos a mostrar</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Sorteo_Nuevo">Recibir notificación cuando se realice un sorteo nuevo</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Sonido">Sonrará al recibir la notificación</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Vibracion">Vibrará al recibir la notificación</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Led">led</string>
 
 </resources>

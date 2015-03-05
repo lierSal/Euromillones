@@ -116,6 +116,9 @@ public class PrivateActivity extends ActionBarActivity {
         String mailUser = datosUsuario.getMailUser();
         final String AndroidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);//Muestra el ID del Dispositivo
+        //Log.e("MOVIL",android.os.Build.MODEL);
+        //Log.e("Device",android.os.Build.DEVICE+ " - "+ android.os.Build.PRODUCT + " - "+ android.os.Build.MANUFACTURER);
+        Log.e("Registrar", android.os.Build.MANUFACTURER + " - " + android.os.Build.MODEL);
         Log.e("NivelUSer", datosUsuario.getMailUser());
         /**
          * Primero cargamos la informacion del archivo de configuracion
@@ -562,7 +565,7 @@ public class PrivateActivity extends ActionBarActivity {
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
         JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
         String respuesta = new String(); //Respuesta para saber si es OK o Error
-        Boolean devovlerRespuesta = new Boolean(false); //Esto es lo que devolvera si es true o false
+        String marcaModelo = new String(); //Para guardar Marca y Modelo
         String cadenaJSONDatos = new String();//Esto es para pasarle varias variables en un texto plano
         String passGenerado = new String();//Aqui ira el pass completo
         ZMD5 md5 = new ZMD5(); //creamos la variable md5 que se usara para hacer lo necesario para el PASS
@@ -573,7 +576,8 @@ public class PrivateActivity extends ActionBarActivity {
         //Log.e("Pass", pass);
         Log.e("PassMD5", passGenerado);
 
-        cadenaJSONDatos = "{\"idUser\":\"" + mail + "\",\"idDispositivo\":\"" + idDispositivo + "\",\"idPush\":\"" + regId + "\",\"tipoPush\":\"" + tipoPush + "\"}";
+        marcaModelo = android.os.Build.MANUFACTURER + " - " + android.os.Build.MODEL;
+        cadenaJSONDatos = "{\"idUser\":\"" + mail + "\",\"idDispositivo\":\"" + idDispositivo + "\",\"marcaModelo\":\"" + marcaModelo + "\",\"idPush\":\"" + regId + "\",\"tipoPush\":\"" + tipoPush + "\"}";
         Log.e("JSON", cadenaJSONDatos);
 
 
