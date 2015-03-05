@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,8 +75,15 @@ public class ZGCMIntentService extends IntentService {
                 if (config.getBoolean("avisoNuevoResultado_vibracion", true)) {
                     //mBuilder.setVibrate(new long[]{100, 250, 100, 500});//Vibracion, milisegungos: Esperar 100, vibrar 250, esperar 100, vibrar 500
                     //mBuilder.setVibrate(new long[]{100, 150, 100, 150,100,150,100,500});//Vibracion
-                    mBuilder.setVibrate(new long[]{100, 100, 100, 100, 400, 100, 100, 100, 100, 100});//Vibracion
+                    //mBuilder.setVibrate(new long[]{100, 100, 100, 100, 400, 100, 100, 100, 100, 100});//Vibracion
+                    mBuilder.setVibrate(new long[]{100, 1000, 500, 100, 100, 100});//Vibracion
                 }
+                //Led
+                if (config.getBoolean("avisoNuevoResultado_led", true)) {
+                    //mBuilder.setLights(Color.argb(1,6, 0, 184),100,100);//Color en ARBG
+                    mBuilder.setLights(Color.CYAN, 500, 2000);
+                }
+
 
                 Intent notIntent = new Intent(this, Login_Activity.class);
                 PendingIntent contIntent = PendingIntent.getActivity(

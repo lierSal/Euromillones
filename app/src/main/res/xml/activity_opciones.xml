@@ -1,29 +1,34 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Resultados">
+    <PreferenceCategory android:title="@string/tv_opciones_title_Resultados">
         <EditTextPreference
             android:key="cantidadUltimosResultados"
-            android:title="Ultimos Resultados"
+            android:title="@string/tv_opciones_titleItem_Ultimos_Resultados"
             android:inputType="number"
             android:defaultValue="5"
-            android:summary="Cantidad de sorteos a mostrar"
+            android:summary="@string/tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar"
             android:dialogTitle="Introduce valor" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Notificaciones">
+    <PreferenceCategory android:title="@string/tv_opciones_title_Notificaciones">
         <CheckBoxPreference
             android:key="avisoNuevoResultado"
-            android:title="Notificar Nuevos Resultados"
+            android:title="@string/tv_opciones_titleItem_Notificar_Nuevos_Resultados"
             android:defaultValue="true"
-            android:summary="Recibir notificación cuando se realice un sorteo nuevo" />
+            android:summary="@string/tv_opciones_descripcionItem_Notificar_Sorteo_Nuevo" />
         <CheckBoxPreference
             android:key="avisoNuevoResultado_sonido"
-            android:title="Notificación Sonora"
+            android:title="@string/tv_opciones_titleItem_Notificación_Sonora"
             android:defaultValue="true"
-            android:summary="Sonrará al recibir la notificación" />
+            android:summary="@string/tv_opciones_descripcionItem_Notificar_Sonido" />
         <CheckBoxPreference
             android:key="avisoNuevoResultado_vibracion"
-            android:title="Vibración"
+            android:title="@string/tv_opciones_titleItem_Vibración"
             android:defaultValue="true"
-            android:summary="Vibrará al recibir la notificación" />
+            android:summary="@string/tv_opciones_descripcionItem_Notificar_Vibracion" />
+        <CheckBoxPreference
+            android:key="avisoNuevoResultado_led"
+            android:title="@string/tv_opciones_titleItem_Led"
+            android:defaultValue="true"
+            android:summary="@string/tv_opciones_descripcionItem_Notificar_Led" />
 
     </PreferenceCategory>
     <!--
