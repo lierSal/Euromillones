@@ -30,7 +30,6 @@
 
     <!-- Seccion Login -->
     <string name="title_Login">Login</string>
-    <string name="tv_User">User</string>
     <string name="tv_PASS">Pass</string>
     <string name="bt_Comprobar">Check Data</string>
     <string name="tv_User_Error">Incorrect User</string>
@@ -94,13 +93,12 @@
     <string name="title_fragment_about">About</string>
 
     <!-- Menu Lateral -->
-    <string name="drawer_open">Abierto</string>
-    <string name="drawer_close">Cerrado</string>
-    <string name="bl_Ultimos_Resultados">Ult. Resultados</string>
-    <string name="bl_Predicciones">Predicciones</string>
-    <string name="bl_Nuevo_Resultado">Añadir Resultado</string>
-    <string name="bl_Mi_Cuenta">Mi Cuenta</string>
-    <string name="bl_Admin_Usuarios">Admin. Usuarios</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="bl_Predicciones">Predictions</string>
+    <string name="bl_Nuevo_Resultado">Add Result</string>
+    <string name="bl_Mi_Cuenta">My Account</string>
+    <string name="bl_Admin_Usuarios">Admin. Users</string>
 
     <!-- Botones Comunes -->
     <string name="bt_guardar">Save</string>
@@ -111,19 +109,21 @@
 
     <!-- Configuracion -->
     <!-- Titulos Apartados -->
-    <string name="tv_opciones_title_Resultados">Resultados</string>
-    <string name="tv_opciones_title_Notificaciones">Notificaciones</string>
+    <string name="tv_opciones_title_Resultados">Results</string>
+    <string name="tv_opciones_title_Notificaciones">Notifications</string>
     <!-- Titulos Items Opciones -->
-    <string name="tv_opciones_titleItem_Ultimos_Resultados">Últimos Resultados</string>
-    <string name="tv_opciones_titleItem_Notificar_Nuevos_Resultados">Notificar Nuevos Resultados</string>
-    <string name="tv_opciones_titleItem_Notificación_Sonora">Notificación Sonora</string>
-    <string name="tv_opciones_titleItem_Vibración">Vibración</string>
+    <string name="tv_opciones_titleItem_Ultimos_Resultados">Latest Results</string>
+    <string name="tv_opciones_titleItem_Notificar_Nuevos_Resultados">Report New Results</string>
+    <string name="tv_opciones_titleItem_Notificación_Sonora">Notification Sound</string>
+    <string name="tv_opciones_titleItem_Vibración">Vibration</string>
     <string name="tv_opciones_titleItem_Led">Led</string>
     <!-- Descripcion Items Opciones -->
-    <string name="tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar">Cantidad de sorteos a mostrar</string>
-    <string name="tv_opciones_descripcionItem_Notificar_Sorteo_Nuevo">Recibir notificación cuando se realice un sorteo nuevo</string>
-    <string name="tv_opciones_descripcionItem_Notificar_Sonido">Sonrará al recibir la notificación</string>
-    <string name="tv_opciones_descripcionItem_Notificar_Vibracion">Vibrará al recibir la notificación</string>
-    <string name="tv_opciones_descripcionItem_Notificar_Led">led</string>
+    <string name="tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar">Number of drawings to show</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Sorteo_Nuevo">Receive notification when a new draw is made</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Sonido">It will sound when notified</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Vibracion">It will vibrate when notified</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Led">Use Led Device</string>
+    <string name="bl_Ultimos_Resultados">Latest Results</string>
+    <string name="tv_User">Mail</string>
 
 </resources>
