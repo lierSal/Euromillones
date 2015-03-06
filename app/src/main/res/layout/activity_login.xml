@@ -59,6 +59,13 @@
                 android:layout_marginBottom="20dp"
                 android:password="true" />
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/cb_Recordar"
+                android:id="@+id/cb_recordar" />
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -68,11 +75,6 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cb_Recordar"
-                android:id="@+id/cb_recordar" />
         </LinearLayout>
 
     </ScrollView>
