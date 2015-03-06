@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- DE SERIE -->
+    <string name="app_name">EuroMillones</string>
+
+    <!-- Zona Privada -->
+    <string name="title_Saludo">Bienvenido a EuroMillones</string>
+    <string name="title_Sub_Saludo">Una APP de AteneaSystems </string>
+    <string name="text_Nombre_Empresa">AteneaSystems</string>
+    <string name="text_Web_Empresa">www.ateneasystems.es</string>
+
+    <!-- Action Bar -->
+    <string name="text_action_about">Sobre...</string>
+    <string name="text_action_login">Acceder</string>
+    <string name="text_action_settings">Opciones</string>
+    <string name="text_action_cerrar_sesion">Cerrar Sesión</string>
+
+    <!-- Seccion Settings -->
+    <string name="title_SETTINGS">Opciones</string>
+
+    <!-- Seccion About -->
+    <string name="title_ABOUT">Sobre el Dispositivo</string>
+    <string name="tv_EMPTY">--</string>
+    <string name="tv_ID">ID</string>
+    <string name="tv_USE_MAIL_GOOGLE">Cuenta de Google</string>
+    <string name="tv_Version_Android">Versión de Android </string>
+    <string name="error_Version_Android">Error - Desconocido</string>
+    <string name="bt_Mostrar_Datos">Mostrar Datos</string>
+
+    <!-- Seccion Login -->
+    <string name="title_Login">Acceder</string>
+    <string name="tv_PASS">Contraseña</string>
+    <string name="bt_Comprobar">Comprobar Datos</string>
+    <string name="tv_User_Error">Usuario Incorrecto</string>
+    <string name="cb_Recordar">Recuérdame</string>
+    <string name="bt_Crear_Cuenta">Crear Cuenta</string>
+
+    <!-- Seccion Registro y PostRegistroActivity -->
+    <string name="title_activity_registro">Registro</string>
+    <string name="tv_Pass">Tu Contraseña</string>
+    <string name="tv_Pass_nota">Se puede cambiar después</string>
+    <string name="tv_Mail">Tu Mail</string>
+    <string name="tv_Nombre">Tu Nombre</string>
+    <string name="tv_Nombre_nota">Se puede cambiar después</string>
+    <string name="title_activity_post_registro">Ya estás Registrado</string>
+    <string name="tv_activity_post_registro_info">En este momento no tienes tu cuenta activa. Cuando la cuenta esté activa, recibirás un correo electrónico</string>
+    <string name="bt_Aceptar">Aceptar</string>
+
+    <!-- Seccion Predicciones -->
+    <string name="title_fragment_predicciones">Predicciones</string>
+    <string name="tv_Mas_Repetido">Números Más Repetidos</string>
+    <string name="tv_Mas_Repetido_Mes">Números Más Repetidos (Último mes)</string>
+    <string name="tv_SemiAleatorio">Números Semi-Aleatorios</string>
+    <string name="tv_SemiAleatorio_nota">Puedes cambiar el procentaje de aleatoriabilidad desde las opciones</string>
+    <string name="bt_Buscar_Otro">Buscar otro Número</string>
+
+    <!-- Seccion Predicciones -->
+    <string name="title_fragment_ultimos_resultados">Últimos Resultados</string>
+
+    <!-- Seccion Mi Cuenta -->
+    <string name="title_fragment_mi_cuenta">Mí Cuenta</string>
+    <string name="tv_nombre">Nombre</string>
+    <string name="tv_apellidos">Apellidos</string>
+    <string name="tv_telefono">Teléfono</string>
+    <string name="tv_mail_info">Mail</string>
+    <string name="tv_cambiar_pass">Cambiar Contraseña</string>
+
+    <!-- Seccion Cambiar Pass -->
+    <string name="title_activity_cambiar_pass">Cambiar Contraseña</string>
+    <string name="tv_pass_actual">Contraseña Actual</string>
+    <string name="tv_pass_nuevo">Nueva Contraseña</string>
+    <string name="tv_pass_nuevo_repetir">Repite la Nueva Contraseña</string>
+    <string name="tv_error_pass_actual">Error - La contraseña actual es incorrecta</string>
+    <string name="tv_error_pass_nuevo">Error - Las nuevas contraseñas no coinciden</string>
+    <string name="tv_pass_cambiado_correctamente">Contraseña cambiada correctamente</string>
+
+    <!-- Seccion Nuevo Resultado -->
+    <string name="title_fragment_nuevo_resultado">Nuevo Resultado</string>
+    <string name="tv_fecha">Fecha</string>
+    <string name="tv_numeros">Números</string>
+    <string name="tv_n1">N1</string>
+    <string name="tv_n2">N2</string>
+    <string name="tv_n3">N3</string>
+    <string name="tv_n4">N4</string>
+    <string name="tv_n5">N5</string>
+    <string name="tv_estrellas">Estrellas</string>
+    <string name="tv_e1">E1</string>
+    <string name="tv_e2">E1</string>
+
+    <!-- Seccion Nuevo Resultado -->
+    <string name="title_fragment_about">Sobre</string>
+
+    <!-- Menu Lateral -->
+    <string name="drawer_open">Abierto</string>
+    <string name="drawer_close">Cerrado</string>
+    <string name="bl_Predicciones">Predicciones</string>
+    <string name="bl_Nuevo_Resultado">Añadir Resultado</string>
+    <string name="bl_Mi_Cuenta">Mí Cuenta</string>
+    <string name="bl_Admin_Usuarios">Admin. Usuarios</string>
+
+    <!-- Botones Comunes -->
+    <string name="bt_guardar">Guardar</string>
+
+    <!-- Configuracion -->
+    <!-- Titulos Apartados -->
+    <string name="tv_opciones_title_Resultados">Resultados</string>
+    <string name="tv_opciones_title_Notificaciones">Notificaciones</string>
+    <!-- Titulos Items Opciones -->
+    <string name="tv_opciones_titleItem_Notificar_Nuevos_Resultados">Avisar de Nuevos Resultados</string>
+    <string name="tv_opciones_titleItem_Notificación_Sonora">Notificación Sonora</string>
+    <string name="tv_opciones_titleItem_Vibración">Vibración</string>
+    <string name="tv_opciones_titleItem_Led">Led</string>
+    <!-- Descripcion Items Opciones -->
+    <string name="tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar">Cantidad de sorteos a mostrar</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Sorteo_Nuevo">Recibir una notificación cuando se añada un nuevo sorteo</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Sonido">Sonará cuando llegue una notificación</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Vibracion">Vibrará cuando llegue una notificación</string>
+    <string name="tv_opciones_descripcionItem_Notificar_Led">Utilizar el Led del Dispositivo</string>
+    <string name="bl_Ultimos_Resultados">Ult. Resultados</string>
+    <string name="tv_User">Mail</string>
+    <string name="tv_Mail_nota">Ahora recibirás un mensaje del servidor</string>
+    <string name="tv_opciones_titleItem_Ultimos_Resultados">Últimos Resultados</string>
+
+</resources>
