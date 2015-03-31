@@ -1,9 +1,18 @@
 package euromillones.ateneasystems.es.euromillones;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.NfcF;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -11,10 +20,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
@@ -22,6 +36,24 @@ import euromillones.ateneasystems.es.euromillones.Clases.ZMD5;
 
 
 public class Login_Activity extends ActionBarActivity {
+    /**
+     *
+     * Variables para el Lectura NFC
+     */
+    private NfcAdapter mNfcAdapter;
+    private PendingIntent mPendingIntent;
+    private IntentFilter[] mIntentFilters;
+    private String[][] mNFCTechLists;
+    private Context ctx = this;//Context
+    //Fin NFC
+    /**
+     * Variables para tod
+     */
+    ProgressBar pb_cargando;
+    Button btn_login;
+    Button btn_registro;
+    SharedPreferences config;
+    TextView tv_respuesta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +72,24 @@ public class Login_Activity extends ActionBarActivity {
          */
         final EditText et_user = (EditText) findViewById(R.id.et_user);
         final EditText et_pass = (EditText) findViewById(R.id.et_pass);
-        final TextView tv_respuesta = (TextView) findViewById(R.id.tv_respuesta);
         final CheckBox cb_recordar = (CheckBox) findViewById(R.id.cb_recordar);
-        Button btn_login = (Button) findViewById(R.id.btn_login);
-        Button btn_registro = (Button) findViewById(R.id.btn_registro);
+        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_registro = (Button) findViewById(R.id.btn_registro);
+        pb_cargando = (ProgressBar) findViewById(R.id.pb_cargando);
+        tv_respuesta = (TextView) findViewById(R.id.tv_respuesta);
 
         /**
          * Declaracion de variables
          */
         String passCodConfig = new String();
         String user = new String();
-        final Intent actividadPrivate = new Intent(this, PrivateActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
         final Intent actividadRegistro = new Intent(this, Registro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+
 
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
-        final SharedPreferences config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
+        config = getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);
         //Primero comprobamos si es la primera vez que se ha iniciado
         // si es la primera vez es cargaremos unos valores de inicio
         if (config.getBoolean("primerInicio", true)) {
@@ -78,10 +111,8 @@ public class Login_Activity extends ActionBarActivity {
             passCodConfig = config.getString("passCod", "");
             user = config.getString("user", "");
             if (autologin(user, passCodConfig)) {
-                //Abrir siguiente activity
-                startActivity(actividadPrivate);
-                //Eliminamos este activity
-                finish();
+                //Abrimos private
+                cargarPrivate();
             } else {
                 if (eliminarConfig()) {
                     tv_respuesta.setText(R.string.tv_User_Error);
@@ -100,50 +131,14 @@ public class Login_Activity extends ActionBarActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Hacemos un if para saber si comprobarUsuario nos devuelve un true, en caso afirmativo
-                //autorizamos el acceso
-                if (comprobarUsuario(String.valueOf(et_user.getText()), String.valueOf(et_pass.getText()))) {
-                    //Contraseña correcta
-                    //Comprobamos si quiere recoedar los datos
-                    if (cb_recordar.isChecked()) {
-                        Log.e("Entra:", "Cheked");
-                        //Quiere recordar los datos
-                        /**
-                         * Guardar datos si esta marcado el checkbox
-                         */
-                        SharedPreferences.Editor editor = config.edit();
-                        ZDatosTemporales DU = (ZDatosTemporales) getApplicationContext();
-                        editor.putString("id", DU.getIdUser());
-                        editor.putString("nombre", DU.getNombreUser());
-                        editor.putString("user", DU.getMailUser());
-                        editor.putString("nivel", DU.getNivelUser());
-                        editor.putString("passCod", DU.getPassUser());
-                        editor.putBoolean("checkRecordarLogin", true);
-                        editor.commit();
-                        //Abrimos el nuevo activity
-
-                    } else {
-                        Log.e("Entra:", "NO Cheked");
-                        //No quiere recordar los datos
-                        SharedPreferences.Editor editor = config.edit();
-                        editor.putString("id", "");
-                        editor.putString("nombre", "");
-                        editor.putString("user", "");
-                        editor.putString("nivel", "");
-                        editor.putBoolean("checkRecordarLogin", false);
-                        editor.commit();
-                    }
-                    //Abrir siguiente activity
-                    startActivity(actividadPrivate);
-                    //Y cerramos esta
-                    finish();
-
-                } else {
-                    //Usuario incorrecto
-                    tv_respuesta.setText(R.string.tv_User_Error);
-                }
-
-
+                //Metemos los datos necesarios en el Array
+                ArrayList<String> datos = new ArrayList<String>();
+                datos.add("Boton Login");
+                datos.add(String.valueOf(String.valueOf(et_user.getText())));
+                datos.add(String.valueOf(String.valueOf(et_pass.getText())));
+                datos.add(String.valueOf(cb_recordar.isChecked()));
+                LoginSegundoPlano loginUser = new LoginSegundoPlano();
+                loginUser.execute(datos);
             }
         });//Fin boton de login
         //BOTON REGISTRO
@@ -154,7 +149,50 @@ public class Login_Activity extends ActionBarActivity {
             }
         });
         //Fin boton de Registro
+        /**
+         * cargamos el contenido en las variables NFC
+         */
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (mNfcAdapter == null) { //Para detectar si tiene NFC o NO
+            //Toast.makeText(this, "Dispositivo sin NFC", Toast.LENGTH_LONG).show();
+        } else {
+            if (mNfcAdapter.isEnabled()) {
+                Toast.makeText(this, "Puedes  hacer Login con el TAG NFC", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Activa el NFC en Opciones del Dispositivo", Toast.LENGTH_LONG).show();
+            }
+        }
+        //Fin
 
+        // create an intent with tag data and deliver to this activity
+
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+        // set an intent filter for all MIME data
+        IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        try {
+            ndefIntent.addDataType("*/*");
+
+            mIntentFilters = new IntentFilter[]{ndefIntent};
+        } catch (Exception e) {
+            Log.e("TagDispatch", e.toString());
+        }
+
+        mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
+
+    }
+
+    /**
+     * Funcion para ir a la aplicacion
+     */
+    public void cargarPrivate() {
+        Intent actividadPrivate = new Intent(this, PrivateActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        actividadPrivate.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
+        //Abrir siguiente activity
+        startActivity(actividadPrivate);
+        //Y cerramos esta
+        finish();
 
     }
 
@@ -241,6 +279,8 @@ public class Login_Activity extends ActionBarActivity {
             //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
             respuesta = respuestaJSON.getString("Respuesta");
             if (respuesta.equals("OK")) {
+                Log.e("PassTag", pass);
+                Log.e("PassBDD", respuestaJSON.getString("pass"));
                 //Si es un OK, llamaremos a las CLASES ZMD5 para hacer la comprobacion del Pass
                 ZMD5 md5 = new ZMD5();
                 //Tambien llamamos a la clase ZDatosTemporales para guardar los datos recibidos
@@ -283,5 +323,168 @@ public class Login_Activity extends ActionBarActivity {
         return true;
     }
 
+
+    /**
+     * Asyntask Logins
+     */
+    private class LoginSegundoPlano extends AsyncTask<ArrayList<String>, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(ArrayList... params) {
+            //Aqui llamamos a la funcion, como el array viene en params[0] tenemos que sacar
+            //los diferentes campos del array con .get(x)
+            //esta funcion devuelve otro array
+            Boolean cargarInfo;
+            Boolean respuesta = false;
+            if (params[0].get(0).equals("Boton Login")) {
+                respuesta = comprobarUsuario(String.valueOf(params[0].get(1)), String.valueOf(params[0].get(2)));
+                cargarInfo = Boolean.valueOf(String.valueOf(params[0].get(3)));
+                if (cargarInfo) {
+                    //Quiere recordar los datos
+                    SharedPreferences.Editor editor = config.edit();
+                    ZDatosTemporales DU = (ZDatosTemporales) getApplicationContext();
+                    editor.putString("id", DU.getIdUser());
+                    editor.putString("nombre", DU.getNombreUser());
+                    editor.putString("user", DU.getMailUser());
+                    editor.putString("nivel", DU.getNivelUser());
+                    editor.putString("passCod", DU.getPassUser());
+                    editor.putBoolean("checkRecordarLogin", true);
+                    editor.commit();
+                } else {
+                    //No quiere recordar los datos
+                    SharedPreferences.Editor editor = config.edit();
+                    editor.putString("id", "");
+                    editor.putString("nombre", "");
+                    editor.putString("user", "");
+                    editor.putString("nivel", "");
+                    editor.putBoolean("checkRecordarLogin", false);
+                    editor.commit();
+                }
+
+            } else if (params[0].get(0).equals("TAG Login")) {
+                respuesta = autologin(String.valueOf(params[0].get(1)), String.valueOf(params[0].get(2)));
+                //respuesta = comprobarUsuario();
+                //Log.e("Entra", String.valueOf(params[0].get(1)));
+                //No quiere recordar los datos
+                SharedPreferences.Editor editor = config.edit();
+                editor.putString("id", "");
+                editor.putString("nombre", "");
+                editor.putString("user", "");
+                editor.putString("nivel", "");
+                editor.putBoolean("checkRecordarLogin", false);
+                editor.commit();
+            }
+            return respuesta;
+        }
+
+        ;
+
+        /**
+         * Se ejecuta antes de empezar la conexion con la base de datos
+         */
+        protected void onPreExecute() {
+            btn_registro.setVisibility(View.GONE);
+            pb_cargando.setVisibility(View.VISIBLE);
+            btn_login.setVisibility(View.GONE);
+        }
+
+        /**
+         * Se ejecuta después de terminar "doInBackground".
+         * <p/>
+         * Se ejecuta en el hilo: PRINCIPAL
+         * <p/>
+         * //@param String con los valores pasados por el return de "doInBackground".
+         */
+
+        @Override
+        protected void onPostExecute(Boolean respuesta) {
+            if (!respuesta) {
+                btn_registro.setVisibility(View.VISIBLE);
+                pb_cargando.setVisibility(View.GONE);
+                btn_login.setVisibility(View.VISIBLE);
+                tv_respuesta.setText(R.string.tv_User_Error);
+            } else {
+                cargarPrivate();
+            }
+        }
+
+    }
+
+    /**
+     * Funcones para detecar tag
+     */
+    @Override
+    public void onNewIntent(Intent intent) {
+        //Metemos los datos necesarios en el Array
+        ArrayList<String> datosRecibidos = new ArrayList<String>();
+        String action = intent.getAction();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        String s = action + "\n\n" + tag.toString();
+
+        // parse through all NDEF messages and their records and pick text type only
+        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        if (data != null) {
+            try {
+                for (int i = 0; i < data.length; i++) {
+                    NdefRecord[] recs = ((NdefMessage) data[i]).getRecords();
+                    for (int j = 0; j < recs.length; j++) {
+                        Log.e("cantidad", String.valueOf(recs.length));//Muestra la cantidad de datos correctamente
+                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
+                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+
+                            byte[] payload = recs[j].getPayload();
+                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+                            int langCodeLen = payload[0] & 0077;
+
+                            /*s += ("\n\nNdefMessage[" + i + "], NdefRecord[" + j + "]:\n\"" +
+                                    new String(payload, langCodeLen + 1,
+                                            payload.length - langCodeLen - 1, textEncoding) +
+                                    "\"");*/
+                            datosRecibidos.add(new String(payload, langCodeLen + 1,
+                                    payload.length - langCodeLen - 1, textEncoding));
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("TagDispatch", e.toString());
+            }
+
+        }
+        //Toast.makeText(this, "APP: " + datosRecibidos.get(0), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Nombre: "+datosRecibidos.get(1), Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, "Pass:"+datosRecibidos.get(2), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Id: "+datosRecibidos.get(3), Toast.LENGTH_LONG).show();
+        //mTextView.setText(s);
+        //Log.e("Datos",  "APP: "+datosRecibidos.get(0)+" - Nombre: "+datosRecibidos.get(1)+" - Pass:"+datosRecibidos.get(2)+" - Id: "+datosRecibidos.get(3));
+        /**
+         * Hacemos la funcion como si del boton login se tratase para qe salga el cargador
+         */
+        //Metemos los datos necesarios en el Array
+        ArrayList<String> datos = new ArrayList<String>();
+        datos.add("TAG Login");
+        datos.add(datosRecibidos.get(0));
+        datos.add(datosRecibidos.get(1));
+        //datos.add("false");
+        LoginSegundoPlano loginUser = new LoginSegundoPlano();
+        loginUser.execute(datos);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.disableForegroundDispatch(this);
+    }
 
 }

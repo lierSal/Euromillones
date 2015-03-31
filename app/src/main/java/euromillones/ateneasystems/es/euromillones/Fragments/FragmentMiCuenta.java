@@ -1,20 +1,23 @@
 package euromillones.ateneasystems.es.euromillones.Fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import euromillones.ateneasystems.es.euromillones.CambioPassActivity;
 import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
@@ -25,6 +28,16 @@ import euromillones.ateneasystems.es.euromillones.R;
  * Created by cubel on 5/02/15.
  */
 public class FragmentMiCuenta extends Fragment {
+    /**
+     * Componentes
+     */
+    private EditText et_mail;
+    private EditText et_nombre;
+    private EditText et_apellidos;
+    private EditText et_telefono;
+    private TextView tv_cambiarPass;
+    private Button btn_Guardar;
+    private ProgressBar pb_cargando;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,35 +53,34 @@ public class FragmentMiCuenta extends Fragment {
         /**
          * Declaracion de Variables normales
          */
-        JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
-        ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
-        JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
-        ZDatosTemporales temporales = (ZDatosTemporales) getActivity().getApplicationContext(); //Para los datos temporales
+
         /**
          * Declaracion de
          */
         /**
          * Declaración de componentes en Fragment
          */
-        final EditText et_mail = (EditText) getActivity().findViewById(R.id.et_mail);
-        final EditText et_nombre = (EditText) getActivity().findViewById(R.id.et_nombre);
-        final EditText et_apellidos = (EditText) getActivity().findViewById(R.id.et_apellidos);
-        final EditText et_telefono = (EditText) getActivity().findViewById(R.id.et_telefono);
-        final TextView tv_cambiarPass = (TextView) getActivity().findViewById(R.id.tv_cambiarPass);
-        final Button btn_Guardar = (Button) getActivity().findViewById(R.id.btn_Guardar);
+        et_mail = (EditText) getActivity().findViewById(R.id.et_mail);
+        et_nombre = (EditText) getActivity().findViewById(R.id.et_nombre);
+        et_apellidos = (EditText) getActivity().findViewById(R.id.et_apellidos);
+        et_telefono = (EditText) getActivity().findViewById(R.id.et_telefono);
+        tv_cambiarPass = (TextView) getActivity().findViewById(R.id.tv_cambiarPass);
+        btn_Guardar = (Button) getActivity().findViewById(R.id.btn_Guardar);
+        pb_cargando = (ProgressBar) getActivity().findViewById(R.id.pb_cargando);
         /**
          * Funciones de los botones
          */
         btn_Guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean temp;
-                temp = cambiarDatos(et_mail.getText(), et_nombre.getText(), et_apellidos.getText(), et_telefono.getText());
-                if (temp) {
-                    Toast.makeText(getActivity(), "Datos Actualizados Correctamente", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getActivity(), "Error al Actualizar los Datos", Toast.LENGTH_LONG).show();
-                }
+                ArrayList<String> datos = new ArrayList<String>();
+                datos.add("Guardar");
+                datos.add(String.valueOf(et_mail.getText()));
+                datos.add(String.valueOf(et_nombre.getText()));
+                datos.add(String.valueOf(et_apellidos.getText()));
+                datos.add(String.valueOf(et_telefono.getText()));
+                InformacionUser datosUser = new InformacionUser();
+                datosUser.execute(datos);
             }
         });
         tv_cambiarPass.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +96,21 @@ public class FragmentMiCuenta extends Fragment {
         /**
          * Cargar los datos desde la base de datos
          */
+        ArrayList<String> datos = new ArrayList<String>();
+        datos.add("Cargar");
+        InformacionUser datosUser = new InformacionUser();
+        datosUser.execute(datos);
+
+    }
+
+    /**
+     * Cargar los datos del usuario
+     */
+    public JSONObject irABuscarDatos() {
+        JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
+        ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
+        JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
+        ZDatosTemporales temporales = (ZDatosTemporales) getActivity().getApplicationContext(); //Para los datos temporales
         try {
             cadena.put("tarea", "Cargar Usuario");//Le asignamos los datos que necesitemos
             cadena.put("datos", temporales.getMailUser());//Le asignamos los datos que necesitemos
@@ -99,30 +126,19 @@ public class FragmentMiCuenta extends Fragment {
          */
         // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
         respuestaJSON = conectBD.consultaSQLJSON(cadena);
-        Log.e("DATOS RECIBIDOS:", respuestaJSON.toString());
-        try {
-            //Cargamos los datos en los campos de texto
-            et_mail.setText(respuestaJSON.getString("mail"));
-            et_nombre.setText(respuestaJSON.getString("nombre"));
-            et_apellidos.setText(respuestaJSON.getString("apellidos"));
-            et_telefono.setText(respuestaJSON.getString("tel"));
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        return respuestaJSON;
     }
 
     /**
      * Funciones
-     *
-     * @param mail
+     *  @param mail
      * @param nombre
      * @param apellidos
      * @param telefono
      */
 
-    public Boolean cambiarDatos(Editable mail, Editable nombre, Editable apellidos, Editable telefono) {
+    public Boolean cambiarDatos(String mail, String nombre, String apellidos, String telefono) {
         //Log.e("Datos:", String.valueOf(mail));
         //Declaramos Variables
         JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
@@ -159,5 +175,100 @@ public class FragmentMiCuenta extends Fragment {
             e.printStackTrace();
         }
         return devovlerRespuesta;
+    }
+
+    /**
+     * Funcion para mostrat Toast
+     */
+    public void miToast(String mensaje) {
+        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
+    }
+
+
+    /**
+     * Asintask para guardar informacion del usuario o cargarla
+     */
+    private class InformacionUser extends AsyncTask<ArrayList<String>, Integer, ArrayList<String>> {
+
+        @Override
+        protected ArrayList<String> doInBackground(ArrayList... params) {
+            //Lo siguiente hay que eliminarlo ya que lo uso para probar el cargador
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //Aqui llamamos a la funcion, como el array viene en params[0] tenemos que sacar
+            //los diferentes campos del array con .get(x)
+            //esta funcion devuelve otro un ArrayList
+            Boolean resultado;//Para hacer una comprobacion
+            JSONObject datosUser;
+            ArrayList<String> respuesta = new ArrayList<String>();//para mandar al ultimo paso
+            //If para las funciones
+            if (String.valueOf(params[0].get(0)).equals("Guardar")) {
+                respuesta.add("Guardar");
+                resultado = cambiarDatos(String.valueOf(params[0].get(1)), String.valueOf(params[0].get(2)), String.valueOf(params[0].get(3)), String.valueOf(params[0].get(4)));
+                if (resultado) {
+                    respuesta.add("Datos Actualizados Correctamente");
+                } else {
+                    respuesta.add("Error al Actualizar los Datos");
+                }
+
+            } else if (String.valueOf(params[0].get(0)).equals("Cargar")) {
+                respuesta.add("Cargar");
+                datosUser = irABuscarDatos();
+                try {
+                    //Cargamos los datos en los campos de texto
+                    respuesta.add(datosUser.getString("mail"));
+                    respuesta.add(datosUser.getString("nombre"));
+                    respuesta.add(datosUser.getString("apellidos"));
+                    respuesta.add(datosUser.getString("tel"));
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return respuesta;
+        }
+
+        ;
+
+        /**
+         * Se ejecuta antes de empezar la conexion con la base de datos
+         */
+        protected void onPreExecute() {
+            btn_Guardar.setVisibility(View.GONE);
+            tv_cambiarPass.setVisibility(View.GONE);
+            pb_cargando.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         * Se ejecuta después de terminar "doInBackground".
+         * <p/>
+         * Se ejecuta en el hilo: PRINCIPAL
+         * <p/>
+         * //@param String con los valores pasados por el return de "doInBackground".
+         */
+
+        @Override
+        protected void onPostExecute(ArrayList<String> respuesta) {
+            if (respuesta.get(0).equals("Guardar")) {
+                miToast(respuesta.get(1));
+                btn_Guardar.setVisibility(View.VISIBLE);
+                tv_cambiarPass.setVisibility(View.VISIBLE);
+                pb_cargando.setVisibility(View.GONE);
+            } else if (respuesta.get(0).equals("Cargar")) {
+                et_mail.setText(respuesta.get(1));
+                et_nombre.setText(respuesta.get(2));
+                et_apellidos.setText(respuesta.get(3));
+                et_telefono.setText(respuesta.get(4));
+                btn_Guardar.setVisibility(View.VISIBLE);
+                tv_cambiarPass.setVisibility(View.VISIBLE);
+                pb_cargando.setVisibility(View.GONE);
+            }
+        }
+
     }
 }

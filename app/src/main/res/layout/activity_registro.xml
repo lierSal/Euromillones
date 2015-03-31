@@ -104,6 +104,13 @@
                 android:id="@+id/tv_respuesta"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar"
+                android:layout_gravity="center_horizontal" />
+
         </LinearLayout>
 
     </ScrollView>
@@ -114,6 +121,13 @@
         android:orientation="horizontal"
         android:gravity="center">
 
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/pb_cargando" />
+
         <Button
             android:drawableLeft="@drawable/ic_registrar_user_negro"
             android:layout_weight="5"
@@ -122,6 +136,7 @@
             android:layout_height="wrap_content"
             android:text="@string/bt_Crear_Cuenta"
             android:id="@+id/btn_registro" />
+
     </LinearLayout>
 
 

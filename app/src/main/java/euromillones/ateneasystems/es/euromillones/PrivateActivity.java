@@ -368,6 +368,11 @@ public class PrivateActivity extends ActionBarActivity {
         }
 
         switch (item.getItemId()) {
+            case R.id.action_nfc:
+                //Cargamos el Activity de NFC
+                final Intent actividadNFC = new Intent(this, NFCActivity.class);
+                startActivity(actividadNFC);
+                break;
             case R.id.action_cerrar_session:
                 //Eliminamos las varialbes de configuracion
                 borrarPreferencias();

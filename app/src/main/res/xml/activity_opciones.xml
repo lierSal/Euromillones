@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ateneasystems="http://ateneasystems.es">
     <PreferenceCategory android:title="@string/tv_opciones_title_Resultados">
         <EditTextPreference
             android:key="cantidadUltimosResultados"
@@ -7,6 +8,17 @@
             android:defaultValue="5"
             android:summary="@string/tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar"
             android:dialogTitle="Introduce valor" />
+
+        <euromillones.ateneasystems.es.euromillones.SeekBarPersonalizado.SeekBarOpciones
+            android:key="cantidadAleatorios"
+            android:title="@string/tv_opciones_titleItem_Aleatorio"
+            android:summary="@string/tv_opciones_descripcionItem_Aleatorio"
+            android:defaultValue="50"
+            android:max="100"
+            ateneasystems:min="0"
+            ateneasystems:unitsLeft="dafdsfa"
+            ateneasystems:unitsRight="%" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/tv_opciones_title_Notificaciones">
         <CheckBoxPreference

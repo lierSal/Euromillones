@@ -88,21 +88,24 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right">
 
-        <Button
-            android:drawableLeft="@drawable/ic_save_negro"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:text="@string/bt_guardar"
-            android:id="@+id/btn_guardar" />
-    </LinearLayout>
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:visibility="gone"
+        android:layout_weight="0"
+        android:id="@+id/pb_cargando" />
+
+    <Button
+        android:drawableLeft="@drawable/ic_save_negro"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="@string/bt_guardar"
+        android:id="@+id/btn_guardar" />
 
 
 </LinearLayout>

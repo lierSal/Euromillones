@@ -2,6 +2,7 @@ package euromillones.ateneasystems.es.euromillones.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,23 +30,54 @@ import euromillones.ateneasystems.es.euromillones.R;
  * Created by cubel on 11/02/15.
  */
 public class FragmentUltimosResultados extends Fragment {
+    private ArrayList<ZSorteosDatos> listaSorteos = new ArrayList<ZSorteosDatos>();
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-/**
- * Declaracion de Variables  y Objetos para el array de sorteos
- */
-
-        ArrayList<ZSorteosDatos> listaSorteos = new ArrayList<ZSorteosDatos>();
-
-
         /**
          * Declaracion de Variables normales
          */
         SharedPreferences config = this.getActivity().getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);//para traer la configuracion
+        /**
+         * Funciones de arranque
+         */
+        CargandoElementosSegundoPlano cargarTarjetas = new CargandoElementosSegundoPlano();
+        cargarTarjetas.execute(config.getString("cantidadUltimosResultados", "10"));
+        //Mostramos las tarjetas
+        cargarTarjetas();//Por algun motivo si elimino esta funcion (que tambien la llamo en el asyctask, da error.
+    }
+
+    /**
+     * Funcion para cargar los datos en el array y mostrarlos en pantalla.
+     */
+
+    public void cargarTarjetas() {
+        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
+        /*FloatingActionButton botonFloat = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        botonFloat.attachToListView(recyclerView);*/
+
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setAdapter(new ZSorteosAdapter(listaSorteos, R.layout.cardview_item_sorteos));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //Por si quieren configurar algom como Grilla solo cambian la linea de arriba por esta:
+        //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    }
+
+    /**
+     * Funcion para cargar los datos de la web en el array
+     */
+    public void contenido(String cantidad) {
+
         ZDatosTemporales configTerminal = new ZDatosTemporales();
         JSONArray respuestaJSON = new JSONArray(); //Donde ira la respuesta
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
@@ -55,7 +87,7 @@ public class FragmentUltimosResultados extends Fragment {
          */
         try {
             cadena.put("tarea", "Ultimos Sorteos");//Le asignamos los datos que necesitemos
-            cadena.put("datos", config.getString("cantidadUltimosResultados", "10"));//Le asignamos los datos que necesitemos
+            cadena.put("datos", cantidad);//Le asignamos los datos que necesitemos
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -90,46 +122,6 @@ public class FragmentUltimosResultados extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        //ReclyclerView, Adapter
-
-        //final ArrayList<Course> courses;
-        //ReadLocalJSON readLocalJSON = new ReadLocalJSON();
-        //courses = readLocalJSON.getCourses(getActivity(),respuestaJSON);
-        //courses = readLocalJSON
-
-        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new ZSorteosAdapter(listaSorteos, R.layout.cardview_item_sorteos));
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //Por si quieren configurar algom como Grilla solo cambian la linea de arriba por esta:
-        //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
-        //Float Button
-/*
-        final int size = getResources().getDimensionPixelSize(R.dimen.fab_size);
-        final ImageButton imageButton = (ImageButton) getActivity().findViewById(R.id.fab_1);
-
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Mejorando.la: Aprende a crear el futuro de la Web",
-                        Toast.LENGTH_LONG).show();
-
-
-            }
-        });*/
-
-
     }
 
     @Override
@@ -138,5 +130,36 @@ public class FragmentUltimosResultados extends Fragment {
         return rootView;
     }
 
+    /**
+     * Asintask
+     * Para cargar el contenido del servidor mientras se carga la interfaz en primer plano
+     */
+    private class CargandoElementosSegundoPlano extends AsyncTask<String, Integer, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            ArrayList<String> respuesta = new ArrayList<String>();
+            contenido(params[0]);
+            return true;
+        }
+
+        ;
+
+
+        /**
+         * Se ejecuta después de terminar "doInBackground".
+         * <p/>
+         * Se ejecuta en el hilo: PRINCIPAL
+         * <p/>
+         * //@param String con los valores pasados por el return de "doInBackground".
+         */
+        @Override
+        protected void onPostExecute(Boolean confirmacion) {
+            if (confirmacion) {
+                cargarTarjetas();
+            }
+
+        }
+
+    }
 
 }
