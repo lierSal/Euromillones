@@ -2,6 +2,12 @@
     xmlns:ateneaSystems="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_nfc"
+        android:orderInCategory="100"
+        ateneaSystems:showAsAction="ifRoom"
+        android:icon="@drawable/ic_nfctexto"
+        android:title="@string/text_action_nfc" />
+    <item
         android:id="@+id/action_cerrar_session"
         android:orderInCategory="100"
         ateneaSystems:showAsAction="ifRoom"
