@@ -43,7 +43,7 @@ public class ZSorteosAdapter extends RecyclerView.Adapter<ZSorteosAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "OnItemClick :D" + this.tv_fechaSorteo.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "Sorteo Día: " + this.tv_fechaSorteo.getText(), Toast.LENGTH_SHORT).show();
         }
 
     }

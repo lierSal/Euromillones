@@ -1,6 +1,7 @@
 package euromillones.ateneasystems.es.euromillones;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -8,17 +9,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Clases.ZMD5;
 
 
 public class Registro extends ActionBarActivity {
+    /**
+     * Variables que se ponen aqui para poder acceder desde el AsycTask
+     */
+    ProgressBar pb_cargando;
+    Button btn_registro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +48,12 @@ public class Registro extends ActionBarActivity {
         final EditText et_pass = (EditText) findViewById(R.id.et_pass);
         final EditText et_nombre = (EditText) findViewById(R.id.et_nombre);
         final TextView tv_respuesta = (TextView) findViewById(R.id.tv_respuesta);
-        Button btn_registro = (Button) findViewById(R.id.btn_registro);
+        btn_registro = (Button) findViewById(R.id.btn_registro);
+        pb_cargando = (ProgressBar) findViewById(R.id.pb_cargando);
         /**
          * Declaracion de variables
          */
-        final Intent actividadPostRegistro = new Intent(this, PostRegistroActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+
         /**
          * Funcion de los botones
          */
@@ -51,32 +61,45 @@ public class Registro extends ActionBarActivity {
         btn_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean registroCompletado = true;
-                registroCompletado = registroUsuario(String.valueOf(et_user.getText()), String.valueOf(et_pass.getText()), String.valueOf(et_nombre.getText()));
-                if (registroCompletado) {
-                    //cerrar este activity y mostrar uno de que ya estas registrado
-                    Log.e("Registro:", "COMPLETADO");
-                    startActivity(actividadPostRegistro);
-                    finish();
-                } else {
-                    //mostrar error
-                    Log.e("Registro:", "ERROR");
-                }
+                ArrayList<String> datos = new ArrayList<String>();
+                datos.add(String.valueOf(et_user.getText()));
+                datos.add(String.valueOf(et_pass.getText()));
+                datos.add(String.valueOf(et_nombre.getText()));
+                RegistroSegundoPlano registrarUsuario = new RegistroSegundoPlano();
+                registrarUsuario.execute(datos);
             }
         });
         //Fin Boton Registro
     }
 
     /**
+     * Funcion para mostrar mensajes toast
+     */
+    public void miToast(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Funcion para cargar el post registro
+     */
+    public void irPostRegistro() {
+        //cerrar este activity y mostrar uno de que ya estas registrado
+        final Intent actividadPostRegistro = new Intent(this, PostRegistroActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        //Log.e("Registro:", "COMPLETADO");
+        startActivity(actividadPostRegistro);
+        finish();
+    }
+
+    /**
      * Funcion para hacer registro
      */
-    public Boolean registroUsuario(String mail, String pass, String nombre) {
+    public ArrayList registroUsuario(String mail, String pass, String nombre) {
         //Declaramos Variables
         JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
         JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
         String respuesta = new String(); //Respuesta para saber si es OK o Error
-        Boolean devovlerRespuesta = new Boolean(false); //Esto es lo que devolvera si es true o false
+        ArrayList<String> returnRespuesta = new ArrayList<String>(); //Esto devolvera si es correcto o no
         String cadenaJSONDatos = new String();//Esto es para pasarle varias variables en un texto plano
         String passGenerado = new String();//Aqui ira el pass completo
         ZMD5 md5 = new ZMD5(); //creamos la variable md5 que se usara para hacer lo necesario para el PASS
@@ -111,18 +134,64 @@ public class Registro extends ActionBarActivity {
             respuesta = respuestaJSON.getString("Respuesta");
             if (respuesta.equals("OK")) {
                 Log.e("Entra en Devolver:", "True");
-                devovlerRespuesta = true;
+                returnRespuesta.add("true");
 
             } else {
-                Toast.makeText(this, respuesta, Toast.LENGTH_LONG).show();
-                devovlerRespuesta = false;
+                returnRespuesta.add("false");
+                returnRespuesta.add(respuesta);
+                /*Toast.makeText(this, respuesta, Toast.LENGTH_LONG).show();
+                devovlerRespuesta = false;*/
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return devovlerRespuesta;
+        return returnRespuesta;
     }
 
     ;
+
+    /**
+     * Prueba Asintask
+     */
+    private class RegistroSegundoPlano extends AsyncTask<ArrayList<String>, Integer, ArrayList<String>> {
+
+        @Override
+        protected ArrayList<String> doInBackground(ArrayList... params) {
+            //Aqui llamamos a la funcion, como el array viene en params[0] tenemos que sacar
+            //los diferentes campos del array con .get(x)
+            //esta funcion devuelve otro array
+            return registroUsuario(String.valueOf(params[0].get(0)), String.valueOf(params[0].get(1)), String.valueOf(params[0].get(2)));
+        }
+
+        ;
+
+        /**
+         * Se ejecuta antes de empezar la conexion con la base de datos
+         */
+        protected void onPreExecute() {
+            btn_registro.setVisibility(View.GONE);
+            pb_cargando.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         * Se ejecuta después de terminar "doInBackground".
+         * <p/>
+         * Se ejecuta en el hilo: PRINCIPAL
+         * <p/>
+         * //@param String con los valores pasados por el return de "doInBackground".
+         */
+
+        @Override
+        protected void onPostExecute(ArrayList<String> respuesta) {
+            if (respuesta.get(0).equals("true")) {
+                irPostRegistro();
+            } else if (respuesta.get(0).equals("false")) {
+                btn_registro.setVisibility(View.VISIBLE);
+                pb_cargando.setVisibility(View.GONE);
+                miToast(respuesta.get(1));
+            }
+        }
+
+    }
 
 }

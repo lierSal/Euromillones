@@ -1,5 +1,7 @@
 package euromillones.ateneasystems.es.euromillones.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,6 +30,7 @@ public class FragmentPredicciones extends Fragment {
     private TextView tv_nmasRepetido;
     private TextView tv_nmasRepetidoMes;
     private TextView tv_nSemiAleatorio;
+    private SharedPreferences config;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,19 +41,17 @@ public class FragmentPredicciones extends Fragment {
         /**
          * Declaración de componentes en Fragment
          */
-        /*final TextView tv_nmasRepetido = (TextView) rootView.findViewById(R.id.tv_nmasRepetido);
-        final TextView tv_nmasRepetidoMes = (TextView) rootView.findViewById(R.id.tv_nmasRepetidoMes);
-        final TextView tv_nSemiAleatorio = (TextView) rootView.findViewById(R.id.tv_nSemiAleatorio);*/
         tv_nmasRepetido = (TextView) rootView.findViewById(R.id.tv_nmasRepetido);
         tv_nmasRepetidoMes = (TextView) rootView.findViewById(R.id.tv_nmasRepetidoMes);
         tv_nSemiAleatorio = (TextView) rootView.findViewById(R.id.tv_nSemiAleatorio);
         Button btn_BuscarOtroNumero = (Button) rootView.findViewById(R.id.btn_BuscarOtroNumero);
         /**
+         * Declaracion de Variables
+         */
+        config = getActivity().getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);//Para cargar configuraciones
+        /**
          * Funciones de arranque
          */
-        //tv_nmasRepetido.setText(cargarMasRepetidos());
-        //tv_nmasRepetidoMes.setText(cargarMasRepetidosMes());
-        //1tv_nSemiAleatorio.setText(cargarSemiAleatorios());
         CargandoElementosSegundoPlano tarea = new CargandoElementosSegundoPlano();
         tarea.execute("Todo");
         /*tarea.execute("Repetido Mes");
@@ -140,13 +141,14 @@ public class FragmentPredicciones extends Fragment {
 
     public String cargarSemiAleatorios() {
         //Declaramos Variables
+
         JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
         JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
         String respuesta = new String(); //Donde ira el numero de respuesta
         try {
             cadena.put("tarea", "Numeros Semi");//Le asignamos los datos que necesitemos
-            cadena.put("datos", "");//Le asignamos los datos que necesitemos
+            cadena.put("datos", config.getInt("cantidadAleatorios", 50)).toString();//Le asignamos los datos que necesitemos
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -169,37 +171,10 @@ public class FragmentPredicciones extends Fragment {
 
 
     /**
-     * Prueba Asintask
+     * Asintask
+     * Para cargar el contenido del servidor mientras se carga la interfaz en primer plano
      */
     private class CargandoElementosSegundoPlano extends AsyncTask<String, Integer, ArrayList<String>> {
-        //class MiTarea extends AsyncTask<Parametros, Progreso, Resultado>
-        /*@Override
-        protected String doInBackground(String... params) {
-            String msg = "";
-
-            try {
-                if (gcm == null) {
-                    gcm = GoogleCloudMessaging.getInstance(context);
-                }
-
-                //Nos registramos en los servidores de GCM
-                regid = gcm.register(SENDER_ID);
-
-                Log.d(TAG, "Registrado en GCM: registration_id=" + regid);
-
-                //Nos registramos en nuestro servidor
-                boolean registrado = registroServidor(mailUserGCM, params[0], regid);
-
-                //Guardamos los datos del registro
-                if (registrado) {
-                    setRegistrationId(context, params[0], regid);
-                }
-            } catch (IOException ex) {
-                Log.d(TAG, "Error registro en GCM:" + ex.getMessage());
-            }
-
-            return msg;
-        }*/
         @Override
         protected ArrayList<String> doInBackground(String... params) {
             ArrayList<String> respuesta = new ArrayList<String>();

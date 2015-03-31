@@ -36,6 +36,7 @@ public class ZGCMIntentService extends IntentService {
 
         if (!extras.isEmpty()) {
             if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+                //mostrarNotification(extras.getString("message"));
                 mostrarNotification(extras.getString("message"));
             }
         }
@@ -86,6 +87,7 @@ public class ZGCMIntentService extends IntentService {
 
 
                 Intent notIntent = new Intent(this, Login_Activity.class);
+                notIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
                 PendingIntent contIntent = PendingIntent.getActivity(
                         this, 0, notIntent, 0);
 

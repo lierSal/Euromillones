@@ -111,15 +111,21 @@
     <string name="tv_opciones_titleItem_Notificación_Sonora">Notificación Sonora</string>
     <string name="tv_opciones_titleItem_Vibración">Vibración</string>
     <string name="tv_opciones_titleItem_Led">Led</string>
+    <string name="tv_opciones_titleItem_Aleatorio">Porcentaje Aleatorio</string>
     <!-- Descripcion Items Opciones -->
     <string name="tv_opciones_descripcionItem_Cantidad_Sorteos_Mostrar">Cantidad de sorteos a mostrar</string>
     <string name="tv_opciones_descripcionItem_Notificar_Sorteo_Nuevo">Recibir una notificación cuando se añada un nuevo sorteo</string>
     <string name="tv_opciones_descripcionItem_Notificar_Sonido">Sonará cuando llegue una notificación</string>
     <string name="tv_opciones_descripcionItem_Notificar_Vibracion">Vibrará cuando llegue una notificación</string>
     <string name="tv_opciones_descripcionItem_Notificar_Led">Utilizar el Led del Dispositivo</string>
+    <string name="tv_opciones_descripcionItem_Aleatorio">Respecto a los números más repetidos</string>
     <string name="bl_Ultimos_Resultados">Ult. Resultados</string>
     <string name="tv_User">Mail</string>
     <string name="tv_Mail_nota">Ahora recibirás un mensaje del servidor</string>
     <string name="tv_opciones_titleItem_Ultimos_Resultados">Últimos Resultados</string>
+    <string name="text_action_nfc">NFC</string>
+    <string name="tv_descripcion_nfc">Si tu dispositivo es compatible con NFC puedes acercar una pegatina, llavero, pulsera, etc... para guardar tus datos de acceso y poder entrar con solo acercarlo al dispositivo sin tener que escribir ninguna contraseña.</string>
+    <string name="title_activity_nfc">Tag NFC</string>
+
 
 </resources>

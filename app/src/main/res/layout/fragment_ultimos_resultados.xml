@@ -1,20 +1,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/Azul_VLCTeam_Clarito"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin_tarjetas"
+    android:paddingLeft="@dimen/activity_horizontal_margin_tarjetas"
+    android:paddingRight="@dimen/activity_horizontal_margin_tarjetas"
+    android:paddingTop="@dimen/activity_vertical_margin_tarjetas"
     tools:context=".FragmentUltimosResultados">
 
     <android.support.v7.widget.RecyclerView
         android:scrollbars="vertical"
         android:id="@+id/my_recycler_view"
+        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal" />
 
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_settings_blanco"
+        app:fab_colorNormal="@color/Azul_VLCTeam"
+        app:fab_colorPressed="@color/Azul_VLCTeam_Oscuro"
+        app:fab_colorRipple="@color/Azul_VLCTeam_Clarito" />
 </LinearLayout>
