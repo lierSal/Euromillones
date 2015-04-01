@@ -194,7 +194,7 @@ public class FragmentMiCuenta extends Fragment {
         protected ArrayList<String> doInBackground(ArrayList... params) {
             //Lo siguiente hay que eliminarlo ya que lo uso para probar el cargador
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
