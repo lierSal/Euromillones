@@ -157,9 +157,20 @@ public class Login_Activity extends ActionBarActivity {
             //Toast.makeText(this, "Dispositivo sin NFC", Toast.LENGTH_LONG).show();
         } else {
             if (mNfcAdapter.isEnabled()) {
-                Toast.makeText(this, "Puedes  hacer Login con el TAG NFC", Toast.LENGTH_LONG).show();
+                if (config.getBoolean("checkRecordarLogin", false)) {
+                    //Nada
+                } else {
+                    //No es autologin por lo tanto
+                    Toast.makeText(this, "Puedes  hacer Login con el TAG NFC", Toast.LENGTH_LONG).show();
+                }
             } else {
-                Toast.makeText(this, "Activa el NFC en Opciones del Dispositivo", Toast.LENGTH_LONG).show();
+                if (config.getBoolean("checkRecordarLogin", false)) {
+                    //Nada
+                } else {
+                    //No es autologin por lo tanto
+                    Toast.makeText(this, "Activa el NFC en Opciones del Dispositivo", Toast.LENGTH_LONG).show();
+                }
+
             }
         }
         //Fin

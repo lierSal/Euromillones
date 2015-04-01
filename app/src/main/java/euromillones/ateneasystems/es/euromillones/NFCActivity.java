@@ -174,19 +174,42 @@ public class NFCActivity extends ActionBarActivity {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void write(String mailUser, String passUser, Tag tag) throws IOException, FormatException {
-        String idTag = bytesToHexString(tag.getId());
+        //Variables
+        String idTag = bytesToHexString(tag.getId());//ID del tag
+        // Creamos una instancia NDEF con nuestro Tag
+        Ndef ndef = Ndef.get(tag);
+        //Creamos una variable NDEF Mensaje para meterlo tendro del Tat
+        NdefMessage message;
 
-
-        //Metemos los datos en el mensaje
+        //Creamos el mensaje principal
         NdefRecord[] records = {
-                //NdefRecord.createApplicationRecord("euromillones.ateneasystems.es.euromillones"),
-                //NdefRecord.createApplicationRecord("android.stickynotes"),
-                //NdefRecord.createApplicationRecord("cliu.TutorialOnNFC"),
-                //createRecord("Euromillones"),
                 createRecord(mailUser),
                 createRecord(passUser),
-                //createRecord(idTag),
-                NdefRecord.createApplicationRecord("euromillones.ateneasystems.es")};
+                createRecord(idTag),
+                NdefRecord.createApplicationRecord(getPackageName())};
+        //Metemos el contenido dentro del Mensaje NDEF
+        message = new NdefMessage(records);
+        //comprobamos si el mensaje cabe en el tag, si no, eliminamos parte del mensaje
+        if (ndef.getMaxSize()<=message.getByteArrayLength()){
+            //Creamos el mensaje recortado
+            NdefRecord[] recordsMini = {
+                    createRecord(mailUser),
+                    createRecord(passUser)};
+            //Metemos el contenido dentro del Mensaje NDEF
+            message = new NdefMessage(recordsMini);
+            //Toast.makeText(this, "Entra en el mini: " + getPackageName(), Toast.LENGTH_LONG).show();
+        }
+        //Conectamos con el tag NFC
+        ndef.connect();
+        //Preparamos los datos de capacidad a mostrar en pantalla
+        String tamTotal = String.valueOf(ndef.getMaxSize());//Muestra los Bytes disponibles
+        String tamDatos = String.valueOf(message.getByteArrayLength());//Muestra los Bytes que ocupa
+        //Ahora grabamos el contenido del mensaje en el Tag.
+        ndef.writeNdefMessage(message);
+        //Cerramos la conexion con el tag NFC
+        ndef.close();
+        //Mostramos los datos de antes en pantalla
+        Toast.makeText(this, "Capcidad Ocupada: " + tamDatos + "/" + tamTotal + "Bytes", Toast.LENGTH_LONG).show();
         //createRecord(passUser)};
         /////
 
@@ -194,19 +217,19 @@ public class NFCActivity extends ActionBarActivity {
         //Toast.makeText(this, "Información Guardada", Toast.LENGTH_LONG ).show();
         /////
         //Guardamos el Resultado
-        NdefMessage message = new NdefMessage(records);
+        //NdefMessage message = new NdefMessage(records);
         // Get an instance of Ndef for the tag.
-        Ndef ndef = Ndef.get(tag);
+        //Ndef ndef = Ndef.get(tag);
         // Enable I/O
-        ndef.connect();
+        //ndef.connect();
         //Datos Tag
-        String tamTotal = String.valueOf(ndef.getMaxSize());//Muestra los Bytes disponibles
-        String tamDatos = String.valueOf(message.getByteArrayLength());//Muestra los Bytes que ocupa
+       // String tamTotal = String.valueOf(ndef.getMaxSize());//Muestra los Bytes disponibles
+        //String tamDatos = String.valueOf(message.getByteArrayLength());//Muestra los Bytes que ocupa
         // Write the message
-        ndef.writeNdefMessage(message);
+        //ndef.writeNdefMessage(message);
         // Close the connection
-        ndef.close();
-        Toast.makeText(this, "Capcidad Ocupada: " + tamDatos + "/" + tamTotal + "Bytes", Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, "Capcidad Ocupada: " + tamDatos + "/" + tamTotal + "Bytes", Toast.LENGTH_LONG).show();
 
 
     }
