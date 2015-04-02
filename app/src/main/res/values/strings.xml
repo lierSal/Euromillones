@@ -128,6 +128,11 @@
     <string name="title_activity_nfc">Tag NFC</string>
     <string name="tv_descripcion_nfc">If your device supports NFC You can bring a sticker, keychain, bracelet... to save your login details and to enter with just closer to the device without typing a password.</string>
     <string name="text_action_nfc">NFC</string>
+    <string name="bt_Solicitar_Nuevo_Pass">Sol. Nueva Contr.</string>
+    <string name="title_activity_restore_pass">RestorePass</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

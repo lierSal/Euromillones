@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/Azul_VLCTeam_Clarito"
+    android:background="@color/Blanco_Puro"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -33,6 +34,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:textColor="@color/Texto_Secundario"
                 android:id="@+id/et_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,6 +45,7 @@
 
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -51,6 +54,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:textColor="@color/Texto_Secundario"
                 android:id="@+id/et_pass_nuevo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,6 +64,7 @@
                 android:password="true" />
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -68,6 +73,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:textColor="@color/Texto_Secundario"
                 android:id="@+id/et_pass_nuevo_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,6 +83,7 @@
                 android:inputType="textPassword" />
 
             <TextView
+                android:textColor="@color/Rosa_VLCTeam"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"

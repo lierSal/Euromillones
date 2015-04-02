@@ -19,6 +19,9 @@
     <color name="Blanco_Puro">#FFFFFF</color>
     <color name="Negro_Puro">#000000</color>
 
+    <color name="Texto_Primario">#212121</color>
+    <color name="Texto_Secundario">#727272</color>
+
 
     <color name="primary_color">#E91E63</color>
     <color name="primary_dark_color">#AD1457</color>
@@ -29,7 +32,8 @@
 
         <item name="colorPrimary">@color/Azul_VLCTeam</item>
         <item name="colorPrimaryDark">@color/Azul_VLCTeam_Oscuro</item>
-        <item name="colorAccent">@color/Rosa_VLCTeam</item>
+        <item name="android:textColorPrimary">@color/Texto_Primario</item>
+        <item name="android:textColorSecondary">@color/Texto_Secundario</item>
 
     </style>
 </resources>

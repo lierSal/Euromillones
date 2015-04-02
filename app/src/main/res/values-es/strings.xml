@@ -126,6 +126,7 @@
     <string name="text_action_nfc">NFC</string>
     <string name="tv_descripcion_nfc">Si tu dispositivo es compatible con NFC puedes acercar una pegatina, llavero, pulsera, etc... para guardar tus datos de acceso y poder entrar con solo acercarlo al dispositivo sin tener que escribir ninguna contraseña.</string>
     <string name="title_activity_nfc">Tag NFC</string>
+    <string name="bt_Solicitar_Nuevo_Pass">Sol. Nueva Contr.</string>
 
 
 </resources>
