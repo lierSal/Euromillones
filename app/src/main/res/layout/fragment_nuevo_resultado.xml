@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/Azul_VLCTeam_Clarito"
+    android:background="@color/Blanco_Puro"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -26,6 +26,7 @@
 
             <TextView
                 android:layout_width="fill_parent"
+                android:textColor="@color/Texto_Primario"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/tv_numeros"
@@ -41,6 +42,7 @@
                 <EditText
                     android:id="@+id/et_n1"
                     android:layout_width="60dp"
+                    android:textColor="@color/Texto_Secundario"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:hint="N1"
@@ -52,12 +54,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
+                    android:textColor="@color/Texto_Secundario"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_n2"
                     android:hint="N2"
+                    android:textColor="@color/Texto_Secundario"
                     android:maxLength="2"
                     android:gravity="center_horizontal"
                     android:layout_width="60dp"
@@ -66,6 +70,7 @@
                     android:inputType="number" />
 
                 <TextView
+                    android:textColor="@color/Texto_Secundario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -73,6 +78,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:textColor="@color/Texto_Secundario"
                     android:id="@+id/et_n3"
                     android:layout_width="60dp"
                     android:hint="N3"
@@ -90,6 +96,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:textColor="@color/Texto_Secundario"
                     android:id="@+id/et_n4"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -100,6 +107,7 @@
                     android:inputType="number" />
 
                 <TextView
+                    android:textColor="@color/Texto_Secundario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -107,6 +115,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:textColor="@color/Texto_Secundario"
                     android:id="@+id/et_n5"
                     android:hint="N5"
                     android:maxLength="2"
@@ -119,6 +128,7 @@
             </LinearLayout>
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -133,6 +143,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:textColor="@color/Texto_Secundario"
                     android:id="@+id/et_e1"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -143,6 +154,7 @@
                     android:inputType="number" />
 
                 <TextView
+                    android:textColor="@color/Texto_Secundario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -150,6 +162,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:textColor="@color/Texto_Secundario"
                     android:id="@+id/et_e2"
                     android:hint="E2"
                     android:maxLength="2"
@@ -163,6 +176,7 @@
 
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -177,6 +191,7 @@
                 android:orientation="horizontal">
 
                 <DatePicker
+                    android:textColor="@color/Texto_Secundario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/dp_fecha" />

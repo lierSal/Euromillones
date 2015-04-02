@@ -16,6 +16,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/Blanco_Puro"
         android:padding="20dp">
 
         <LinearLayout
@@ -41,6 +42,8 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="01-01-2015"
+                    android:textColor="@color/Texto_Primario"
+                    android:textStyle="bold"
                     android:id="@+id/tv_fechaSorteo"
                     android:textSize="12dp" />
 
@@ -49,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="9 - 13 - 15 - 19 - 24 [3 - 8]"
+                    android:textColor="@color/Texto_Secundario"
                     android:id="@+id/tv_numeroSorteo"
                     android:textSize="16dp" />
             </LinearLayout>

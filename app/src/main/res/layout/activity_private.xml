@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/Azul_VLCTeam_Clarito">
+    android:background="@color/Blanco_Puro">
 
     <!-- Contenido Principal -->
     <FrameLayout
@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -26,6 +27,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textColor="@color/Texto_Primario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -36,6 +38,7 @@
 
 
             <TextView
+                android:textColor="@color/Texto_Secundario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -54,6 +57,7 @@
                 android:src="@drawable/img_ateneasystems" />
 
             <TextView
+                android:textColor="@color/Texto_Secundario"
                 android:paddingTop="10dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
