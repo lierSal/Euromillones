@@ -98,6 +98,7 @@
     <string name="bl_Nuevo_Resultado">Añadir Resultado</string>
     <string name="bl_Mi_Cuenta">Mí Cuenta</string>
     <string name="bl_Admin_Usuarios">Admin. Usuarios</string>
+    <string name="bl_Copia_Seguridad">Guardar Base de Datos</string>
 
     <!-- Botones Comunes -->
     <string name="bt_guardar">Guardar</string>
@@ -128,6 +129,8 @@
     <string name="title_activity_nfc">Tag NFC</string>
     <string name="bt_Solicitar_Nuevo_Pass">Sol. Nueva Contr.</string>
     <string name="tv_activity_restore_pass">Introduce tu correo electronico. Recibiras un correo con los pasos a seguir para tener una nueva contraseña.</string>
+    <string name="tv_Copiar_Base_De_Datos">Realiza una copia completa de la Base de Datos</string>
+    <string name="bt_Descargar_Base_De_Datos">Descargar en formato .SQL</string>
 
 
 </resources>
