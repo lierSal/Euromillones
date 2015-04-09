@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -36,15 +37,17 @@ public class ZGCMIntentService extends IntentService {
 
         if (!extras.isEmpty()) {
             if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+                //mostrarNotification(extras.getString("title"));
                 //mostrarNotification(extras.getString("message"));
-                mostrarNotification(extras.getString("message"));
+                //Log.e("Datos", String.valueOf(extras));
+                mostrarNotification(extras.getString("title"), extras.getString("message"));
             }
         }
 
         ZGCMBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    private void mostrarNotification(String msg) {
+    private void mostrarNotification(String titlePush, String msgPush) {
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
@@ -64,11 +67,12 @@ public class ZGCMIntentService extends IntentService {
                                 .setSmallIcon(R.drawable.ic_notificaciones_ateneasystems)
                                 .setLargeIcon((((BitmapDrawable) getResources()
                                         .getDrawable(R.drawable.ic_launcher)).getBitmap()))
-                                .setContentTitle("AteneaSystems")
+                                //.setContentTitle("Euromillones - AteneaSystems")
+                                .setContentTitle(titlePush)
                                         //.setSound(pathSonido)//Sonido
                                 .setPriority(NotificationCompat.PRIORITY_LOW)//Prioridad de la notificacion
                                         //.setVibrate(new long[]{100, 250, 100, 500})//Vibracion, milisegungos: Esperar 100, vibrar 250, esperar 100, vibrar 500
-                                .setContentText(msg);
+                                .setContentText(msgPush);
                 //IF para sonido y vibracion
                 if (config.getBoolean("avisoNuevoResultado_sonido", true)) {
                     mBuilder.setSound(pathSonido);//Sonido
@@ -90,6 +94,7 @@ public class ZGCMIntentService extends IntentService {
                 notIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
                 PendingIntent contIntent = PendingIntent.getActivity(
                         this, 0, notIntent, 0);
+                notIntent.putExtra("Cargar","Ultimos Resultados");
 
                 mBuilder.setContentIntent(contIntent);
                 mBuilder.setAutoCancel(true); //Esto es para eliminar la notificacion al pulsarla

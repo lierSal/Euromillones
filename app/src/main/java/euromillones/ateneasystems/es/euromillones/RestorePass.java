@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,7 @@ public class RestorePass extends ActionBarActivity {
      */
     Button btn_restorePass;
     ProgressBar pb_cargando;
+    TextView tv_respuesta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class RestorePass extends ActionBarActivity {
         final EditText et_mail = (EditText) findViewById(R.id.et_mail);
         btn_restorePass = (Button) findViewById(R.id.btn_restorePass);
         pb_cargando = (ProgressBar) findViewById(R.id.pb_cargando);
+        tv_respuesta = (TextView) findViewById(R.id.tv_respuesta);
+
 
         //Funciones de inicio
         et_mail.setText(getIntent().getStringExtra("mail"));
@@ -119,11 +124,18 @@ public class RestorePass extends ActionBarActivity {
         @Override
         protected void onPostExecute(Boolean respuesta) {
             if (respuesta) {
-                pb_cargando.setVisibility(View.GONE);
-                btn_restorePass.setVisibility(View.VISIBLE);
-
+                //pb_cargando.setVisibility(View.GONE);
+                //btn_restorePass.setVisibility(View.VISIBLE);
+                //Mostramos una notifacion
+                Toast.makeText(getApplication(),"Enviado Correo Electronico",Toast.LENGTH_LONG).show();
+                //Cerramos este activity
+                finish();
             } else {
                // cargarPrivate();atenea
+                pb_cargando.setVisibility(View.GONE);
+                btn_restorePass.setVisibility(View.VISIBLE);
+                //Mostramos mensaje de error
+                tv_respuesta.setText("El Correo Electronico no existe en la Base de Datos");
             }
         }
 

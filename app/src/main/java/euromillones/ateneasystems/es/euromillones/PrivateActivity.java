@@ -46,6 +46,7 @@ import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
 import euromillones.ateneasystems.es.euromillones.Clases.ZMD5;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAbout;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentAdminUsuarios;
+import euromillones.ateneasystems.es.euromillones.Fragments.FragmentBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentMiCuenta;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentNuevoResultado;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentPredicciones;
@@ -92,6 +93,10 @@ public class PrivateActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private);
+        //Funciones de inicio
+        //Toast.makeText(this,getIntent().getStringExtra("Hola"),Toast.LENGTH_LONG);
+        Log.e("RecibidoPUSH:",getIntent().getStringExtra("Cargar"));
+        //et_mail.setText(getIntent().getStringExtra("mail"));
         /**
          * Para versiones de Android superiores a la 2.3.7 necesitamos agregar estas lineas
          * asi funcionara cualquier conexion exterior
@@ -183,7 +188,7 @@ public class PrivateActivity extends ActionBarActivity {
                 opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
                 break;
             case "3":
-                opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
+                opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios),getResources().getString(R.string.bl_Copia_Seguridad) };
                 break;
         }
             /*
@@ -226,6 +231,9 @@ public class PrivateActivity extends ActionBarActivity {
                         break;
                     case 4:
                         fragment = new FragmentAdminUsuarios();
+                        break;
+                    case 5:
+                        fragment = new FragmentBaseDatos();
                         break;
                 }
 
