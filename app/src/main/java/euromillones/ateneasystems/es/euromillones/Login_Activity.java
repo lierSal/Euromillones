@@ -60,6 +60,8 @@ public class Login_Activity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        cargarInitPrivate = getIntent().getStringExtra("Cargar");
+        Log.d("RE:",String.valueOf(getIntent().getStringExtra("Cargar")));
         /**
          * Para versiones de Android superiores a la 2.3.7 necesitamos agregar estas lineas
          * asi funcionara cualquier conexion exterior
@@ -87,7 +89,7 @@ public class Login_Activity extends ActionBarActivity {
         String user = new String();
         final Intent actividadRegistro = new Intent(this, Registro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
         final Intent cargarSolNuevoPass = new Intent(this, RestorePass.class);
-        cargarInitPrivate = getIntent().getStringExtra("Cargar");
+        //cargarInitPrivate = getIntent().getStringExtra("Cargar");
 
         /**
          * Primero cargamos la informacion del archivo de configuracion
@@ -212,10 +214,10 @@ public class Login_Activity extends ActionBarActivity {
         Intent actividadPrivate = new Intent(this, PrivateActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
         actividadPrivate.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
         //Con lo siguiente comprobamos si hay datos a cargar (por una notificacion) de no haber datos lo cargara vacio
-        if (cargarInitPrivate== null){
+        if (cargarInitPrivate == null){
             Log.e("Entra","NULL");
             //Log.e("Entra",cargarInitPrivate);
-            actividadPrivate.putExtra("Cargar", "");//aqui diremos que no queremos cargar nada
+            actividadPrivate.putExtra("Cargar", "SIIII");//aqui diremos que no queremos cargar nada
         } else {
             Log.e("Entra","NO NULL");
             Log.e("Entra",cargarInitPrivate);

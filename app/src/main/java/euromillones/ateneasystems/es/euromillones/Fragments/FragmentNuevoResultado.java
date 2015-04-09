@@ -85,8 +85,6 @@ public class FragmentNuevoResultado extends Fragment {
 
                 final DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        // TODO Auto-generated method stub
-                        //Log.e("fecha", mDatePicker.getDay())
                         et_fecha.setText(String.valueOf(selectedday + "-" + String.valueOf(selectedmonth + 1)) + "-" + String.valueOf(selectedyear));
                     }
                 }, mYear, mMonth, mDay);
