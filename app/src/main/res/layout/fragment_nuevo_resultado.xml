@@ -184,31 +184,38 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:hint="@string/tv_fecha"
+                android:textColor="@color/Texto_Secundario"
+                android:layout_height="wrap_content"
+                android:inputType="date"
                 android:gravity="center_horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal">
+                android:layout_width="150dp"
+                android:ems="10"
+                android:id="@+id/et_fecha" />
 
-                <DatePicker
-                    android:textColor="@color/Texto_Secundario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dp_fecha" />
-
-            </LinearLayout>
-
+        </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right">
 
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:visibility="gone"
+        android:layout_weight="0"
+        android:id="@+id/pb_cargando" />
         <Button
             android:drawableLeft="@drawable/ic_save_negro"
             style="?android:attr/buttonStyleSmall"
@@ -217,7 +224,7 @@
             android:layout_gravity="bottom|right"
             android:text="@string/bt_guardar"
             android:id="@+id/btn_guardar_nuevo_resultado" />
-    </LinearLayout>
+
 
 
 </LinearLayout>
