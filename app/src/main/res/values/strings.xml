@@ -133,6 +133,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="tv_activity_restore_pass">Introduce tu correo electronico. Recibiras un correo con los pasos a seguir para tener una nueva contraseña.</string>
 
 
 </resources>

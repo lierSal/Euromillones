@@ -73,6 +73,7 @@ public class Login_Activity extends ActionBarActivity {
         final EditText et_user = (EditText) findViewById(R.id.et_user);
         final EditText et_pass = (EditText) findViewById(R.id.et_pass);
         final CheckBox cb_recordar = (CheckBox) findViewById(R.id.cb_recordar);
+        Button btn_snPass = (Button) findViewById(R.id.btn_snPass);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_registro = (Button) findViewById(R.id.btn_registro);
         pb_cargando = (ProgressBar) findViewById(R.id.pb_cargando);
@@ -84,7 +85,7 @@ public class Login_Activity extends ActionBarActivity {
         String passCodConfig = new String();
         String user = new String();
         final Intent actividadRegistro = new Intent(this, Registro.class);//Esto lo ponemos aqui porque dentro del boton no funciona
-
+        final Intent cargarSolNuevoPass = new Intent(this, RestorePass.class);
 
         /**
          * Primero cargamos la informacion del archivo de configuracion
@@ -127,6 +128,14 @@ public class Login_Activity extends ActionBarActivity {
         /**
          * Funcion de los botones
          */
+        //Solicitar nuevo Pass
+        btn_snPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cargarSolNuevoPass.putExtra("mail",String.valueOf(et_user.getText()));
+              startActivity(cargarSolNuevoPass);
+            }
+        });
         //BOTON LOGIN
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
