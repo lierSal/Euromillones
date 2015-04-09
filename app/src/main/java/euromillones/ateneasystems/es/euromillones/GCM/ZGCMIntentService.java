@@ -92,9 +92,10 @@ public class ZGCMIntentService extends IntentService {
 
                 Intent notIntent = new Intent(this, Login_Activity.class);
                 notIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
+                notIntent.putExtra("Cargar", "SIIII");
                 PendingIntent contIntent = PendingIntent.getActivity(
                         this, 0, notIntent, 0);
-                notIntent.putExtra("Cargar","Ultimos Resultados");
+
 
                 mBuilder.setContentIntent(contIntent);
                 mBuilder.setAutoCancel(true); //Esto es para eliminar la notificacion al pulsarla
