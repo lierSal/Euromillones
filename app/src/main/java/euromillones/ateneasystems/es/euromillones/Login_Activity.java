@@ -61,7 +61,7 @@ public class Login_Activity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         cargarInitPrivate = getIntent().getStringExtra("Cargar");
-        Log.d("RE:",String.valueOf(getIntent().getStringExtra("Cargar")));
+        Log.d("--> RECIBIDO <--:",String.valueOf(cargarInitPrivate));
         /**
          * Para versiones de Android superiores a la 2.3.7 necesitamos agregar estas lineas
          * asi funcionara cualquier conexion exterior
@@ -217,7 +217,7 @@ public class Login_Activity extends ActionBarActivity {
         if (cargarInitPrivate == null){
             Log.e("Entra","NULL");
             //Log.e("Entra",cargarInitPrivate);
-            actividadPrivate.putExtra("Cargar", "SIIII");//aqui diremos que no queremos cargar nada
+            actividadPrivate.putExtra("Cargar", "VACIO");//aqui diremos que no queremos cargar nada
         } else {
             Log.e("Entra","NO NULL");
             Log.e("Entra",cargarInitPrivate);
@@ -509,7 +509,7 @@ public class Login_Activity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.d("RE ON RESUME:", String.valueOf(getIntent().getStringExtra("Cargar")));
         if (mNfcAdapter != null)
             mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
     }

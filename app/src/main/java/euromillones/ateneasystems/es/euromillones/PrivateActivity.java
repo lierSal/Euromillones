@@ -68,6 +68,7 @@ public class PrivateActivity extends ActionBarActivity {
      * GCM
      * Esto es para que podamos recibir notificaciones Push en la app
      */
+    private String AndroidId;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     public static final String EXTRA_MESSAGE = "message";
@@ -95,7 +96,7 @@ public class PrivateActivity extends ActionBarActivity {
         setContentView(R.layout.activity_private);
         //Funciones de inicio
         //Toast.makeText(this,getIntent().getStringExtra("Hola"),Toast.LENGTH_LONG);
-        Log.e("RecibidoPUSH:",getIntent().getStringExtra("Cargar"));
+        Log.e("--> RecibidoPUSH <--",getIntent().getStringExtra("Cargar"));
         //et_mail.setText(getIntent().getStringExtra("mail"));
         /**
          * Para versiones de Android superiores a la 2.3.7 necesitamos agregar estas lineas
@@ -119,7 +120,7 @@ public class PrivateActivity extends ActionBarActivity {
         ZDatosTemporales datosUsuario = (ZDatosTemporales) getApplicationContext();
         String nivelUser = datosUsuario.getNivelUser();
         String mailUser = datosUsuario.getMailUser();
-        final String AndroidId = Settings.Secure.getString(getContentResolver(),
+        AndroidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);//Muestra el ID del Dispositivo
         //Log.e("MOVIL",android.os.Build.MODEL);
         //Log.e("Device",android.os.Build.DEVICE+ " - "+ android.os.Build.PRODUCT + " - "+ android.os.Build.MANUFACTURER);
@@ -296,6 +297,7 @@ public class PrivateActivity extends ActionBarActivity {
         editor.putString("passCod", "");
         editor.putBoolean("checkRecordarLogin", false);
         editor.commit();
+        registroServidorNO(mailUserGCM, AndroidId, regid);
     }
 
     public void registroPush(String mail, String idDispositivo, String idGCM) {
@@ -625,6 +627,66 @@ public class PrivateActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         return res;
+    }
+
+    //Para poner en "NO" el activo de Notificaciones PUSH
+    private void registroServidorNO(String mail, String idDispositivo, String regId) {
+        /**
+         * Esta funcion sirve para "des-registrar" el dispositivo push en nuestra base de datos
+         * en caso de existir no hara nada
+         */
+        //Declaramos Variables
+        Boolean res = false;
+        JSONObject respuestaJSON = new JSONObject(); //Donde ira la respuesta
+        ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
+        JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
+        String respuesta = new String(); //Respuesta para saber si es OK o Error
+        String marcaModelo = new String(); //Para guardar Marca y Modelo
+        String cadenaJSONDatos = new String();//Esto es para pasarle varias variables en un texto plano
+        String passGenerado = new String();//Aqui ira el pass completo
+        ZMD5 md5 = new ZMD5(); //creamos la variable md5 que se usara para hacer lo necesario para el PASS
+        //passGenerado = md5.generarMD5(pass);//Le mandamos la contraseña y el se encarga de generar el salt y md5
+        String tipoPush = "Nuevos Sorteos";
+        Log.e("Mail", mail);
+        //Log.e("Nombre", nombre);
+        //Log.e("Pass", pass);
+        Log.e("PassMD5", passGenerado);
+
+        marcaModelo = android.os.Build.MANUFACTURER + " - " + android.os.Build.MODEL;
+        cadenaJSONDatos = "{\"idUser\":\"" + mail + "\",\"idDispositivo\":\"" + idDispositivo + "\",\"marcaModelo\":\"" + marcaModelo + "\",\"idPush\":\"" + regId + "\",\"tipoPush\":\"" + tipoPush + "\"}";
+        Log.e("JSON", cadenaJSONDatos);
+
+
+        try {
+            cadena.put("tarea", "Registro Push NO");//Le asignamos los datos que necesitemos
+            cadena.put("datos", cadenaJSONDatos);//Le asignamos los datos que necesitemos
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        cadena.toString(); //Para obtener la cadena de texto de tipo JSON
+
+        /**
+         * ENVIAMOS CONSULTA
+         */
+
+        // Enviamos la consulta y metemos lo recibido dentro de la variable respuesta
+        respuestaJSON = conectBD.consultaSQLJSON(cadena);
+        Log.e("DATOS RECIBIDOS:", respuestaJSON.toString());
+        try {
+            //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
+            respuesta = respuestaJSON.getString("Respuesta");
+            if (respuesta.equals("OK")) {
+                //Log.e("Entra en Devolver:", "True");
+                //res = true;
+
+            } else {
+                //Toast.makeText(this, respuesta, Toast.LENGTH_LONG).show();
+                //res = false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
