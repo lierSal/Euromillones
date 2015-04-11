@@ -31,6 +31,14 @@ import euromillones.ateneasystems.es.euromillones.R;
  */
 public class FragmentNuevoResultado extends Fragment {
     /**
+     * Variables para los LOG
+     */
+    private String LOGe = "<-- RECIBIDO -->";
+    /**
+     * Varible para Errores de PHP
+     */
+    private String PHPError = "";
+    /**
      * Componentes
      */
     private ProgressBar pb_cargando;
@@ -129,7 +137,7 @@ public class FragmentNuevoResultado extends Fragment {
         @Override
         protected Boolean doInBackground(ArrayList... params) {
             Boolean resp = false;
-            Log.e("PASO", "1");
+            Log.e(LOGe, "1");
             /**
              * Declaracion de Variables normales
              */
@@ -138,30 +146,31 @@ public class FragmentNuevoResultado extends Fragment {
             JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
             String cadenaJSONDatos = new String();//Donde se genera el JSON a enviar
             String fechaCompleta = new String();//Al mes se le tiene que sumar un 1 porque empieza por 0
+            ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
             /**
              * Funcion para cargar el contenido
              */
-            Log.e("PASO", "2");
+            Log.e(LOGe, "2");
             fechaCompleta = String.valueOf(et_fecha.getText());
             cadenaJSONDatos = "{\"fecha\":\"" + fechaCompleta + "\",\"n1\":\"" + String.valueOf(et_n1.getText()) + "\",\"n2\":\"" + String.valueOf(et_n2.getText()) + "\",\"n3\":\"" + String.valueOf(et_n3.getText()) + "\",\"n4\":\"" + String.valueOf(et_n4.getText()) + "\",\"n5\":\"" + String.valueOf(et_n5.getText()) + "\",\"e1\":\"" + String.valueOf(et_e1.getText()) + "\",\"e2\":\"" + String.valueOf(et_e2.getText()) + "\"}";
             try {
-                Log.e("PASO", "3");
+                Log.e(LOGe, "3");
                 cadena.put("tarea", "Guardar Resultado");//Le asignamos los datos que necesitemos
                 cadena.put("datos", cadenaJSONDatos);//Le asignamos los datos que necesitemos
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e("PASO", "4");
+            Log.e(LOGe, "4");
             cadena.toString(); //Para obtener la cadena de texto de tipo JSON
             // ENVIAMOS CONSULTA
             // Enviamos la consulta y cargamos los datos en los array
-            Log.e("PASO", "5");
-            //// respuestaJSON = conectBD.consultaSQLJSON(cadena);
-            Log.e("PASO", "6");
+            Log.e(LOGe, "5");
+            respuestaJSON = conectBD.consultaSQLJSON(cadena);
+            Log.e(LOGe, "6");
             //Log.e("RESPUESTAJSON", String.valueOf(conectBD.consultaSQLJSON(cadena)));
             try {
-                Log.e("PASO", "7");
+                Log.e(LOGe, "7");
                 //Ahora extraemos del JSON la parte "Respuesta" para saber si es un OK o un Error
                 respuesta = respuestaJSON.getString("Respuesta");
 
@@ -170,6 +179,7 @@ public class FragmentNuevoResultado extends Fragment {
 
 
                 } else {
+                    PHPError = respuesta;
                     resp = false;
 
                 }
@@ -177,7 +187,7 @@ public class FragmentNuevoResultado extends Fragment {
            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e("PASO", "9");
+            Log.e(LOGe, "9");
 
 
 
@@ -210,8 +220,8 @@ public class FragmentNuevoResultado extends Fragment {
             pb_cargando.setVisibility(View.GONE);
             if (respuesta) {
                 Toast.makeText(getActivity(), "Registro Guardado Correctamente!", Toast.LENGTH_LONG).show();
-                Log.e("Respuesta:", "True");
-                Log.e("PASO", "8");
+                Log.e(LOGe, "True");
+                Log.e(LOGe, "8");
                 //Vaciamos los campos
                 et_e1.setText("");
                 et_e2.setText("");
@@ -222,8 +232,8 @@ public class FragmentNuevoResultado extends Fragment {
                 et_n5.setText("");
                 et_fecha.setText("");
             } else{
-                Toast.makeText(getActivity(), "Error al Guardar", Toast.LENGTH_LONG).show();
-                Log.e("Respuesta:", "False");
+                Toast.makeText(getActivity(), PHPError, Toast.LENGTH_LONG).show();
+                Log.e(LOGe, "False");
             }
         }
 
