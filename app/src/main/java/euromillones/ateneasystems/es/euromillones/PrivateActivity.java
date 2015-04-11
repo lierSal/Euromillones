@@ -55,6 +55,11 @@ import euromillones.ateneasystems.es.euromillones.Fragments.FragmentUltimosResul
 //Importamos la libreria de google
 
 public class PrivateActivity extends ActionBarActivity {
+    /**
+     * Variable para la autocarga de un fragment
+     */
+    private String autocarga;
+    //
 
     private String[] opcionesMenu;
     private DrawerLayout drawerLayout;
@@ -94,10 +99,6 @@ public class PrivateActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private);
-        //Funciones de inicio
-        //Toast.makeText(this,getIntent().getStringExtra("Hola"),Toast.LENGTH_LONG);
-        Log.e("--> RecibidoPUSH <--",getIntent().getStringExtra("Cargar"));
-        //et_mail.setText(getIntent().getStringExtra("mail"));
         /**
          * Para versiones de Android superiores a la 2.3.7 necesitamos agregar estas lineas
          * asi funcionara cualquier conexion exterior
@@ -278,6 +279,38 @@ public class PrivateActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        /**
+         * Funciones de INICIO
+         */
+        //Funciones de inicio
+        //Toast.makeText(this,getIntent().getStringExtra("Hola"),Toast.LENGTH_LONG);
+        Log.e("--> RecibidoPUSH <--",getIntent().getStringExtra("Cargar"));
+        //et_mail.setText(getIntent().getStringExtra("mail"));
+        autocarga = getIntent().getStringExtra("Cargar");
+        if(autocarga.equals("Vacio")) {
+            //Nada
+        } else {
+            Log.e("Entra en ", "AUTOCARGA");
+            String titulo = "";
+            Fragment autofragment = null;
+            switch (autocarga){
+                case "Ult. Resultados":
+                    titulo = getResources().getString(R.string.bl_Ultimos_Resultados);
+                    autofragment = new FragmentUltimosResultados();
+                    break;
+            }
+
+            FragmentManager fragmentManager =
+                    getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, autofragment)
+                    .commit();
+            getSupportActionBar().setTitle(titulo);
+
+
+        }
     }
 
     /**

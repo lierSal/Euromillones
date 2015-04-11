@@ -40,14 +40,14 @@ public class ZGCMIntentService extends IntentService {
                 //mostrarNotification(extras.getString("title"));
                 //mostrarNotification(extras.getString("message"));
                 //Log.e("Datos", String.valueOf(extras));
-                mostrarNotification(extras.getString("title"), extras.getString("message"));
+                mostrarNotification(extras.getString("title"), extras.getString("message"), extras.getString("activity"));
             }
         }
 
         ZGCMBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    private void mostrarNotification(String titlePush, String msgPush) {
+    private void mostrarNotification(String titlePush, String msgPush, String activityLoad) {
         /**
          * Primero cargamos la informacion del archivo de configuracion
          */
@@ -92,7 +92,8 @@ public class ZGCMIntentService extends IntentService {
 
                 Intent notIntent = new Intent(this, Login_Activity.class);
                 notIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
-                notIntent.putExtra("Cargar", "Ult. Resultados");
+                notIntent.putExtra("Cargar", activityLoad);
+                notIntent.setAction(activityLoad);//Esto se añade para que funcione el putExtra cuando viene desde una notificacion.
                 PendingIntent contIntent = PendingIntent.getActivity(
                         this, 0, notIntent, 0);
 

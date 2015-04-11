@@ -217,7 +217,7 @@ public class Login_Activity extends ActionBarActivity {
         if (cargarInitPrivate == null){
             Log.e("Entra","NULL");
             //Log.e("Entra",cargarInitPrivate);
-            actividadPrivate.putExtra("Cargar", "VACIO");//aqui diremos que no queremos cargar nada
+            actividadPrivate.putExtra("Cargar", "Vacio");//aqui diremos que no queremos cargar nada
         } else {
             Log.e("Entra","NO NULL");
             Log.e("Entra",cargarInitPrivate);
