@@ -53,8 +53,8 @@ public class ZSorteosAdapter extends RecyclerView.Adapter<ZSorteosAdapter.ViewHo
             /*
             * Compartimos el mensaje
             * */
-            Context ctx = view.getContext();
-            String asunto = "Resultado Euromilones día "+this.tv_fechaSorteo.getText();//Solo para cosas como los mails
+            Context ctx = view.getContext();//Cogemos el context del View del boton para usarlo mas adelante
+            String asunto = "Resultado Euromillones día "+this.tv_fechaSorteo.getText();//Solo para cosas como los mails
             String mensaje = "#Euromillones\nSorteo día "+this.tv_fechaSorteo.getText()+" -> "+this.tv_numeroSorteo.getText()+"\nBájate la APP para Android http://goo.gl/Nj0lHN\n#AteneaSystems";//Mensaje en si
             Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
             txtIntent .setType("text/plain");
