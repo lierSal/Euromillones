@@ -1,5 +1,9 @@
 package euromillones.ateneasystems.es.euromillones.ListViewPersonalizado;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
 
 import euromillones.ateneasystems.es.euromillones.R;
 
@@ -41,9 +46,22 @@ public class ZSorteosAdapter extends RecyclerView.Adapter<ZSorteosAdapter.ViewHo
             tv_numeroSorteo = (TextView) itemView.findViewById(R.id.tv_numeroSorteo);
         }
 
+
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Sorteo Día: " + this.tv_fechaSorteo.getText(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "Sorteo Día: " + this.tv_fechaSorteo.getText(), Toast.LENGTH_SHORT).show();
+            /*
+            * Compartimos el mensaje
+            * */
+            Context ctx = view.getContext();//Cogemos el context del View del boton para usarlo mas adelante
+            String asunto = "Resultado Euromillones día "+this.tv_fechaSorteo.getText();//Solo para cosas como los mails
+            String mensaje = "#Euromillones\nSorteo día "+this.tv_fechaSorteo.getText()+" -> "+this.tv_numeroSorteo.getText()+"\nBájate la APP para Android http://goo.gl/Nj0lHN\n#AteneaSystems";//Mensaje en si
+            Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
+            txtIntent .setType("text/plain");
+            txtIntent .putExtra(android.content.Intent.EXTRA_SUBJECT, asunto);
+            txtIntent .putExtra(android.content.Intent.EXTRA_TEXT, mensaje);
+            //view.getContext().startActivity(Intent.createChooser(txtIntent, "Share"));//ponemos view.getContext() antes del startactivity porque no hay activity aqui
+            ctx.startActivity(Intent.createChooser(txtIntent, ctx.getString(R.string.tv_activity_ultimos_res_compartir)));
         }
 
     }

@@ -132,10 +132,13 @@
     <string name="bt_Solicitar_Nuevo_Pass">Sol. Nueva Contr.</string>
     <string name="title_activity_restore_pass">RestorePass</string>
 
-
+    <!-- Seccion Copia Seguridad -->
     <string name="tv_activity_restore_pass">Introduce tu correo electronico. Recibiras un correo con los pasos a seguir para tener una nueva contraseña.</string>
     <string name="tv_Copiar_Base_De_Datos">Realiza una copia completa de la Base de Datos</string>
     <string name="bt_Descargar_Base_De_Datos">Descargar en formato .SQL</string>
+
+    <!-- Seccion Ult. Resultados -->
+    <string name="tv_activity_ultimos_res_compartir">Share with...</string>
 
 
 </resources>

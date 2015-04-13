@@ -132,6 +132,7 @@
     <string name="tv_Copiar_Base_De_Datos">Realiza una copia completa de la Base de Datos</string>
     <string name="bt_Descargar_Base_De_Datos">Descargar en formato .SQL</string>
     <string name="title_activity_restore_pass">Nuevo Pass</string>
+    <string name="tv_activity_ultimos_res_compartir">Compartir con...</string>
 
 
 </resources>

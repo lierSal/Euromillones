@@ -1,6 +1,7 @@
 package euromillones.ateneasystems.es.euromillones.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -160,6 +161,18 @@ public class FragmentUltimosResultados extends Fragment {
 
         }
 
+    }
+    /**
+     * Compartir resultado
+     */
+    public void compartirResultado (String fecha, String numero){
+        String subject = fecha;
+        String body = numero;
+        Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
+        txtIntent .setType("text/plain");
+        txtIntent .putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        txtIntent .putExtra(android.content.Intent.EXTRA_TEXT, body);
+        startActivity(Intent.createChooser(txtIntent ,"Share"));
     }
 
 }
