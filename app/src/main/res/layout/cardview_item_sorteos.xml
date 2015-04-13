@@ -55,9 +55,20 @@
                     android:textColor="@color/Texto_Secundario"
                     android:id="@+id/tv_numeroSorteo"
                     android:textSize="16dp" />
+
             </LinearLayout>
 
+
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tv_activity_ultimos_res_compartir"
+            android:textColor="@color/Texto_Secundario"
+            android:textSize="12dp" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
