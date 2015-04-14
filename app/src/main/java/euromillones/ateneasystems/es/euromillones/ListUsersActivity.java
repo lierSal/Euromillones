@@ -1,16 +1,15 @@
-package euromillones.ateneasystems.es.euromillones.Fragments;
+package euromillones.ateneasystems.es.euromillones;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,48 +23,61 @@ import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.Clases.ZDatosTemporales;
 import euromillones.ateneasystems.es.euromillones.ListViewPersonalizado.ZSorteosAdapter;
 import euromillones.ateneasystems.es.euromillones.ListViewPersonalizado.ZSorteosDatos;
-import euromillones.ateneasystems.es.euromillones.R;
+import euromillones.ateneasystems.es.euromillones.ListViewPersonalizado.ZUsuariosAdapter;
+import euromillones.ateneasystems.es.euromillones.ListViewPersonalizado.ZUsuariosDatos;
 
 
-/**
- * Created by cubel on 11/02/15.
- */
-public class FragmentUltimosResultados extends Fragment {
-    private ArrayList<ZSorteosDatos> listaSorteos = new ArrayList<ZSorteosDatos>();
-
-
+public class ListUsersActivity extends ActionBarActivity {
+    private ArrayList<ZUsuariosDatos> listaUsuarios = new ArrayList<ZUsuariosDatos>();
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        /**
-         * Declaracion de Variables normales
-         */
-        SharedPreferences config = this.getActivity().getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);//para traer la configuracion
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list_users);
         /**
          * Funciones de arranque
          */
         CargandoElementosSegundoPlano cargarTarjetas = new CargandoElementosSegundoPlano();
-        cargarTarjetas.execute(config.getString("cantidadUltimosResultados", "10"));
+        cargarTarjetas.execute(getIntent().getStringExtra("Nivel"));
         //Mostramos las tarjetas
         cargarTarjetas();//Por algun motivo si elimino esta funcion (que tambien la llamo en el asyctask, da error.
     }
 
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_list_users, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }*/
     /**
      * Funcion para cargar los datos en el array y mostrarlos en pantalla.
      */
 
     public void cargarTarjetas() {
-        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         /*FloatingActionButton botonFloat = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         botonFloat.attachToListView(recyclerView);*/
 
         recyclerView.setHasFixedSize(true);
 
-        recyclerView.setAdapter(new ZSorteosAdapter(listaSorteos, R.layout.cardview_item_sorteos));
+        recyclerView.setAdapter(new ZUsuariosAdapter(listaUsuarios, R.layout.cardview_item_users));
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Por si quieren configurar algom como Grilla solo cambian la linea de arriba por esta:
         //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
@@ -73,13 +85,10 @@ public class FragmentUltimosResultados extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
-
     /**
      * Funcion para cargar los datos de la web en el array
      */
     public void contenido(String cantidad) {
-
-        ZDatosTemporales configTerminal = new ZDatosTemporales();
         JSONArray respuestaJSON = new JSONArray(); //Donde ira la respuesta
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
         JSONObject cadena = new JSONObject(); //Creamos un objeto de tipo JSON
@@ -87,7 +96,7 @@ public class FragmentUltimosResultados extends Fragment {
          * Funcion para cargar el contenido
          */
         try {
-            cadena.put("tarea", "Ultimos Sorteos");//Le asignamos los datos que necesitemos
+            cadena.put("tarea", "Traer Usuarios");//Le asignamos los datos que necesitemos
             cadena.put("datos", cantidad);//Le asignamos los datos que necesitemos
 
         } catch (JSONException e) {
@@ -97,7 +106,7 @@ public class FragmentUltimosResultados extends Fragment {
         // ENVIAMOS CONSULTA
         // Enviamos la consulta y cargamos los datos en los array
         respuestaJSON = conectBD.consultaSQLARRAY(cadena);
-        //Log.e("RESPUESTAJSON", String.valueOf(conectBD.consultaSQLJSON(cadena)));
+        //Log.e("RESPUESTAJSON", String.valueOf(respuestaJSON));
         try {
 
             //Hacemos un for para añadir datos
@@ -106,16 +115,16 @@ public class FragmentUltimosResultados extends Fragment {
                 //Aqui sacaremos los datos del Array en modo (Clave Valor) las Claves son los nombres pasados en la
                 //Cadena JSON
                 // textoFormateado = "";
-                ZSorteosDatos dato = new ZSorteosDatos();
+                ZUsuariosDatos dato = new ZUsuariosDatos();
                 dato.setId(i);
-                dato.setFechaSorteo(jsonObject.getString("fecha"));
-                dato.setNumeroSorteo(jsonObject.getString("numero"));
-                listaSorteos.add(dato);
+                dato.setNombreUser(jsonObject.getString("Nombre"));
+                dato.setEmailUser(jsonObject.getString("Mail"));
+                listaUsuarios.add(dato);
                 /*numeroSorteo[i] = jsonObject.getString("numero");
                 fechaSorteo[i] = jsonObject.getString("fecha");*/
-                Log.e("NUMERO HIJO", String.valueOf(i));
-                Log.e("NUMERO FECHA", jsonObject.getString("numero"));
-                Log.e("NUMERO SORTEO", jsonObject.getString("fecha"));
+                //Log.e("NUMERO HIJO", String.valueOf(i) + " de " + String.valueOf(respuestaJSON.length()));
+                //Log.e("NUMERO NOMBRE", jsonObject.getString("nombre"));
+                //Log.e("NUMERO MAIL", jsonObject.getString("mail"));
 
             }
             ;
@@ -124,13 +133,12 @@ public class FragmentUltimosResultados extends Fragment {
             e.printStackTrace();
         }
     }
-
+    /*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_ultimos_resultados, container, false);
         return rootView;
-    }
-
+    }*/
     /**
      * Asintask
      * Para cargar el contenido del servidor mientras se carga la interfaz en primer plano
@@ -162,5 +170,4 @@ public class FragmentUltimosResultados extends Fragment {
         }
 
     }
-
 }

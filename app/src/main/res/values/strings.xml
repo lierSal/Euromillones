@@ -140,5 +140,18 @@
     <!-- Seccion Ult. Resultados -->
     <string name="tv_activity_ultimos_res_compartir">Share with...</string>
 
+    <!-- Seccion Admin. Usuarios -->
+    <string name="tv_usuarios">Users</string>
+    <string name="tv_colaboradores">Contributors</string>
+    <string name="tv_administradores">Administrators</string>
+    <string name="bt_mostrar">Load All</string>
+    <string name="tv_activity_admin_user_configuracion">Load Configuration...</string>
+    <string name="title_activity_list_users">User Lists </string>
+
+    <string name="title_activity_ficha_user">User Listing</string>
+    <string name="tv_usuario">User</string>
+    <string name="tv_colaborador">Contributor</string>
+    <string name="tv_administrador">Administrator</string>
+
 
 </resources>

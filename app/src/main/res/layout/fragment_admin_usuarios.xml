@@ -11,15 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FragmentAdminUsuarios">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="center_horizontal"
-        android:text="@string/app_name"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -36,79 +27,90 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/tv_ID"
+                android:text="@string/tv_usuarios"
+                android:textColor="@color/Texto_Primario"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_pID"
+                android:id="@+id/tv_nusuarios"
+                android:textColor="@color/Texto_Secundario"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:text="@string/tv_EMPTY"
                 android:textSize="20dp" />
+            <Button
+                android:drawableLeft="@drawable/ic_view_list"
+                android:id="@+id/btn_musuarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/bt_mostrar" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/app_name"
+                android:textColor="@color/Texto_Primario"
+                android:text="@string/tv_colaboradores"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_pnombre"
+                android:id="@+id/tv_ncolaboradores"
                 android:layout_width="fill_parent"
+                android:textColor="@color/Texto_Secundario"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:text="@string/tv_EMPTY"
                 android:textSize="20dp" />
+            <Button
+                android:drawableLeft="@drawable/ic_view_list"
+                android:id="@+id/btn_mcolaboradores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/bt_mostrar" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/Texto_Primario"
                 android:gravity="left"
-                android:text="@string/app_name"
+                android:text="@string/tv_administradores"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+
+
             <TextView
-                android:id="@+id/tv_pmail"
+                android:id="@+id/tv_nadministradores"
                 android:layout_width="fill_parent"
+                android:textColor="@color/Texto_Secundario"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:text="@string/tv_EMPTY"
                 android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="fill_parent"
+            <Button
+                android:drawableLeft="@drawable/ic_view_list"
+                android:id="@+id/btn_madministradores"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="@string/app_name"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_gravity="bottom|right"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/bt_mostrar" />
 
-            <TextView
-                android:id="@+id/tv_pnivel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/tv_EMPTY"
-                android:textSize="20dp" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_MostrarDatos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_weight="0"
-        android:gravity="center"
-        android:text="@string/bt_Mostrar_Datos" />
 
 </LinearLayout>

@@ -133,6 +133,16 @@
     <string name="bt_Descargar_Base_De_Datos">Descargar en formato .SQL</string>
     <string name="title_activity_restore_pass">Nuevo Pass</string>
     <string name="tv_activity_ultimos_res_compartir">Compartir con...</string>
+    <string name="tv_activity_admin_user_configuracion">Cargar Configuración...</string>
+    <string name="bt_mostrar">Mostrar Todos</string>
+    <string name="title_activity_ficha_user">Ficha de Usuario</string>
+    <string name="title_activity_list_users">Lista de Usuarios</string>
+    <string name="tv_administrador">Administrador</string>
+    <string name="tv_administradores">Administradores</string>
+    <string name="tv_colaborador">Colaborador</string>
+    <string name="tv_colaboradores">Colaboradores</string>
+    <string name="tv_usuario">Usuario</string>
+    <string name="tv_usuarios">Usuarios</string>
 
 
 </resources>

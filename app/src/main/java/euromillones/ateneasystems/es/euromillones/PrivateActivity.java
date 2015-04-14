@@ -285,9 +285,12 @@ public class PrivateActivity extends ActionBarActivity {
          */
         //Funciones de inicio
         //Toast.makeText(this,getIntent().getStringExtra("Hola"),Toast.LENGTH_LONG);
-        Log.e("--> RecibidoPUSH <--",getIntent().getStringExtra("Cargar"));
+        //Log.e("--> RecibidoPUSH <--",""+getIntent().getStringExtra("Cargar"));
         //et_mail.setText(getIntent().getStringExtra("mail"));
         autocarga = getIntent().getStringExtra("Cargar");
+        if (autocarga==null){
+            autocarga = "Vacio";
+        }
         if(autocarga.equals("Vacio")) {
             //Nada
         } else {
