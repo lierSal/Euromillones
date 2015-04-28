@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +33,8 @@ import euromillones.ateneasystems.es.euromillones.R;
  */
 public class FragmentUltimosResultados extends Fragment {
     private ArrayList<ZSorteosDatos> listaSorteos = new ArrayList<ZSorteosDatos>();
-
+    SharedPreferences config;
+    RecyclerView recyclerView;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -41,22 +43,29 @@ public class FragmentUltimosResultados extends Fragment {
         /**
          * Declaracion de Variables normales
          */
-        SharedPreferences config = this.getActivity().getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);//para traer la configuracion
+        config = this.getActivity().getSharedPreferences("euromillones.ateneasystems.es.euromillones_preferences", Context.MODE_PRIVATE);//para traer la configuracion
         /**
          * Funciones de arranque
          */
-        CargandoElementosSegundoPlano cargarTarjetas = new CargandoElementosSegundoPlano();
-        cargarTarjetas.execute(config.getString("cantidadUltimosResultados", "10"));
-        //Mostramos las tarjetas
-        cargarTarjetas();//Por algun motivo si elimino esta funcion (que tambien la llamo en el asyctask, da error.
+       //init();
     }
+    /**
+     * Funcion Init
+     */
+        public void init(){
 
+            CargandoElementosSegundoPlano cargarTarjetas = new CargandoElementosSegundoPlano();
+            cargarTarjetas.execute(config.getString("cantidadUltimosResultados", "10"));
+            //Mostramos las tarjetas
+            cargarTarjetas();//Por algun motivo si elimino esta funcion (que tambien la llamo en el asyctask, da error.
+        }
     /**
      * Funcion para cargar los datos en el array y mostrarlos en pantalla.
      */
 
     public void cargarTarjetas() {
-        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
+        //RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
+        recyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
         /*FloatingActionButton botonFloat = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         botonFloat.attachToListView(recyclerView);*/
 
@@ -157,9 +166,41 @@ public class FragmentUltimosResultados extends Fragment {
         protected void onPostExecute(Boolean confirmacion) {
             if (confirmacion) {
                 cargarTarjetas();
+                //scrollToBottom();
             }
 
         }
+
+    }
+    /**
+     *
+     */
+    private void scrollToBottom() { //Para bajarlo al fondo
+        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+        Toast.makeText(getActivity(),String.valueOf(recyclerView.getVerticalScrollbarWidth()),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),String.valueOf(recyclerView.getScrollY()),Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),String.valueOf(recyclerView.getHeight()),Toast.LENGTH_LONG).show();
+        //recyclerView.getScrollState();
+
+
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        //WriteModeOff();
+        //Toast.makeText(getActivity(),"Pause",Toast.LENGTH_LONG).show();
+        //comprobarNFC(adapter);//Al pausar no hace falta
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //WriteModeOn();
+        //comprobarNFC(adapter);
+        //Toast.makeText(getActivity(),"Resume",Toast.LENGTH_LONG).show();
+        listaSorteos.clear();
+        init();
 
     }
 
