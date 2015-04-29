@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,14 +32,20 @@ import euromillones.ateneasystems.es.euromillones.R;
 /**
  * Created by cubel on 11/02/15.
  */
-public class FragmentUltimosResultados extends Fragment {
+public class FragmentUltimosResultados extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private ArrayList<ZSorteosDatos> listaSorteos = new ArrayList<ZSorteosDatos>();
     SharedPreferences config;
     RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeContainer;//Refresh
+    private boolean primeraVez = true;//Para saber si es la primera vez que entra en esta pantalla para no mostrar el mensaje de arrastrar para actualizar
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        /**
+         * Declaracion de componentes
+         */
+        swipeContainer = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeContainer);
 
         /**
          * Declaracion de Variables normales
@@ -47,7 +54,13 @@ public class FragmentUltimosResultados extends Fragment {
         /**
          * Funciones de arranque
          */
-       //init();
+       init();
+        swipeContainer.setOnRefreshListener(this);//Para lo de refrescar
+        // Set colors to display in widget.
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
     /**
      * Funcion Init
@@ -87,7 +100,6 @@ public class FragmentUltimosResultados extends Fragment {
      * Funcion para cargar los datos de la web en el array
      */
     public void contenido(String cantidad) {
-
         ZDatosTemporales configTerminal = new ZDatosTemporales();
         JSONArray respuestaJSON = new JSONArray(); //Donde ira la respuesta
         ZBaseDatos conectBD = new ZBaseDatos(); //Creamos una variable conectBD con la clase "ZBaseDatos"
@@ -110,6 +122,8 @@ public class FragmentUltimosResultados extends Fragment {
         try {
 
             //Hacemos un for para añadir datos
+            //borramos los datos
+            listaSorteos.clear();
             for (int i = 0; i < respuestaJSON.length(); i++) {
                 JSONObject jsonObject = respuestaJSON.getJSONObject(i);
                 //Aqui sacaremos los datos del Array en modo (Clave Valor) las Claves son los nombres pasados en la
@@ -141,6 +155,15 @@ public class FragmentUltimosResultados extends Fragment {
     }
 
     /**
+     *  Metodo para cuando refrescamos
+     */
+    @Override
+    public void onRefresh() {
+        //listaSorteos.clear();
+        init();
+    }
+
+    /**
      * Asintask
      * Para cargar el contenido del servidor mientras se carga la interfaz en primer plano
      */
@@ -166,6 +189,8 @@ public class FragmentUltimosResultados extends Fragment {
         protected void onPostExecute(Boolean confirmacion) {
             if (confirmacion) {
                 cargarTarjetas();
+                // Remove widget from screen.
+                swipeContainer.setRefreshing(false);
                 //scrollToBottom();
             }
 
@@ -198,9 +223,11 @@ public class FragmentUltimosResultados extends Fragment {
         super.onResume();
         //WriteModeOn();
         //comprobarNFC(adapter);
-        //Toast.makeText(getActivity(),"Resume",Toast.LENGTH_LONG).show();
-        listaSorteos.clear();
-        init();
+        if (!primeraVez){
+            Toast.makeText(getActivity(),"Actualiza arrastando hacia abajo",Toast.LENGTH_LONG).show();
+        } else {
+            primeraVez = false;
+        }
 
     }
 
