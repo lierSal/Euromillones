@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +37,7 @@ import euromillones.ateneasystems.es.euromillones.R;
  * Created by cubel on 11/02/15.
  */
 public class FragmentBaseDatos extends Fragment {
-
+    private AdView mAdView;//Para la publicidad
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,10 +60,25 @@ public class FragmentBaseDatos extends Fragment {
             }
         });
 
+
         /**
-         * Retornamos el fragment
+         * Publicidad
          */
-        // Devolvemos la vista para que se muestre en pantalla.
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) rootView.findViewById(R.id.ad_view);
+
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                        //.addTestDevice("ca-app-pub-0007505393196705/7809013401")
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
+
         return rootView;
 
 
@@ -132,5 +150,33 @@ public class FragmentBaseDatos extends Fragment {
         }
 
     }
+    /**
+     * Para la publicidad
+     */
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
 
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
 }
