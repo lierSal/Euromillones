@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/Blanco_Puro">
 
     <!-- Contenido Principal -->
@@ -75,7 +76,18 @@
                 android:textColorLink="@color/Negro_Puro"
                 android:textColor="@color/Negro_Puro"
                 android:text="@string/text_Web_Empresa" />
+            <com.google.android.gms.ads.AdView
+                android:layout_marginTop="22dp"
+                android:id="@+id/ad_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_miID" />
         </LinearLayout>
+
+
 
     </FrameLayout>
 

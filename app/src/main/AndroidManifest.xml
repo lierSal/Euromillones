@@ -48,7 +48,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www.ateneasystems.es"
+                    android:host="www.euromillones.ateneasystems.es"
                     android:scheme="http" />
             </intent-filter>
             <!-- Fin del Link de AteneaSystems.es -->
