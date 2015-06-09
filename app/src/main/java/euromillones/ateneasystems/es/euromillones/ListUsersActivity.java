@@ -3,9 +3,11 @@ package euromillones.ateneasystems.es.euromillones;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,12 +29,14 @@ import euromillones.ateneasystems.es.euromillones.ListViewPersonalizado.ZUsuario
 import euromillones.ateneasystems.es.euromillones.ListViewPersonalizado.ZUsuariosDatos;
 
 
-public class ListUsersActivity extends ActionBarActivity {
+public class ListUsersActivity extends AppCompatActivity {
+
     private ArrayList<ZUsuariosDatos> listaUsuarios = new ArrayList<ZUsuariosDatos>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_users);
+
         /**
          * Funciones de arranque
          */

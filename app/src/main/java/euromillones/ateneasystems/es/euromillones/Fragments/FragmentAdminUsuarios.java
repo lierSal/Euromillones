@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import euromillones.ateneasystems.es.euromillones.Clases.ZBaseDatos;
 import euromillones.ateneasystems.es.euromillones.ListUsersActivity;
-import euromillones.ateneasystems.es.euromillones.PrivateActivity;
+import euromillones.ateneasystems.es.euromillones.MainActivity;
 import euromillones.ateneasystems.es.euromillones.R;
 
 /**

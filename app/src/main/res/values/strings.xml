@@ -8,7 +8,7 @@
     <string name="title_Saludo">Welcome to EuroMillones</string>
     <string name="title_Sub_Saludo">An AteneaSystems APP</string>
     <string name="text_Nombre_Empresa">AteneaSystems</string>
-    <string name="text_Web_Empresa">www.ateneasystems.es</string>
+    <string name="text_Web_Empresa">www.euromillones.ateneasystems.es</string>
 
     <!-- Action Bar -->
     <string name="text_action_about">About...</string>
@@ -87,7 +87,7 @@
     <string name="tv_n5">N5</string>
     <string name="tv_estrellas">Stars</string>
     <string name="tv_e1">E1</string>
-    <string name="tv_e2">E1</string>
+    <string name="tv_e2">E2</string>
 
     <!-- Seccion Nuevo Resultado -->
     <string name="title_fragment_about">About</string>
@@ -153,6 +153,8 @@
     <string name="tv_colaborador">Contributor</string>
     <string name="tv_administrador">Administrator</string>
     <string name="banner_ad_unit_miID">ca-app-pub-0007505393196705/7809013401</string>
+    <string name="openDrawer">abierto</string>
+    <string name="closeDrawer">cerrado</string>
 
 
 </resources>

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <item name="color_primary" type="color">#1469eb</item>
+    <item name="color_primary_light" type="color">#D0E1FB</item>
+    <item name="color_primary_dark" type="color">#2A14EA</item>
+    <item name="color_accent" type="color">#EA14D4</item>
+
+
     <color name="Verde_EnfilaiTalla">#BFF6A9</color>
     <color name="MoradoCardenal_EnfilaiTalla">#880062</color>
     <color name="Azul_LogoGoogle">#1469EB</color>
@@ -23,17 +31,11 @@
     <color name="Texto_Secundario">#727272</color>
 
 
-    <color name="primary_color">#E91E63</color>
-    <color name="primary_dark_color">#AD1457</color>
-    <color name="accent_color">#69F0AE</color>
+    <color name="primary_color" type="color">#E91E63</color>
+    <color name="primary_dark_color" type="color">#AD1457</color>
+    <color name="accent_color" type="color">#69F0AE</color>
     //Darle el aspecto material, necesitamos configirar
 
-    <style name="AppThemeVCLTeam" parent="Theme.AppCompat.NoActionBar">
 
-        <item name="colorPrimary">@color/Azul_VLCTeam</item>
-        <item name="colorPrimaryDark">@color/Azul_VLCTeam_Oscuro</item>
-        <item name="android:textColorPrimary">@color/Texto_Primario</item>
-        <item name="android:textColorSecondary">@color/Texto_Secundario</item>
 
-    </style>
 </resources>
