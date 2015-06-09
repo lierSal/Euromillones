@@ -54,7 +54,7 @@
             <!-- Fin del Link de AteneaSystems.es -->
         </activity>
         <activity
-            android:name=".PrivateActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
 
             <!-- para que se abra con el NFC -->

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<euromillones.ateneasystems.es.euromillones.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrimInsetsFrameLayout"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@android:color/white"
+    android:elevation="10dp"
+    android:fitsSystemWindows="true"
+    app:insetForeground="#4000"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/navheader_euromillones"
+            android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/txt_nombre_menu"
+                android:textColor="@color/Blanco_Puro"
+                android:layout_marginStart="22dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="42dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/txt_email_menu"
+                android:textColor="@color/Blanco_Puro"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/txt_nombre_menu"
+                android:layout_marginBottom="19dp" />
+
+        </RelativeLayout>
+        <ListView
+            android:id="@+id/navdrawerlist"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:divider="@null"
+            android:choiceMode="singleChoice"
+            android:background="@color/Azul_VLCTeam_Clarito_Plus" />
+
+    </LinearLayout>
+
+</euromillones.ateneasystems.es.euromillones.ScrimInsetsFrameLayout>

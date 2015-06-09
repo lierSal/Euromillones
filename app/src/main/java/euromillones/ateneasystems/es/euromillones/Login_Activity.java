@@ -211,7 +211,7 @@ public class Login_Activity extends ActionBarActivity {
      * Funcion para ir a la aplicacion
      */
     public void cargarPrivate() {
-        Intent actividadPrivate = new Intent(this, PrivateActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
+        Intent actividadPrivate = new Intent(this, MainActivity.class);//Esto lo ponemos aqui porque dentro del boton no funciona
         actividadPrivate.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//Para no duplicar el activity.
         //Con lo siguiente comprobamos si hay datos a cargar (por una notificacion) de no haber datos lo cargara vacio
         if (cargarInitPrivate == null){

@@ -3,6 +3,7 @@ package euromillones.ateneasystems.es.euromillones;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,7 @@ import euromillones.ateneasystems.es.euromillones.Fragments.FragmentPredicciones
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentUltimosResultados;
 
 
-public class FichaUserActivity extends ActionBarActivity {
+public class FichaUserActivity extends AppCompatActivity {
     /**
      * Declaracion de componentes globales
      */

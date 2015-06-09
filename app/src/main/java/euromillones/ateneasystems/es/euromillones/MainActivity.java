@@ -10,12 +10,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -23,12 +23,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -52,9 +71,16 @@ import euromillones.ateneasystems.es.euromillones.Fragments.FragmentNuevoResulta
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentPredicciones;
 import euromillones.ateneasystems.es.euromillones.Fragments.FragmentUltimosResultados;
 
-//Importamos la libreria de google
 
-public class PrivateActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
+    private ScrimInsetsFrameLayout sifl;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+    private ListView ndList;
+    private AdView mAdView;//Para la publicidad
+
     /**
      * Variable para la autocarga de un fragment
      */
@@ -62,9 +88,9 @@ public class PrivateActivity extends ActionBarActivity {
     //
 
     private String[] opcionesMenu;
-    private DrawerLayout drawerLayout;
+
     private ListView drawerList;
-    private ActionBarDrawerToggle drawerToggle;
+
 
     private CharSequence tituloSeccion;
     private CharSequence tituloApp;
@@ -112,6 +138,8 @@ public class PrivateActivity extends ActionBarActivity {
          */
         final TextView tv_version = (TextView) findViewById(R.id.tv_version);
         final TextView tv_web = (TextView) findViewById(R.id.tv_web);
+        final TextView txt_nombre_menu = (TextView) findViewById(R.id.txt_nombre_menu);
+        final TextView txt_email_menu = (TextView) findViewById(R.id.txt_email_menu);
         /**
          * Variables
          */
@@ -121,6 +149,10 @@ public class PrivateActivity extends ActionBarActivity {
         ZDatosTemporales datosUsuario = (ZDatosTemporales) getApplicationContext();
         String nivelUser = datosUsuario.getNivelUser();
         String mailUser = datosUsuario.getMailUser();
+        String nombreUser = datosUsuario.getNombreUser();
+        //Añadimos los datos de usuario al menu
+        txt_nombre_menu.setText(nombreUser);
+        txt_email_menu.setText(mailUser);
         AndroidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);//Muestra el ID del Dispositivo
         //Log.e("MOVIL",android.os.Build.MODEL);
@@ -143,7 +175,7 @@ public class PrivateActivity extends ActionBarActivity {
         context = getApplicationContext();
         //Chequemos si está instalado Google Play Services
         if (checkPlayServices()) {
-            gcm = GoogleCloudMessaging.getInstance(PrivateActivity.this);
+            gcm = GoogleCloudMessaging.getInstance(MainActivity.this);
 
             //Obtenemos el Registration ID guardado
             regid = getRegistrationId(context);
@@ -169,19 +201,19 @@ public class PrivateActivity extends ActionBarActivity {
         tv_web.setMovementMethod(LinkMovementMethod.getInstance());
         //tv_web.setTextColor(getResources().getColor(R.color.Negro_Puro));//Cambiar color
 
-        //COMO ESTABA
-        //opcionesMenu = new String[] {"Opción 1", "Opción 2", "Opción 3", "Login"};
+
+        sifl = (ScrimInsetsFrameLayout)findViewById(R.id.scrimInsetsFrameLayout);
+
+        //Toolbar
+
+        toolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
+
+        //Menu del Navigation Drawer
         /**
          * Cargamos el menu dependiendo del nivel de usuario
          */
         //Primero comprobamos que tenga nivel, si no tiene cerraremos el activity y lo mandamos al login
-        /*if (nivelUser.equals("")){
-            final Intent actividadLogin = new Intent(this, Login_Activity.class);
-            //Abrir siguiente activity
-            startActivity(actividadLogin);
-            //Eliminamos este activity
-            finish();
-        }*/
         switch (nivelUser) {
             case "1":
                 opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
@@ -193,32 +225,22 @@ public class PrivateActivity extends ActionBarActivity {
                 opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios),getResources().getString(R.string.bl_Copia_Seguridad) };
                 break;
         }
-            /*
-        if (nivelUser.equals("1")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta)};
-        } else if (nivelUser.equals("2")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado)};
-        } else if (nivelUser.equals("3")) {
-            opcionesMenu = new String[]{getResources().getString(R.string.bl_Ultimos_Resultados), getResources().getString(R.string.bl_Predicciones), getResources().getString(R.string.bl_Mi_Cuenta), getResources().getString(R.string.bl_Nuevo_Resultado), getResources().getString(R.string.bl_Admin_Usuarios)};
-        }
-        ;*/
+
+        ndList = (ListView)findViewById(R.id.navdrawerlist);
 
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
+        ArrayAdapter<String> ndMenuAdapter =
+                new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_activated_1, opcionesMenu);
 
-        drawerList.setAdapter(new ArrayAdapter<String>(
-                getSupportActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_1, opcionesMenu));
+        ndList.setAdapter(ndMenuAdapter);
 
-        drawerList.setOnItemClickListener(new OnItemClickListener() {
+        ndList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Fragment fragment = null;
 
-                switch (position) {
+                switch (pos) {
                     case 0:
                         fragment = new FragmentUltimosResultados();
                         break;
@@ -239,39 +261,34 @@ public class PrivateActivity extends ActionBarActivity {
                         break;
                 }
 
-                FragmentManager fragmentManager =
-                        getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, fragment)
                         .commit();
 
-                drawerList.setItemChecked(position, true);
+                ndList.setItemChecked(pos, true);
 
-                tituloSeccion = opcionesMenu[position];
-                getSupportActionBar().setTitle(tituloSeccion);
+                getSupportActionBar().setTitle(opcionesMenu[pos]);
 
-                drawerLayout.closeDrawer(drawerList);
+                drawerLayout.closeDrawer(sifl);
             }
         });
 
-        tituloSeccion = getTitle();
-        tituloApp = getTitle();
+        //Drawer Layout
 
-        drawerToggle = new ActionBarDrawerToggle(this,
-                drawerLayout,
-                R.drawable.ic_action_navigation,
-                R.string.drawer_open,
-                R.string.drawer_close) {
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.color_primary_dark));
 
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(tituloSeccion);
-                ActivityCompat.invalidateOptionsMenu(PrivateActivity.this);
+        drawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, R.string.openDrawer, R.string.closeDrawer){
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
             }
 
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(tituloApp);
-                ActivityCompat.invalidateOptionsMenu(PrivateActivity.this);
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
             }
         };
 
@@ -281,41 +298,23 @@ public class PrivateActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         /**
-         * Funciones de INICIO
+         * Publicidad
          */
-        //Funciones de inicio
-        //Toast.makeText(this,getIntent().getStringExtra("Hola"),Toast.LENGTH_LONG);
-        //Log.e("--> RecibidoPUSH <--",""+getIntent().getStringExtra("Cargar"));
-        //et_mail.setText(getIntent().getStringExtra("mail"));
-        autocarga = getIntent().getStringExtra("Cargar");
-        if (autocarga==null){
-            autocarga = "Vacio";
-        }
-        if(autocarga.equals("Vacio")) {
-            //Nada
-        } else {
-            Log.e("Entra en ", "AUTOCARGA");
-            String titulo = "";
-            Fragment autofragment = null;
-            switch (autocarga){
-                case "Ult. Resultados":
-                    titulo = getResources().getString(R.string.bl_Ultimos_Resultados);
-                    autofragment = new FragmentUltimosResultados();
-                    break;
-            }
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.ad_view);
 
-            FragmentManager fragmentManager =
-                    getSupportFragmentManager();
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                //.addTestDevice("ca-app-pub-0007505393196705/7809013401")
+                .build();
 
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, autofragment)
-                    .commit();
-            getSupportActionBar().setTitle(titulo);
-
-
-        }
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
     }
-
     /**
      * Funciones
      */
@@ -451,15 +450,19 @@ public class PrivateActivity extends ActionBarActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        /**
+         * Lo siguiente se comenta porque no hace falta en el nuevo menu!
+         */
 
-        boolean menuAbierto = drawerLayout.isDrawerOpen(drawerList);
+//        boolean menuAbierto = drawerLayout.isDrawerOpen(drawerList);
 
-        if (menuAbierto)
-            menu.findItem(R.id.action_cerrar_session).setVisible(false);
-        else
+  //      if (menuAbierto)
+    //        menu.findItem(R.id.action_cerrar_session).setVisible(false);
+      //  else
             menu.findItem(R.id.action_cerrar_session).setVisible(true);
 
         return super.onPrepareOptionsMenu(menu);
+
     }
 
     @Override

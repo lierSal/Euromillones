@@ -153,6 +153,8 @@
     <string name="tv_colaborador">Contributor</string>
     <string name="tv_administrador">Administrator</string>
     <string name="banner_ad_unit_miID">ca-app-pub-0007505393196705/7809013401</string>
+    <string name="openDrawer">abierto</string>
+    <string name="closeDrawer">cerrado</string>
 
 
 </resources>
