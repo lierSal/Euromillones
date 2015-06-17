@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         //Poner la version de Android en TextView
         tv_version.setText(versionName);
         //Poner link en TextView
-        tv_web.setText(Html.fromHtml("<a href=\"http://www.euromillones.ateneasystems.es\">" + getResources().getString(R.string.text_Web_Empresa) + "</a> "));
+        tv_web.setText(Html.fromHtml("<a href=\"http://euromillones.ateneasystems.es\">" + getResources().getString(R.string.text_Web_Empresa) + "</a> "));
         tv_web.setMovementMethod(LinkMovementMethod.getInstance());
         //tv_web.setTextColor(getResources().getColor(R.color.Negro_Puro));//Cambiar color
 
