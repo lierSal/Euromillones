@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.1"
     defaultConfig {
         applicationId 'euromillones.ateneasystems.es.euromillones'
-        minSdkVersion 17
+        minSdkVersion 14
         targetSdkVersion 21
         versionCode 31
         versionName '1.0.13'
