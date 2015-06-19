@@ -58,6 +58,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name" >
 
+
             <!-- para que se abra con el NFC -->
             <!--
             <intent-filter>
