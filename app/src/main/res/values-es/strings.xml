@@ -8,7 +8,7 @@
     <string name="title_Saludo">Bienvenido a EuroMillones</string>
     <string name="title_Sub_Saludo">Una APP de AteneaSystems </string>
     <string name="text_Nombre_Empresa">AteneaSystems</string>
-    <string name="text_Web_Empresa">www.euromillones.ateneasystems.es</string>
+    <string name="text_Web_Empresa">euromillones.ateneasystems.es</string>
 
     <!-- Action Bar -->
     <string name="text_action_about">Sobre...</string>

@@ -127,14 +127,11 @@ public class FragmentBaseDatos extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String URL = "";
-            URL = "http://www.ateneasystems.es/PW/Euromillones/appAndroid/down.php?desc="+realizarCopia();
-
+            URL = "http://euromillones.ateneasystems.es/apis/down.php?desc="+realizarCopia();
 
 
             return URL;
         }
-
-        ;
 
         /**
          * Se ejecuta después de terminar "doInBackground".
